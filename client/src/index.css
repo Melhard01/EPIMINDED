@@ -310,62 +310,57 @@
     height: 1px;
   }
 
-  /* Tablet 2×2 connectors */
+  /* Tablet 2×2 connectors — positions set via JS from badge centers */
   .how-journey__connector--tablet {
     display: none;
-    inset: 1.75rem 0 auto 0;
-    height: calc(100% - 1.75rem);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
   }
 
   .how-journey__line-track--tablet-h {
     height: 1px;
-    top: 0;
     transform: translateY(-50%);
   }
 
-  .how-journey__line-track--tablet-h-top {
+  .how-journey__line-track--tablet-h-top,
+  .how-journey__line-fill--tablet-h-top {
+    top: var(--how-tablet-line-top, 1.875rem);
     left: 25%;
     right: 25%;
   }
 
-  .how-journey__line-track--tablet-h-bottom {
-    top: calc(50% + 0.5rem);
+  .how-journey__line-track--tablet-h-bottom,
+  .how-journey__line-fill--tablet-h-bottom {
+    top: var(--how-tablet-line-bottom, 50%);
     left: 25%;
     right: 25%;
   }
 
-  .how-journey__line-track--tablet-v {
+  .how-journey__line-track--tablet-v,
+  .how-journey__line-fill--tablet-v {
     left: 50%;
-    top: 0;
-    bottom: 0;
+    top: var(--how-tablet-line-top, 1.875rem);
+    height: calc(var(--how-tablet-line-bottom, 50%) - var(--how-tablet-line-top, 1.875rem));
     width: 1px;
     transform: translateX(-50%);
   }
 
   .how-journey__line-fill--tablet-h-top {
-    left: 25%;
-    right: 25%;
     width: 50%;
-    top: 0;
     transform: translateY(-50%) scaleX(0);
     transform-origin: left center;
   }
 
   .how-journey__line-fill--tablet-h-bottom {
-    left: 25%;
-    right: 25%;
     width: 50%;
-    top: calc(50% + 0.5rem);
     transform: translateY(-50%) scaleX(0);
     transform-origin: right center;
     transition-delay: 0.55s;
   }
 
   .how-journey__line-fill--tablet-v {
-    left: 50%;
-    top: 0;
-    height: 100%;
-    width: 1px;
     transform: translateX(-50%) scaleY(0);
     transform-origin: top center;
     transition-delay: 0.35s;
@@ -535,7 +530,8 @@
     .how-journey__steps {
       padding-left: 0;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 3.5rem 1.5rem;
+      row-gap: 7rem;
+      column-gap: 1.5rem;
     }
 
     .how-journey__step {
@@ -545,7 +541,7 @@
     .how-journey__badge-wrap {
       display: flex;
       justify-content: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
 
     .how-journey__card {
@@ -614,6 +610,11 @@
     .how-journey--active .how-journey__mobile-segment-fill {
       transform: scaleY(1);
     }
+  }
+
+  .reveal-motion {
+    transition-property: opacity, transform, filter;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .hero-mesh {

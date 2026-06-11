@@ -1,5 +1,6 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionHeader from "@/components/shared/SectionHeader";
+import Reveal from "@/components/ui/reveal";
 
 export default function PainSection() {
   const { t } = useLanguage();
@@ -12,9 +13,11 @@ export default function PainSection() {
           title={t("pain.title")}
           align="left"
         />
-        <p className="text-lg text-muted-foreground leading-relaxed">
-          {t("pain.body")}
-        </p>
+        <Reveal variant="up" delay={120}>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            {t("pain.body")}
+          </p>
+        </Reveal>
       </div>
     </section>
   );

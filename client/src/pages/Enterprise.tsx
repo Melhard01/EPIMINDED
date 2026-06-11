@@ -50,9 +50,11 @@ export default function Enterprise() {
               {t("enterprise.completion.body")
                 .split("\n\n")
                 .map((paragraph, i) => (
-                  <p key={i} className="text-lg text-muted-foreground leading-relaxed">
-                    {paragraph}
-                  </p>
+                  <Reveal key={i} variant="up" delay={i * 100}>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {paragraph}
+                    </p>
+                  </Reveal>
                 ))}
             </div>
           </div>
@@ -63,7 +65,7 @@ export default function Enterprise() {
             <SectionHeader eyebrow={t("enterprise.bring.eyebrow")} title={t("enterprise.bring.title")} />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {BRING_CARDS.map((card, i) => (
-                <Reveal key={card} delay={i * 80}>
+                <Reveal key={card} variant="scale" delay={i * 100}>
                   <div className="premium-card p-8 h-full">
                     <h3 className="font-serif text-xl mb-3">{t(`enterprise.bring.${card}.title`)}</h3>
                     <p className="text-foreground font-medium mb-4 leading-snug">
@@ -81,21 +83,25 @@ export default function Enterprise() {
           <div className="container max-w-4xl text-center">
             <SectionHeader eyebrow={t("enterprise.sticks.eyebrow")} title={t("enterprise.sticks.title")} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-              <Reveal>
+              <Reveal variant="left">
                 <div className="premium-card-static p-8">
                   <div className="font-serif text-5xl text-gold-hero mb-2">{t("enterprise.sticks.stat1")}</div>
                   <p className="text-sm text-muted-foreground">{t("enterprise.sticks.stat1.label")}</p>
                 </div>
               </Reveal>
-              <Reveal delay={100}>
+              <Reveal variant="right" delay={120}>
                 <div className="premium-card-static p-8">
                   <div className="font-serif text-5xl text-gold-hero mb-2">{t("enterprise.sticks.stat2")}</div>
                   <p className="text-sm text-muted-foreground">{t("enterprise.sticks.stat2.label")}</p>
                 </div>
               </Reveal>
             </div>
-            <p className="text-xs text-gold-dim italic mb-6">{t("enterprise.sticks.attribution")}</p>
-            <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">{t("enterprise.sticks.body")}</p>
+            <Reveal variant="fade" delay={180}>
+              <p className="text-xs text-gold-dim italic mb-6">{t("enterprise.sticks.attribution")}</p>
+            </Reveal>
+            <Reveal variant="up" delay={240}>
+              <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">{t("enterprise.sticks.body")}</p>
+            </Reveal>
           </div>
         </section>
 
@@ -104,7 +110,7 @@ export default function Enterprise() {
             <SectionHeader eyebrow={t("enterprise.member.eyebrow")} title={t("enterprise.member.title")} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {MEMBER_BLOCKS.map((block, i) => (
-                <Reveal key={block} delay={i * 80}>
+                <Reveal key={block} variant={i === 0 ? "left" : "right"} delay={i * 100}>
                   <div className="premium-card-static p-8 h-full">
                     <h3 className="font-serif text-xl mb-4">{t(`enterprise.member.${block}.title`)}</h3>
                     <p className="text-muted-foreground leading-relaxed">{t(`enterprise.member.${block}.body`)}</p>
@@ -120,7 +126,7 @@ export default function Enterprise() {
             <SectionHeader eyebrow={t("enterprise.how.eyebrow")} title={t("enterprise.how.title")} />
             <div className="space-y-10">
               {HOW_STEPS.map((step, i) => (
-                <Reveal key={step} delay={i * 80}>
+                <Reveal key={step} variant="up" delay={i * 120}>
                   <div className="flex gap-6">
                     <span className="step-number">{String(i + 1).padStart(2, "0")}</span>
                     <div>
@@ -136,7 +142,7 @@ export default function Enterprise() {
 
         <section className="section-padding">
           <div className="container max-w-2xl text-center">
-            <Reveal>
+            <Reveal variant="up">
               <span className="eyebrow-pill mb-6">{t("enterprise.trust.eyebrow")}</span>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">{t("enterprise.trust.body")}</p>
               <Button onClick={() => window.open(CALENDLY_ENTERPRISE, "_blank")} variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 h-12">
@@ -148,7 +154,7 @@ export default function Enterprise() {
 
         <section className="bg-surface section-padding gold-glow">
           <div className="container max-w-3xl text-center">
-            <Reveal>
+            <Reveal variant="scale">
               <h2 className="font-serif text-3xl md:text-5xl mb-6">{t("enterprise.finalCta.title")}</h2>
               <p className="text-lg text-muted-foreground mb-10">{t("enterprise.finalCta.subtitle")}</p>
               <Button onClick={() => window.open(CALENDLY_ENTERPRISE, "_blank")} className="bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full px-10 h-14 border-0">

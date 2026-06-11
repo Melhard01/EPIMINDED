@@ -11,11 +11,15 @@ export default function FinalCTA() {
   return (
     <section className="section-padding gold-glow">
       <div className="container max-w-3xl text-center">
-        <Reveal>
+        <Reveal variant="up">
           <h2 className="font-serif text-3xl md:text-5xl mb-6 leading-tight">
             {t("finalCta.title")}
           </h2>
+        </Reveal>
+        <Reveal variant="fade" delay={100}>
           <p className="text-lg text-muted-foreground mb-10">{t("finalCta.subtitle")}</p>
+        </Reveal>
+        <Reveal variant="scale" delay={200}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               onClick={openApplication}

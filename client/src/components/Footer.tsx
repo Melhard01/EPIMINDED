@@ -1,4 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
+import Reveal from "@/components/ui/reveal";
 import { Link } from "wouter";
 import { Instagram, Linkedin, Mail } from "lucide-react";
 import {
@@ -37,7 +38,7 @@ export default function Footer() {
     <footer className="bg-background border-t border-[#303030]">
       <div className="container py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
-          <div className="space-y-4">
+          <Reveal variant="up" className="space-y-4">
             <div className="mb-4 min-h-12 flex items-center">
               <img src="/assets/epiminded-logo.png" alt="EpiMinded" className="h-12 w-auto" />
             </div>
@@ -68,9 +69,9 @@ export default function Footer() {
                 <Linkedin className="w-4 h-4" />
               </a>
             </div>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal variant="up" delay={80}>
             <h4 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center">Product</h4>
             <ul className="space-y-3">
               {PRODUCT_SECTIONS.map(({ href, path, sectionId, labelKey }) => (
@@ -95,9 +96,9 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal variant="up" delay={160}>
             <h4 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center">Company</h4>
             <ul className="space-y-3">
               <li>
@@ -111,9 +112,9 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal variant="up" delay={240}>
             <h4 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center">Legal</h4>
             <ul className="space-y-3">
               <li>
@@ -137,14 +138,16 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </Reveal>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[#303030]">
-          <p className="text-sm text-muted-foreground text-center">
-            {t("footer.copyright")}
-          </p>
-        </div>
+        <Reveal variant="fade" delay={120}>
+          <div className="mt-12 pt-8 border-t border-[#303030]">
+            <p className="text-sm text-muted-foreground text-center">
+              {t("footer.copyright")}
+            </p>
+          </div>
+        </Reveal>
       </div>
     </footer>
   );

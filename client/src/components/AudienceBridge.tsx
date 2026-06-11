@@ -8,11 +8,11 @@ export default function AudienceBridge() {
   return (
     <section className="bg-surface section-padding">
       <div className="container">
-        <Reveal className="text-center mb-12">
+        <Reveal variant="fade" className="text-center mb-12">
           <span className="eyebrow-pill">{t("bridge.eyebrow")}</span>
         </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          <Reveal>
+          <Reveal variant="left">
             <div className="premium-card p-8 md:p-10 h-full flex flex-col">
               <p className="text-xs uppercase tracking-wider text-gold font-medium mb-3">
                 {t("bridge.card1.label")}
@@ -26,7 +26,7 @@ export default function AudienceBridge() {
               </Link>
             </div>
           </Reveal>
-          <Reveal delay={100}>
+          <Reveal variant="right" delay={120}>
             <div className="premium-card p-8 md:p-10 h-full flex flex-col">
               <p className="text-xs uppercase tracking-wider text-gold font-medium mb-3">
                 {t("bridge.card2.label")}

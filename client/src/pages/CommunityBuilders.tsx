@@ -58,9 +58,11 @@ export default function CommunityBuilders() {
               {t("builders.ceiling.body")
                 .split("\n\n")
                 .map((paragraph, i) => (
-                  <p key={i} className="text-lg text-muted-foreground leading-relaxed">
-                    {paragraph}
-                  </p>
+                  <Reveal key={i} variant="up" delay={i * 100}>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {paragraph}
+                    </p>
+                  </Reveal>
                 ))}
             </div>
           </div>
@@ -71,7 +73,7 @@ export default function CommunityBuilders() {
             <SectionHeader eyebrow={t("builders.bring.eyebrow")} title={t("builders.bring.title")} />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {BRING_CARDS.map((card, i) => (
-                <Reveal key={card} delay={i * 80}>
+                <Reveal key={card} variant="scale" delay={i * 100}>
                   <div className="premium-card p-8 h-full">
                     <h3 className="font-serif text-xl mb-4">{t(`builders.bring.${card}.title`)}</h3>
                     <p className="text-muted-foreground leading-relaxed">{t(`builders.bring.${card}.body`)}</p>
@@ -87,7 +89,7 @@ export default function CommunityBuilders() {
             <SectionHeader eyebrow={t("builders.partnership.eyebrow")} title={t("builders.partnership.title")} />
             <div className="space-y-10">
               {PARTNERSHIP_STEPS.map((step, i) => (
-                <Reveal key={step} delay={i * 80}>
+                <Reveal key={step} variant="up" delay={i * 120}>
                   <div className="flex gap-6">
                     <span className="step-number">{String(i + 1).padStart(2, "0")}</span>
                     <div>
@@ -105,7 +107,7 @@ export default function CommunityBuilders() {
           <div className="container max-w-5xl">
             <SectionHeader eyebrow={t("builders.fit.eyebrow")} title={t("builders.fit.title")} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <Reveal>
+              <Reveal variant="left">
                 <div className="premium-card-static p-8">
                   <h3 className="font-serif text-lg mb-4 text-gold">{t("builders.fit.works.title")}</h3>
                   <ul className="space-y-3">
@@ -118,7 +120,7 @@ export default function CommunityBuilders() {
                   </ul>
                 </div>
               </Reveal>
-              <Reveal delay={100}>
+              <Reveal variant="right" delay={120}>
                 <div className="premium-card-static p-8">
                   <h3 className="font-serif text-lg mb-4">{t("builders.fit.doesnt.title")}</h3>
                   <ul className="space-y-3">
@@ -137,7 +139,7 @@ export default function CommunityBuilders() {
 
         <section className="bg-surface section-padding gold-glow">
           <div className="container max-w-3xl text-center">
-            <Reveal>
+            <Reveal variant="scale">
               <h2 className="font-serif text-3xl md:text-5xl mb-6">{t("builders.finalCta.title")}</h2>
               <p className="text-lg text-muted-foreground mb-10">{t("builders.finalCta.subtitle")}</p>
               <Button onClick={openPartner} className="bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full px-10 h-14 border-0">

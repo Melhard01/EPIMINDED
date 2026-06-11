@@ -13,7 +13,7 @@ export default function WhyNowStats() {
         <SectionHeader eyebrow={t("whynow.eyebrow")} title={t("whynow.title")} />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {COLS.map((col, i) => (
-            <Reveal key={col} delay={i * 100}>
+            <Reveal key={col} variant="scale" delay={i * 120}>
               <div className="premium-card-static p-8 h-full">
                 <div className="font-serif text-4xl md:text-5xl text-gold-hero mb-4">
                   {t(`whynow.${col}.stat`)}

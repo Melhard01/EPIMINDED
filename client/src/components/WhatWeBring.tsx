@@ -13,7 +13,7 @@ export default function WhatWeBring() {
         <SectionHeader eyebrow={t("bring.eyebrow")} title={t("bring.title")} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {CARD_KEYS.map((key, i) => (
-            <Reveal key={key} delay={i * 80}>
+            <Reveal key={key} variant={i % 2 === 0 ? "scale" : "up"} delay={i * 100}>
               <div className="premium-card p-8 md:p-10 h-full">
                 <h3 className="font-serif text-xl md:text-2xl mb-4">
                   {t(`bring.${key}.title`)}

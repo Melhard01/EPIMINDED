@@ -10,7 +10,7 @@ export default function TrustBand() {
     <section className="trust-band bg-surface border-y border-border/60">
       <div className="container">
         <div className="trust-band-layout">
-          <Reveal className="trust-band-left">
+          <Reveal variant="left" className="trust-band-left">
             <div className="trust-avatar-pile" aria-hidden="true">
               {Array.from({ length: PORTRAIT_COUNT }).map((_, i) => (
                 <div key={i} className="trust-portrait" style={{ zIndex: PORTRAIT_COUNT - i }} />
@@ -21,7 +21,7 @@ export default function TrustBand() {
 
           <div className="trust-band-divider" aria-hidden="true" />
 
-          <Reveal delay={150} className="trust-band-right">
+          <Reveal variant="right" delay={150} className="trust-band-right">
             <p className="trust-band-stat-primary">{t("trust.stat1")}</p>
             <p className="trust-band-stat-secondary">{t("trust.stat2")}</p>
           </Reveal>
