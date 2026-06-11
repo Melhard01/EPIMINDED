@@ -22,24 +22,39 @@ export default function Enterprise() {
       <Navbar />
       <main>
         <section id="for-organisations" className="relative overflow-hidden pt-24 pb-24 md:pt-28 md:pb-32 lg:pt-32 lg:pb-40 hero-mesh">
-          <div className="container max-w-4xl mx-auto text-center">
-            <Reveal immediate>
-              <span className="eyebrow-pill">{t("enterprise.hero.eyebrow")}</span>
-              <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl mt-6 mb-6 leading-tight">
-                {t("enterprise.hero.title")}
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-                {t("enterprise.hero.subtitle")}
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button onClick={() => window.open(CALENDLY_ENTERPRISE, "_blank")} className="bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full px-10 h-14 border-0 w-full sm:w-auto">
-                  {t("enterprise.hero.cta.primary")}
-                </Button>
-                <Button variant="outline" onClick={scrollToMember} className="border-white/30 text-white hover:bg-white/10 rounded-full px-10 h-14 w-full sm:w-auto">
-                  {t("enterprise.hero.cta.secondary")}
-                </Button>
-              </div>
-            </Reveal>
+          <div className="container relative z-10 px-4 sm:px-6">
+            <div className="hero-content max-w-4xl mx-auto text-center">
+              <Reveal immediate>
+                <span className="eyebrow-pill hero-eyebrow">{t("enterprise.hero.eyebrow")}</span>
+              </Reveal>
+              <Reveal immediate>
+                <h1 className="font-serif hero-headline text-balance">
+                  {t("enterprise.hero.title")}
+                </h1>
+              </Reveal>
+              <Reveal immediate>
+                <p className="hero-subtitle text-muted-foreground text-balance">
+                  {t("enterprise.hero.subtitle")}
+                </p>
+              </Reveal>
+              <Reveal immediate>
+                <div className="hero-cta">
+                  <Button
+                    onClick={() => window.open(CALENDLY_ENTERPRISE, "_blank")}
+                    className="hero-cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
+                  >
+                    {t("enterprise.hero.cta.primary")}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={scrollToMember}
+                    className="hero-cta-btn border-white/30 text-white hover:bg-white/10 rounded-full"
+                  >
+                    {t("enterprise.hero.cta.secondary")}
+                  </Button>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </section>
 

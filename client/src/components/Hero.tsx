@@ -18,34 +18,34 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-aurora"
     >
       <HeroAuroraBackground variant="founders" />
-      <div className="container relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+      <div className="container relative z-10 px-4 sm:px-6">
+        <div className="hero-content max-w-4xl mx-auto text-center">
           <Reveal immediate>
-            <span className="eyebrow-pill">{t("hero.eyebrow")}</span>
+            <span className="eyebrow-pill hero-eyebrow">{t("hero.eyebrow")}</span>
           </Reveal>
           <Reveal immediate>
-            <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight text-balance mt-6">
+            <h1 className="hero-title hero-headline text-balance">
               {t("hero.title.lead")}{" "}
               <span className="text-gold">{t("hero.title.accent")}</span>
             </h1>
           </Reveal>
           <Reveal immediate>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed text-balance">
+            <p className="hero-subtitle text-muted-foreground text-balance">
               {t("hero.subtitle")}
             </p>
           </Reveal>
           <Reveal immediate>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <div className="hero-cta">
               <Button
                 onClick={openApplication}
-                className="bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full px-10 h-14 text-lg border-0 w-full sm:w-auto"
+                className="hero-cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
               >
                 {t("hero.cta.primary")}
               </Button>
               <Button
                 variant="outline"
                 onClick={scrollToHow}
-                className="border-white/30 text-white hover:bg-white/10 rounded-full px-10 h-14 text-lg w-full sm:w-auto"
+                className="hero-cta-btn border-white/30 text-white hover:bg-white/10 rounded-full"
               >
                 {t("hero.cta.secondary")}
               </Button>
