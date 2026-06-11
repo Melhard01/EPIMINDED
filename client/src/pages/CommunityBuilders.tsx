@@ -27,7 +27,7 @@ export default function CommunityBuilders() {
       <main>
         <section
           id="for-community-builders"
-          className="relative overflow-hidden pt-24 pb-24 md:pt-28 md:pb-32 lg:pt-32 lg:pb-40 hero-aurora"
+          className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-aurora"
         >
           <HeroAuroraBackground variant="builders" />
           <div className="container relative z-10 px-4 sm:px-6">

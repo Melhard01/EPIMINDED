@@ -21,7 +21,10 @@ export default function Enterprise() {
     <div className="min-h-screen overflow-x-hidden text-foreground">
       <Navbar />
       <main>
-        <section id="for-organisations" className="relative overflow-hidden pt-24 pb-24 md:pt-28 md:pb-32 lg:pt-32 lg:pb-40 hero-mesh">
+        <section
+          id="for-organisations"
+          className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-mesh"
+        >
           <div className="container relative z-10 px-4 sm:px-6">
             <div className="hero-content max-w-4xl mx-auto text-center">
               <Reveal immediate>
