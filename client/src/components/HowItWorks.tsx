@@ -56,12 +56,6 @@ export default function HowItWorks() {
             <div className="how-journey__line-fill how-journey__line-fill--horizontal how-journey__line-fill--tablet-h-bottom" />
           </div>
 
-          {/* Mobile — vertical connector */}
-          <div className="how-journey__connector how-journey__connector--mobile" aria-hidden="true">
-            <div className="how-journey__line-track how-journey__line-track--vertical" />
-            <div className="how-journey__line-fill how-journey__line-fill--vertical" />
-          </div>
-
           <div className="how-journey__steps">
             {STEPS.map((step, i) => (
               <article
@@ -74,6 +68,16 @@ export default function HowItWorks() {
                     <span className="how-journey__number">{String(i + 1).padStart(2, "0")}</span>
                   </div>
                 </div>
+                {i < STEPS.length - 1 && (
+                  <div
+                    className="how-journey__mobile-segment"
+                    aria-hidden="true"
+                    style={{ transitionDelay: `${400 + i * 180}ms` }}
+                  >
+                    <div className="how-journey__mobile-segment-track" />
+                    <div className="how-journey__mobile-segment-fill" />
+                  </div>
+                )}
                 <div className="how-journey__card">
                   <h3 className="font-serif text-xl mb-3">{t(`how.${step}.title`)}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{t(`how.${step}.body`)}</p>
