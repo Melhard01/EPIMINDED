@@ -508,54 +508,79 @@
     }
   }
 
-  /* Home hero — stack CTAs on mobile; row from tablet up */
-  .home-hero .hero-cta {
+  /* Home hero — stack CTAs full-width on mobile; row from tablet up */
+  .home-hero .hero-cta,
+  .home-hero .home-hero__cta {
     width: 100%;
-    max-width: min(100%, 19.5rem);
+    max-width: min(100%, 18.5rem);
     margin-inline: auto;
   }
 
   @media (max-width: 767.98px) {
-    .home-hero .hero-cta {
+    .home-hero .hero-cta,
+    .home-hero .home-hero__cta {
+      display: flex;
       flex-direction: column;
       align-items: stretch;
       gap: 0.75rem;
-      max-width: min(100%, 20.5rem);
+      width: 100%;
+      max-width: min(100%, 19rem);
     }
 
-    .home-hero .hero-cta-btn {
+    .home-hero .hero-cta-btn,
+    .home-hero .home-hero__cta-btn {
       width: 100%;
-      min-height: 3.25rem;
+      min-width: 0;
+      min-height: 2.875rem;
       height: auto;
-      padding: 0.8125rem 1.25rem;
-      font-size: clamp(0.875rem, 2.8vw, 0.9375rem);
+      padding: 0.6875rem 1.25rem;
+      font-size: clamp(0.875rem, 3.2vw, 0.9375rem);
       line-height: 1.3;
-      white-space: normal;
+      white-space: normal !important;
       text-wrap: balance;
+      text-align: center;
+      flex-shrink: 1;
+      border-radius: 9999px;
+    }
+  }
+
+  @media (max-width: 379.98px) {
+    .home-hero .hero-cta,
+    .home-hero .home-hero__cta {
+      max-width: 100%;
+    }
+
+    .home-hero .hero-cta-btn,
+    .home-hero .home-hero__cta-btn {
+      padding-inline: 1rem;
+      font-size: 0.8125rem;
     }
   }
 
   @media (min-width: 480px) and (max-width: 767.98px) {
-    .home-hero .hero-cta {
-      max-width: 22rem;
+    .home-hero .hero-cta,
+    .home-hero .home-hero__cta {
+      max-width: 19rem;
     }
   }
 
   @media (min-width: 768px) {
-    .home-hero .hero-cta {
+    .home-hero .hero-cta,
+    .home-hero .home-hero__cta {
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.875rem;
       width: auto;
       max-width: none;
     }
 
-    .home-hero .hero-cta-btn {
+    .home-hero .hero-cta-btn,
+    .home-hero .home-hero__cta-btn {
       width: auto;
-      min-height: 3.5rem;
-      padding-inline: 2.5rem;
-      font-size: 1.0625rem;
+      min-height: 3rem;
+      padding-inline: 2rem;
+      font-size: 1rem;
       white-space: nowrap;
     }
   }
@@ -3085,12 +3110,11 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr);
       grid-template-areas:
-        "pillar-one"
         "habit-image"
+        "pillar-one"
         "pillar-two";
       gap: 2rem;
       padding-inline: 0;
-      --brain-booster-height: clamp(15rem, 68vw, 21rem);
     }
 
     .four-pillars-feature__layout--habit-duo > .four-pillars-feature__copy {
@@ -3113,8 +3137,9 @@
       grid-area: habit-image;
       justify-self: center;
       align-self: center;
-      width: min(100%, 20rem);
-      margin-inline: auto;
+      width: 100vw;
+      max-width: 100vw;
+      margin-inline: calc(50% - 50vw);
     }
 
     .four-pillars-habit-duo__motion--mobile-static {
@@ -3127,15 +3152,18 @@
 
     .four-pillars-habit-preview--brain-booster {
       width: 100%;
-      max-width: 20rem;
+      max-width: 100%;
       margin-inline: auto;
     }
 
     .four-pillars-habit-duo__motion--mobile-static .four-pillars-habit-preview__img {
+      display: block;
       width: 100%;
       height: auto;
-      max-width: 20rem;
+      max-width: 100vw;
       margin-inline: auto;
+      transform: scale(1.16);
+      transform-origin: center top;
     }
 
     .four-pillars-feature__layout > .four-pillars-image-motion {
@@ -3229,6 +3257,21 @@
     margin: 0;
     object-fit: contain;
     object-position: center;
+  }
+
+  @media (max-width: 767px) {
+    .four-pillars-habit-preview--brain-booster {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .four-pillars-habit-preview--brain-booster .four-pillars-habit-preview__img {
+      width: 100%;
+      height: auto;
+      max-width: 100vw;
+      transform: scale(1.16);
+      transform-origin: center top;
+    }
   }
 
   @media (max-width: 1100px) and (min-width: 768px) {

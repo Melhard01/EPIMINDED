@@ -54,19 +54,19 @@ export default function HomeHero() {
 
           <motion.div
             {...motionProps(0.36)}
-            className="mt-10 w-full flex justify-center"
+            className="mt-10 w-full max-w-full px-0 sm:px-2 flex justify-center"
           >
-            <div className="hero-cta">
+            <div className="hero-cta home-hero__cta">
               <Button
                 onClick={openApplication}
-                className="hero-cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
+                className="hero-cta-btn home-hero__cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
               >
                 {t("home.hero.cta.primary")}
               </Button>
               <Button
                 variant="outline"
                 onClick={scrollToPillars}
-                className="hero-cta-btn border-white/30 text-white hover:bg-white/10 rounded-full"
+                className="hero-cta-btn home-hero__cta-btn border-white/30 text-white hover:bg-white/10 rounded-full"
               >
                 {t("home.hero.cta.secondary")}
               </Button>
