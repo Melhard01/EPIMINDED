@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import Enterprise from "@/pages/Enterprise";
 import CommunityBuilders from "@/pages/CommunityBuilders";
+import Founders from "@/pages/Founders";
 import { Route, Switch, Redirect } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -12,6 +13,7 @@ import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ApplicationModalProvider } from "./contexts/ApplicationModalContext";
+import { SmoothScrollProvider } from "./contexts/SmoothScrollProvider";
 import CookieBanner from "./components/CookieBanner";
 import ScrollToHash from "./components/ScrollToHash";
 import PageBackground from "./components/PageBackground";
@@ -20,6 +22,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/founders" component={Founders} />
       <Route path="/community-builders" component={CommunityBuilders} />
       <Route path="/enterprise" component={Enterprise} />
       <Route path="/legal/terms" component={Terms} />
@@ -38,21 +41,23 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
-        <LanguageProvider>
-          <ApplicationModalProvider>
-            <TooltipProvider>
-              <div className="dark min-h-screen relative">
-                <PageBackground />
-                <div className="relative z-[1]">
-                  <Toaster />
-                  <ScrollToHash />
-                  <Router />
-                  <CookieBanner />
+        <SmoothScrollProvider>
+          <LanguageProvider>
+            <ApplicationModalProvider>
+              <TooltipProvider>
+                <div className="dark min-h-screen relative">
+                  <PageBackground />
+                  <div className="relative z-[1]">
+                    <Toaster />
+                    <ScrollToHash />
+                    <Router />
+                    <CookieBanner />
+                  </div>
                 </div>
-              </div>
-            </TooltipProvider>
-          </ApplicationModalProvider>
-        </LanguageProvider>
+              </TooltipProvider>
+            </ApplicationModalProvider>
+          </LanguageProvider>
+        </SmoothScrollProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

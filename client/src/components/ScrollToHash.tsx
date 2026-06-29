@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
+import { smoothScrollToId, smoothScrollToTop } from "@/lib/smoothScroll";
 
 export default function ScrollToHash() {
   const [location] = useLocation();
@@ -9,12 +10,12 @@ export default function ScrollToHash() {
 
     if (hash) {
       const timer = window.setTimeout(() => {
-        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+        smoothScrollToId(hash);
       }, 100);
       return () => window.clearTimeout(timer);
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    smoothScrollToTop(true);
   }, [location]);
 
   return null;

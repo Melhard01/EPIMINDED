@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useApplicationModal } from "@/contexts/ApplicationModalContext";
 import PartnerSection from "@/components/PartnerSection";
+import PartnershipSection from "@/components/PartnershipSection";
 import HeroAuroraBackground from "@/components/HeroAuroraBackground";
+import BringAccordionItem from "@/components/shared/BringAccordionItem";
+import { smoothScrollToId } from "@/lib/smoothScroll";
 
-const BRING_CARDS = ["card1", "card2", "card3"] as const;
-const PARTNERSHIP_STEPS = ["step1", "step2", "step3"] as const;
+const BRING_TEXT_CARDS = ["card1", "card2", "card3"] as const;
 const WORKS_ITEMS = ["item1", "item2", "item3", "item4"] as const;
 const DOESNT_ITEMS = ["item1", "item2", "item3", "item4"] as const;
 
@@ -18,7 +20,7 @@ export default function CommunityBuilders() {
   const { openPartner } = useApplicationModal();
 
   const scrollToPartnership = () => {
-    document.getElementById("partnership")?.scrollIntoView({ behavior: "smooth" });
+    smoothScrollToId("partnership");
   };
 
   return (
@@ -66,101 +68,128 @@ export default function CommunityBuilders() {
           </div>
         </section>
 
-        <section className="bg-surface section-padding">
-          <div className="container max-w-3xl">
-            <SectionHeader eyebrow={t("builders.ceiling.eyebrow")} title={t("builders.ceiling.title")} align="left" />
-            <div className="space-y-6">
-              {t("builders.ceiling.body")
-                .split("\n\n")
-                .map((paragraph, i) => (
-                  <Reveal key={i} variant="up" delay={i * 100}>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      {paragraph}
-                    </p>
+        <section className="builders-ceiling-section section-padding relative overflow-hidden">
+          <div className="builders-ceiling-section__bg" aria-hidden="true" />
+          <div className="builders-ceiling-section__overlay" aria-hidden="true" />
+
+          <div className="container relative z-10 max-w-5xl">
+            <Reveal variant="fade" className="text-center">
+              <span className="eyebrow-pill mb-6 md:mb-8 inline-block">{t("builders.ceiling.eyebrow")}</span>
+            </Reveal>
+
+            <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+              <Reveal variant="up" delay={80} className="md:col-span-5">
+                <h2 className="font-serif text-4xl md:text-4xl lg:text-5xl leading-snug">
+                  {t("builders.ceiling.title")}
+                </h2>
+              </Reveal>
+
+              <div className="md:col-span-7 space-y-6">
+                {t("builders.ceiling.body")
+                  .split("\n\n")
+                  .map((paragraph, i) => (
+                    <Reveal key={i} variant="up" delay={120 + i * 100}>
+                      <p className="text-lg text-muted-foreground leading-relaxed">
+                        {paragraph}
+                      </p>
+                    </Reveal>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="builders-bring section-padding relative overflow-hidden">
+          <div className="builders-bring__bg" aria-hidden="true" />
+          <div className="builders-bring__overlay" aria-hidden="true" />
+
+          <div className="container relative z-10">
+            <SectionHeader eyebrow={t("builders.bring.eyebrow")} title={t("builders.bring.title")} />
+
+            <div className="builders-bring__layout">
+              <Reveal variant="up" delay={80} className="builders-bring__media">
+                <div className="builders-bring__image-wrap">
+                  <img
+                    src="/assets/builders-bring-phones.png"
+                    alt={t("builders.bring.imageAlt")}
+                    width={1563}
+                    height={1563}
+                    decoding="async"
+                    loading="lazy"
+                    className="builders-bring__image"
+                  />
+                </div>
+              </Reveal>
+
+              <div className="builders-bring__copy">
+                {BRING_TEXT_CARDS.map((card, i) => (
+                  <Reveal key={card} variant="up" delay={120 + i * 100}>
+                    <div className="builders-bring__content">
+                      <BringAccordionItem
+                        title={t(`builders.bring.${card}.title`)}
+                        body={t(`builders.bring.${card}.body`)}
+                      />
+                    </div>
                   </Reveal>
                 ))}
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="section-padding">
-          <div className="container">
-            <SectionHeader eyebrow={t("builders.bring.eyebrow")} title={t("builders.bring.title")} />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {BRING_CARDS.map((card, i) => (
-                <Reveal key={card} variant="scale" delay={i * 100}>
-                  <div className="premium-card p-8 h-full">
-                    <h3 className="font-serif text-xl mb-4">{t(`builders.bring.${card}.title`)}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{t(`builders.bring.${card}.body`)}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PartnershipSection />
 
-        <section id="partnership" className="bg-surface section-padding">
-          <div className="container max-w-4xl">
-            <SectionHeader eyebrow={t("builders.partnership.eyebrow")} title={t("builders.partnership.title")} />
-            <div className="space-y-10">
-              {PARTNERSHIP_STEPS.map((step, i) => (
-                <Reveal key={step} variant="up" delay={i * 120}>
-                  <div className="flex gap-6">
-                    <span className="step-number">{String(i + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3 className="font-serif text-xl mb-3">{t(`builders.partnership.${step}.title`)}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{t(`builders.partnership.${step}.body`)}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <section className="builders-fit-section section-padding relative overflow-hidden">
+          <div className="builders-fit-section__bg" aria-hidden="true" />
+          <div className="builders-fit-section__overlay" aria-hidden="true" />
 
-        <section className="section-padding">
-          <div className="container max-w-5xl">
+          <div className="container relative z-10 max-w-6xl">
             <SectionHeader eyebrow={t("builders.fit.eyebrow")} title={t("builders.fit.title")} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <Reveal variant="left">
-                <div className="premium-card-static p-8">
-                  <h3 className="font-serif text-lg mb-4 text-gold">{t("builders.fit.works.title")}</h3>
-                  <ul className="space-y-3">
-                    {WORKS_ITEMS.map((item) => (
-                      <li key={item} className="text-muted-foreground text-sm leading-relaxed flex gap-2">
-                        <span className="text-gold">+</span>
-                        {t(`builders.fit.works.${item}`)}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-              <Reveal variant="right" delay={120}>
-                <div className="premium-card-static p-8">
-                  <h3 className="font-serif text-lg mb-4">{t("builders.fit.doesnt.title")}</h3>
-                  <ul className="space-y-3">
-                    {DOESNT_ITEMS.map((item) => (
-                      <li key={item} className="text-muted-foreground text-sm leading-relaxed flex gap-2">
-                        <span className="text-muted-foreground/60">-</span>
-                        {t(`builders.fit.doesnt.${item}`)}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </section>
 
-        <section className="bg-surface section-padding gold-glow">
-          <div className="container max-w-3xl text-center">
-            <Reveal variant="scale">
-              <h2 className="font-serif text-3xl md:text-5xl mb-6">{t("builders.finalCta.title")}</h2>
-              <p className="text-lg text-muted-foreground mb-10">{t("builders.finalCta.subtitle")}</p>
-              <Button onClick={openPartner} className="bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full px-10 h-14 border-0">
-                {t("builders.finalCta.cta.primary")}
-              </Button>
-            </Reveal>
+            <div className="builders-fit__layout">
+              <Reveal variant="left" className="builders-fit__media">
+                <div className="builders-fit__image-wrap">
+                  <img
+                    src="/assets/builders-fit-image.png"
+                    alt={t("builders.fit.imageAlt")}
+                    width={500}
+                    height={500}
+                    decoding="async"
+                    loading="lazy"
+                    className="builders-fit__image"
+                  />
+                </div>
+              </Reveal>
+
+              <div className="builders-fit__cards">
+                <Reveal variant="right">
+                  <div className="builders-fit__card">
+                    <h3 className="font-serif text-lg mb-4 text-gold">{t("builders.fit.works.title")}</h3>
+                    <ul className="space-y-3">
+                      {WORKS_ITEMS.map((item) => (
+                        <li key={item} className="text-muted-foreground text-sm leading-relaxed flex gap-2">
+                          <span className="text-gold">+</span>
+                          {t(`builders.fit.works.${item}`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Reveal>
+                <Reveal variant="right" delay={120}>
+                  <div className="builders-fit__card">
+                    <h3 className="font-serif text-lg mb-4">{t("builders.fit.doesnt.title")}</h3>
+                    <ul className="space-y-3">
+                      {DOESNT_ITEMS.map((item) => (
+                        <li key={item} className="text-muted-foreground text-sm leading-relaxed flex gap-2">
+                          <span className="text-muted-foreground/60">-</span>
+                          {t(`builders.fit.doesnt.${item}`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
           </div>
         </section>
 

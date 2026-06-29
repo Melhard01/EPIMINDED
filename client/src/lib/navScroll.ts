@@ -3,7 +3,8 @@ const HERO_ENTER_OFFSET = 48;
 const HERO_EXIT_OFFSET = 100;
 
 export const HERO_IDS: Record<string, string> = {
-  "/": "for-founders",
+  "/": "home-hero",
+  "/founders": "for-founders",
   "/community-builders": "for-community-builders",
   "/enterprise": "for-organisations",
 };

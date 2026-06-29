@@ -1,8 +1,14 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useApplicationModal } from "@/contexts/ApplicationModalContext";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Globe, Menu } from "lucide-react";
+import { ChevronDown, Globe, Menu } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { CALENDLY_ENTERPRISE } from "@/lib/urls";
@@ -12,6 +18,11 @@ import { cn } from "@/lib/utils";
 const EASE = "cubic-bezier(0.4, 0, 0.2, 1)";
 const DURATION = "0.55s";
 const NAV_NUDGE_RIGHT = 20;
+
+const USE_CASE_ROUTES = ["/founders", "/community-builders", "/enterprise"] as const;
+
+const navLinkClass =
+  "shrink-0 border-0 bg-transparent shadow-none p-0 h-auto rounded-none text-xs lg:text-[0.8125rem] xl:text-sm font-medium whitespace-nowrap transition-colors duration-200 focus-visible:ring-0 focus-visible:outline-none";
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
@@ -27,18 +38,43 @@ export default function Navbar() {
   const scrolledRef = useRef(false);
   const [navX, setNavX] = useState({ right: 0, center: 0 });
 
-  const navLinks = [
-    { href: "/", label: t("nav.founders") },
+  const useCaseLinks = [
+    { href: "/founders", label: t("nav.founders") },
     { href: "/community-builders", label: t("nav.communityBuilders") },
     { href: "/enterprise", label: t("nav.organisations") },
   ];
 
+  const [useCasesOpen, setUseCasesOpen] = useState(false);
+  const useCasesCloseTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const openUseCasesMenu = useCallback(() => {
+    if (useCasesCloseTimer.current) clearTimeout(useCasesCloseTimer.current);
+    setUseCasesOpen(true);
+  }, []);
+
+  const scheduleCloseUseCasesMenu = useCallback(() => {
+    if (useCasesCloseTimer.current) clearTimeout(useCasesCloseTimer.current);
+    useCasesCloseTimer.current = setTimeout(() => setUseCasesOpen(false), 120);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (useCasesCloseTimer.current) clearTimeout(useCasesCloseTimer.current);
+    };
+  }, []);
+  const isEnterpriseRoute = location === "/enterprise" || location.startsWith("/enterprise/");
+  const isUseCaseRoute = USE_CASE_ROUTES.some(
+    (route) => location === route || location.startsWith(`${route}/`)
+  );
+
   const ctaLabel =
     location === "/community-builders"
       ? t("nav.cta.partner")
-      : location === "/enterprise"
-        ? t("nav.cta.discovery")
-        : t("nav.cta.apply");
+      : isEnterpriseRoute
+        ? t("nav.cta.bookCall")
+        : location === "/" || location === "/founders"
+          ? t("nav.cta.beta")
+          : t("nav.cta.apply");
 
   const measureNav = useCallback(() => {
     const track = trackRef.current;
@@ -114,7 +150,7 @@ export default function Navbar() {
   const handleCta = () => {
     if (location === "/community-builders") {
       openPartner();
-    } else if (location === "/enterprise") {
+    } else if (isEnterpriseRoute) {
       window.open(CALENDLY_ENTERPRISE, "_blank");
     } else {
       openApplication();
@@ -156,27 +192,70 @@ export default function Navbar() {
               transform: `translate3d(${navTranslateX}px, -50%, 0)`,
             }}
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "shrink-0 text-xs lg:text-[0.8125rem] xl:text-sm font-medium whitespace-nowrap transition-colors duration-200",
-                  location === link.href
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-primary"
-                )}
+            <Link
+              href="/"
+              className={cn(
+                navLinkClass,
+                location === "/" ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              )}
+            >
+              {t("nav.home")}
+            </Link>
+
+            <DropdownMenu open={useCasesOpen} onOpenChange={setUseCasesOpen} modal={false}>
+              <div
+                className="relative"
+                onMouseEnter={openUseCasesMenu}
+                onMouseLeave={scheduleCloseUseCasesMenu}
               >
-                {link.label}
-              </Link>
-            ))}
+                <DropdownMenuTrigger
+                  className={cn(
+                    navLinkClass,
+                    "inline-flex items-center gap-1 cursor-pointer",
+                    "data-[state=open]:bg-transparent data-[state=open]:shadow-none",
+                    isUseCaseRoute ? "text-foreground" : "text-muted-foreground hover:text-primary"
+                  )}
+                  onPointerDown={(e) => e.preventDefault()}
+                >
+                  {t("nav.useCases")}
+                  <ChevronDown
+                    className={cn(
+                      "h-3.5 w-3.5 opacity-70 transition-transform duration-200",
+                      useCasesOpen && "rotate-180"
+                    )}
+                    aria-hidden="true"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="start"
+                  sideOffset={10}
+                  className="min-w-[13rem] bg-card border-[#303030] rounded-xl p-1.5"
+                  onMouseEnter={openUseCasesMenu}
+                  onMouseLeave={scheduleCloseUseCasesMenu}
+                >
+                  {useCaseLinks.map((link) => (
+                    <DropdownMenuItem key={link.href} asChild className="rounded-lg cursor-pointer">
+                      <Link
+                        href={link.href}
+                        className={cn(
+                          "w-full text-sm font-medium",
+                          location === link.href ? "text-foreground" : "text-muted-foreground"
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </div>
+            </DropdownMenu>
           </div>
         </div>
 
         <div
           ref={actionsRef}
           className={cn(
-            "hidden lg:flex h-9 items-center gap-2.5 absolute top-1/2 right-0 lg:-mr-2 xl:-mr-4",
+            "hidden lg:flex h-9 items-center gap-2.5 absolute top-1/2 right-0 lg:mr-[calc(2cm-0.5rem)] xl:mr-[calc(2cm-1rem)]",
             "will-change-[transform,opacity] motion-reduce:transition-none"
           )}
           style={{
@@ -201,7 +280,7 @@ export default function Navbar() {
             tabIndex={scrolled ? 0 : -1}
             className={cn(
               "inline-flex shrink-0 bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0 shadow-lg shadow-gold/10 whitespace-nowrap",
-              location === "/enterprise"
+              isEnterpriseRoute
                 ? "h-8 px-3 xl:px-4 text-[0.6875rem] xl:text-[0.75rem]"
                 : "h-9 max-w-[9.5rem] xl:max-w-none px-3 xl:px-6 text-xs xl:text-sm truncate"
             )}
@@ -224,19 +303,37 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent
               side="right"
+              data-lenis-prevent
               className="bg-surface border-0 inset-0 h-full w-full max-w-full sm:max-w-full left-0"
             >
               <div className="container flex flex-col items-center gap-8 pt-16 pb-10 h-full">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-lg font-medium text-center text-foreground transition-colors hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                <Link
+                  href="/"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-lg font-medium text-center text-foreground transition-colors hover:text-primary"
+                >
+                  {t("nav.home")}
+                </Link>
+
+                <div className="flex flex-col items-center gap-4 w-full">
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
+                    {t("nav.useCases")}
+                  </p>
+                  {useCaseLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "text-lg font-medium text-center transition-colors hover:text-primary",
+                        location === link.href ? "text-foreground" : "text-muted-foreground"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+
                 <button
                   type="button"
                   onClick={toggleLanguage}

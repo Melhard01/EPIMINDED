@@ -19,6 +19,7 @@ export default function ApplicationModal({ open, onOpenChange }: ApplicationModa
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
+        data-lenis-prevent
         overlayClassName="bg-black/70 z-[100]"
         className="z-[101] w-full max-w-[480px] max-h-[90vh] overflow-y-auto bg-card border border-[#303030] rounded-2xl p-6 sm:p-8"
       >

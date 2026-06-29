@@ -1,0 +1,230 @@
+.grid {
+  --gold: #c6a15b;
+  --goldBr: #e8ce92;
+  --goldDeep: #9c7c3c;
+  --cream: #ece6d9;
+  --muted: #a39c91;
+  --line: rgba(198, 161, 91, 0.22);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-display: "Cormorant Garamond", var(--font-serif);
+  --font-ui: "Manrope", var(--font-sans);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  margin-top: clamp(3rem, 6vw, 5rem);
+  text-align: left;
+}
+
+.divider {
+  position: absolute;
+  top: 4%;
+  bottom: 4%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--line) 16%, var(--line) 84%, transparent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.9s var(--ease);
+}
+
+.d1 {
+  left: 33.333%;
+  transition-delay: 0.62s;
+}
+
+.d2 {
+  left: 66.667%;
+  transition-delay: 0.7s;
+}
+
+.col {
+  position: relative;
+}
+
+.numwrap {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.5s var(--ease);
+}
+
+.numglow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  height: 160%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(198, 161, 91, 0.2), rgba(198, 161, 91, 0) 68%);
+  filter: blur(14px);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+  transition-delay: calc(var(--cd) + 0.9s);
+}
+
+.nummask {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.num {
+  display: inline-block;
+  font-family: "Inter", var(--font-ui);
+  font-weight: 200;
+  font-size: clamp(4rem, 8.5vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  background: linear-gradient(176deg, var(--goldBr) 4%, var(--gold) 48%, var(--goldDeep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: translateY(118%);
+  opacity: 0;
+  transition:
+    transform 0.9s var(--ease),
+    opacity 0.8s ease;
+  transition-delay: calc(var(--cd) + 0.7s);
+}
+
+.cap {
+  display: block;
+  margin-top: 0.55rem;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(198, 161, 91, 0.72);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s var(--ease);
+  transition-delay: calc(var(--cd) + 0.96s);
+}
+
+.rule {
+  display: block;
+  width: 42px;
+  height: 1px;
+  margin: 1.4rem 0 1.5rem;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    transform 0.7s var(--ease),
+    width 0.45s var(--ease),
+    background-color 0.45s ease;
+  transition-delay: calc(var(--cd) + 1.06s), 0s, 0s;
+}
+
+.sub {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+  line-height: 1.16;
+  color: var(--cream);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s var(--ease);
+  transition-delay: calc(var(--cd) + 1.16s);
+}
+
+.body {
+  margin: 1rem 0 0;
+  max-width: 36ch;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1vw, 1.0625rem);
+  line-height: 1.66;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s var(--ease);
+  transition-delay: calc(var(--cd) + 1.3s);
+}
+
+.isIn .cap,
+.isIn .sub,
+.isIn .body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.isIn .divider {
+  transform: scaleY(1);
+}
+
+.isIn .num {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.isIn .rule {
+  transform: scaleX(1);
+}
+
+.isIn .numglow {
+  opacity: 0.65;
+}
+
+@media (hover: hover) and (min-width: 861px) {
+  .col:hover .numwrap {
+    transform: translateY(-5px);
+  }
+
+  .col:hover .numglow {
+    opacity: 1;
+  }
+
+  .isIn .col:hover .rule {
+    width: 80px;
+    background: var(--goldBr);
+  }
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3.4rem;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .body {
+    max-width: 46ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cap,
+  .sub,
+  .body,
+  .num {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .divider,
+  .rule {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .numglow {
+    opacity: 0.55 !important;
+  }
+}

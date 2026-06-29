@@ -1,8 +1,9 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import ApplicationModal from "@/components/ApplicationModal";
 import PartnerInquiryModal from "@/components/PartnerInquiryModal";
 import { scrollToApply } from "@/lib/scrollToApply";
 import { scrollToPartner } from "@/lib/scrollToPartner";
+import { getLenis } from "@/lib/smoothScroll";
 
 interface ModalContextType {
   openApplication: () => void;
@@ -15,13 +16,21 @@ export function ApplicationModalProvider({ children }: { children: ReactNode }) 
   const [applicationOpen, setApplicationOpen] = useState(false);
   const [partnerOpen, setPartnerOpen] = useState(false);
 
+  useEffect(() => {
+    const lenis = getLenis();
+    if (!lenis) return;
+
+    if (applicationOpen || partnerOpen) {
+      lenis.stop();
+      return () => lenis.start();
+    }
+  }, [applicationOpen, partnerOpen]);
+
   return (
     <ModalContext.Provider
       value={{
         openApplication: () => {
-          const onFoundersPage =
-            window.location.pathname === "/" || window.location.pathname === "";
-          if (onFoundersPage && scrollToApply()) return;
+          if (scrollToApply()) return;
           setApplicationOpen(true);
         },
         openPartner: () => {

@@ -105,3 +105,5 @@ temp/
 *.sqlite
 *.sqlite3
 .project-config.json
+.vercel
+.env*

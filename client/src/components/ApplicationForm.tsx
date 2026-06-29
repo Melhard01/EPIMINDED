@@ -36,9 +36,15 @@ interface ApplicationFormProps {
   onSuccess?: () => void;
   className?: string;
   wide?: boolean;
+  showHeader?: boolean;
 }
 
-export default function ApplicationForm({ onSuccess, className, wide = false }: ApplicationFormProps) {
+export default function ApplicationForm({
+  onSuccess,
+  className,
+  wide = false,
+  showHeader = false,
+}: ApplicationFormProps) {
   const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -123,6 +129,12 @@ export default function ApplicationForm({ onSuccess, className, wide = false }: 
         className
       )}
     >
+      {showHeader && (
+        <div className={cn("text-left space-y-2 mb-2", wide && "md:col-span-2")}>
+          <h3 className="font-serif text-2xl leading-tight">{t("apply.title")}</h3>
+          <p className="text-muted-foreground text-sm">{t("apply.subhead")}</p>
+        </div>
+      )}
       <Field label={t("apply.fields.fullName")} error={errors.fullName} required>
         <Input name="fullName" className={fieldClassName} />
       </Field>

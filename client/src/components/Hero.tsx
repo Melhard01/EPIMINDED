@@ -3,19 +3,20 @@ import { useApplicationModal } from "@/contexts/ApplicationModalContext";
 import { Button } from "@/components/ui/button";
 import HeroAuroraBackground from "@/components/HeroAuroraBackground";
 import Reveal from "@/components/ui/reveal";
+import { smoothScrollToId } from "@/lib/smoothScroll";
 
 export default function Hero() {
   const { t } = useLanguage();
   const { openApplication } = useApplicationModal();
 
   const scrollToHow = () => {
-    document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" });
+    smoothScrollToId("how-it-works");
   };
 
   return (
     <section
       id="for-founders"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-aurora"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-aurora hero-aurora--founders"
     >
       <HeroAuroraBackground variant="founders" />
       <div className="container relative z-10 px-4 sm:px-6">
@@ -50,6 +51,11 @@ export default function Hero() {
                 {t("hero.cta.secondary")}
               </Button>
             </div>
+          </Reveal>
+          <Reveal immediate>
+            <p className="mt-10 text-xs sm:text-sm text-muted-foreground/60 tracking-wide">
+              {t("hero.brandLine")}
+            </p>
           </Reveal>
         </div>
       </div>
