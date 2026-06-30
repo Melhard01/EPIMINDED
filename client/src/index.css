@@ -218,6 +218,21 @@
     @apply py-24 md:py-32 lg:py-40;
   }
 
+  .navbar__link {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button.navbar__link {
+    appearance: none;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    line-height: 1;
+  }
+
   .section-divider {
     @apply h-px w-full bg-gradient-to-r from-transparent via-border to-transparent;
   }

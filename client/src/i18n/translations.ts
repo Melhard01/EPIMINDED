@@ -2,6 +2,7 @@ export const translations = {
   fr: {
     "nav.founders": "Pour les fondateurs",
     "nav.home": "Accueil",
+    "nav.about": "À propos",
     "nav.useCases": "Cas d'usage",
     "nav.communityBuilders": "Pour les community builders",
     "nav.organisations": "Pour les organisations",
@@ -12,7 +13,8 @@ export const translations = {
     "nav.cta.discovery": "Réserver un appel découverte",
 
     "home.hero.eyebrow": "APPRENTISSAGE ENTRE PAIRS POUR CEUX QUI REFUSENT DE DÉCROCHER",
-    "home.hero.title": "Soyez curieux. Ayez un but. Restez en avance. Ensemble.",
+    "home.hero.title.lead": "Soyez curieux. Ayez un but. Restez en avance.",
+    "home.hero.title.accent": "Ensemble.",
     "home.hero.subtitle": "EpiMinded associe un insight quotidien calibré sur votre situation à un réseau de pairs choisis selon votre façon de penser. Construit autour de ce que l'IA ne peut pas vous donner : connexion humaine, expérience vécue, et les personnes qui sont passées par là où vous allez.",
     "home.hero.cta.primary": "Rejoindre la beta",
     "home.hero.cta.secondary": "Voir comment ça marche",
@@ -350,6 +352,7 @@ export const translations = {
   en: {
     "nav.founders": "For Founders",
     "nav.home": "Home",
+    "nav.about": "About",
     "nav.useCases": "Use cases",
     "nav.communityBuilders": "For Community Builders",
     "nav.organisations": "For Organisations",
@@ -360,7 +363,8 @@ export const translations = {
     "nav.cta.discovery": "Book a discovery call",
 
     "home.hero.eyebrow": "PEER LEARNING FOR PEOPLE WHO REFUSE TO FALL BEHIND",
-    "home.hero.title": "Be curious. Have purpose. Stay ahead. Together.",
+    "home.hero.title.lead": "Be curious. Have purpose. Stay ahead.",
+    "home.hero.title.accent": "Together.",
     "home.hero.subtitle": "EpiMinded pairs a daily insight tuned to where you are with a peer network matched on how you think. Built around what AI cannot give you: human connection, lived experience, and the people who've been where you're going.",
     "home.hero.cta.primary": "Join the beta",
     "home.hero.cta.secondary": "See how it works",

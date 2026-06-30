@@ -53,7 +53,7 @@ export default function AboutEpineon() {
   const { t } = useLanguage();
 
   return (
-    <section className="about-epineon section-padding">
+    <section id="about-epineon" className="about-epineon section-padding">
       <div className="about-epineon__bg" aria-hidden="true" />
       <div className="about-epineon__overlay" aria-hidden="true" />
 

@@ -13,7 +13,10 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { Link, useLocation } from "wouter";
 import { CALENDLY_ENTERPRISE } from "@/lib/urls";
 import { computeNavScrolled } from "@/lib/navScroll";
+import { smoothScrollToId } from "@/lib/smoothScroll";
 import { cn } from "@/lib/utils";
+
+const ABOUT_SECTION_ID = "about-epineon";
 
 const EASE = "cubic-bezier(0.4, 0, 0.2, 1)";
 const DURATION = "0.55s";
@@ -22,7 +25,7 @@ const NAV_NUDGE_RIGHT = 20;
 const USE_CASE_ROUTES = ["/founders", "/community-builders", "/enterprise"] as const;
 
 const navLinkClass =
-  "shrink-0 border-0 bg-transparent shadow-none p-0 h-auto rounded-none text-xs lg:text-[0.8125rem] xl:text-sm font-medium whitespace-nowrap transition-colors duration-200 focus-visible:ring-0 focus-visible:outline-none";
+  "navbar__link inline-flex items-center justify-center shrink-0 self-center h-9 border-0 bg-transparent shadow-none p-0 m-0 rounded-none font-sans text-xs lg:text-[0.8125rem] xl:text-sm font-medium leading-none whitespace-nowrap text-foreground transition-colors duration-200 hover:text-primary focus-visible:ring-0 focus-visible:outline-none";
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
@@ -63,9 +66,6 @@ export default function Navbar() {
     };
   }, []);
   const isEnterpriseRoute = location === "/enterprise" || location.startsWith("/enterprise/");
-  const isUseCaseRoute = USE_CASE_ROUTES.some(
-    (route) => location === route || location.startsWith(`${route}/`)
-  );
 
   const ctaLabel =
     location === "/community-builders"
@@ -157,6 +157,18 @@ export default function Navbar() {
     }
   };
 
+  const scrollToAbout = () => {
+    smoothScrollToId(ABOUT_SECTION_ID);
+  };
+
+  const handleAboutClick = (e: React.MouseEvent) => {
+    if (location === "/") {
+      e.preventDefault();
+      scrollToAbout();
+    }
+    setMobileOpen(false);
+  };
+
   const navTranslateX = scrolled ? navX.center : navX.right;
   const motionStyle = {
     transition: `transform ${DURATION} ${EASE}, opacity ${DURATION} ${EASE}`,
@@ -184,7 +196,7 @@ export default function Navbar() {
           <div
             ref={navRef}
             className={cn(
-              "absolute top-1/2 left-0 flex items-center gap-2 xl:gap-5 will-change-transform motion-reduce:transition-none",
+              "absolute top-1/2 left-0 flex items-center gap-5 xl:gap-6 will-change-transform motion-reduce:transition-none",
               !navReady && "opacity-0"
             )}
             style={{
@@ -192,35 +204,36 @@ export default function Navbar() {
               transform: `translate3d(${navTranslateX}px, -50%, 0)`,
             }}
           >
-            <Link
-              href="/"
-              className={cn(
-                navLinkClass,
-                location === "/" ? "text-foreground" : "text-muted-foreground hover:text-primary"
-              )}
-            >
+            <Link href="/" className={navLinkClass}>
               {t("nav.home")}
+            </Link>
+
+            <Link
+              href="/#about-epineon"
+              onClick={handleAboutClick}
+              className={navLinkClass}
+            >
+              {t("nav.about")}
             </Link>
 
             <DropdownMenu open={useCasesOpen} onOpenChange={setUseCasesOpen} modal={false}>
               <div
-                className="relative"
+                className="relative flex h-9 items-center"
                 onMouseEnter={openUseCasesMenu}
                 onMouseLeave={scheduleCloseUseCasesMenu}
               >
                 <DropdownMenuTrigger
                   className={cn(
                     navLinkClass,
-                    "inline-flex items-center gap-1 cursor-pointer",
-                    "data-[state=open]:bg-transparent data-[state=open]:shadow-none",
-                    isUseCaseRoute ? "text-foreground" : "text-muted-foreground hover:text-primary"
+                    "gap-1 cursor-pointer",
+                    "data-[state=open]:bg-transparent data-[state=open]:shadow-none"
                   )}
                   onPointerDown={(e) => e.preventDefault()}
                 >
                   {t("nav.useCases")}
                   <ChevronDown
                     className={cn(
-                      "h-3.5 w-3.5 opacity-70 transition-transform duration-200",
+                      "h-3.5 w-3.5 transition-transform duration-200",
                       useCasesOpen && "rotate-180"
                     )}
                     aria-hidden="true"
@@ -313,6 +326,14 @@ export default function Navbar() {
                   className="text-lg font-medium text-center text-foreground transition-colors hover:text-primary"
                 >
                   {t("nav.home")}
+                </Link>
+
+                <Link
+                  href="/#about-epineon"
+                  onClick={handleAboutClick}
+                  className="text-lg font-medium text-center text-foreground transition-colors hover:text-primary"
+                >
+                  {t("nav.about")}
                 </Link>
 
                 <div className="flex flex-col items-center gap-4 w-full">

@@ -42,7 +42,8 @@ export default function HomeHero() {
             {...motionProps(0.12)}
             className="hero-title hero-headline text-balance mt-8 max-w-[960px]"
           >
-            {t("home.hero.title")}
+            {t("home.hero.title.lead")}{" "}
+            <span className="text-gold">{t("home.hero.title.accent")}</span>
           </motion.h1>
 
           <motion.p
