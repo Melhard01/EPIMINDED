@@ -99,7 +99,7 @@ export default function CommunityBuilders() {
           </div>
         </section>
 
-        <section className="builders-bring section-padding relative overflow-hidden">
+        <section className="builders-bring builders-bring--community section-padding relative overflow-hidden">
           <div className="builders-bring__bg" aria-hidden="true" />
           <div className="builders-bring__overlay" aria-hidden="true" />
 
