@@ -396,7 +396,7 @@
     text-wrap: balance;
     white-space: normal;
     text-align: center;
-    color: var(--gold-dim);
+    color: var(--gold);
     border-color: rgba(196, 160, 68, 0.35);
     background: color-mix(in srgb, var(--background) 88%, transparent);
   }
@@ -3262,6 +3262,7 @@
 
   .four-pillars-feature__visual--peer {
     width: min(100%, 18rem);
+    min-width: 0;
     aspect-ratio: 352 / 740;
     flex: 0 0 auto;
   }
@@ -3303,12 +3304,25 @@
       margin-inline: auto;
       align-self: center;
     }
+
+    .four-pillars-feature--peer-row .four-pillars-feature__layout > .four-pillars-image-motion {
+      min-width: 0;
+      width: min(64vw, 17rem);
+      max-width: 17rem;
+    }
+
+    .four-pillars-feature--peer-row .four-pillars-feature__visual--peer {
+      width: 100%;
+      max-width: 17rem;
+      min-width: 0;
+    }
   }
 
   .four-pillars-feature__visual {
     position: relative;
     flex-shrink: 0;
     align-self: center;
+    min-width: 0;
     width: auto;
     background: none;
     border: none;
@@ -3371,7 +3385,7 @@
     }
 
     .four-pillars-feature__visual--peer {
-      width: min(100%, 20rem);
+      width: min(100%, 18rem);
     }
   }
 
@@ -3381,7 +3395,7 @@
     }
 
     .four-pillars-feature__visual--peer {
-      width: min(100%, 22rem);
+      width: min(100%, 20rem);
     }
   }
 
