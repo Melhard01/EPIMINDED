@@ -9,11 +9,13 @@ export default function PainSection() {
       <div className="pain-section__bg" aria-hidden="true" />
       <div className="pain-section__overlay" aria-hidden="true" />
 
-      <div className="container relative z-10 max-w-5xl">
+      <div className="container relative z-10 flex justify-center">
         <Reveal variant="fade">
           <span className="eyebrow-pill mb-6 md:mb-8 inline-block">{t("pain.eyebrow")}</span>
         </Reveal>
+      </div>
 
+      <div className="container relative z-10 max-w-5xl">
         <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
           <Reveal variant="up" delay={80} className="md:col-span-5">
             <h2 className="font-serif text-3xl md:text-3xl lg:text-4xl leading-snug">
