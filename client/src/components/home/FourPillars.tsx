@@ -1,44 +1,14 @@
-import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+"use client";
+
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { cn } from "@/lib/utils";
 
+const EASE_SOFT = [0.16, 0.84, 0.36, 1] as const;
+
 type FourPillarsImageMotion = "pan-right-left" | "pan-left-right" | "rise";
-
-const MOBILE_MAX_WIDTH = 767;
-const MOBILE_MEDIA_QUERY = `(max-width: ${MOBILE_MAX_WIDTH}px)`;
-
-function subscribeMediaQuery(query: string, onChange: () => void) {
-  const mql = window.matchMedia(query);
-  mql.addEventListener("change", onChange);
-  return () => mql.removeEventListener("change", onChange);
-}
-
-function useMobileLayout() {
-  return useSyncExternalStore(
-    (onChange) => subscribeMediaQuery(MOBILE_MEDIA_QUERY, onChange),
-    () => window.matchMedia(MOBILE_MEDIA_QUERY).matches,
-    () => true
-  );
-}
-
-function HabitDuoImage({ children }: { children: ReactNode }) {
-  const isMobile = useMobileLayout();
-
-  if (isMobile) {
-    return (
-      <div className="shrink-0 four-pillars-habit-duo__motion four-pillars-habit-duo__motion--mobile-static">
-        {children}
-      </div>
-    );
-  }
-
-  return (
-    <FourPillarsImageMotion motion="pan-left-right" className="shrink-0 four-pillars-habit-duo__motion">
-      {children}
-    </FourPillarsImageMotion>
-  );
-}
 
 function FourPillarsImageMotion({
   motion,
@@ -90,8 +60,86 @@ function FourPillarsImageMotion({
   );
 }
 
-const HABIT_PILLARS = ["p1", "p2"] as const;
 const STACKED_PILLARS = ["p3", "p4"] as const;
+
+function HabitDuoFeature() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const reducedMotion = useReducedMotion();
+  const { t } = useLanguage();
+  const shouldShow = isInView || Boolean(reducedMotion);
+
+  const fadeUp = (delay: number) =>
+    reducedMotion
+      ? { initial: false as const, animate: { opacity: 1, y: 0 } }
+      : {
+          initial: { opacity: 0, y: 16 },
+          animate: shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
+          transition: { duration: 0.8, delay, ease: EASE_SOFT },
+        };
+
+  const phoneMotion = reducedMotion
+    ? { initial: false as const, animate: { opacity: 1, y: 0, scale: 1 } }
+    : {
+        initial: { opacity: 0, y: 26, scale: 0.985 },
+        animate: shouldShow
+          ? { opacity: 1, y: 0, scale: 1 }
+          : { opacity: 0, y: 26, scale: 0.985 },
+        transition: {
+          opacity: { duration: 1.0, delay: 0.05, ease: EASE_SOFT },
+          y: { duration: 1.1, delay: 0.05, ease: EASE_SOFT },
+          scale: { duration: 1.1, delay: 0.05, ease: EASE_SOFT },
+        },
+      };
+
+  return (
+    <article ref={sectionRef} className="four-pillars-habit-duo">
+      <div className="four-pillars-habit-duo__grid">
+        <div className="four-pillars-habit-duo__copy">
+          <div className="four-pillars-habit-duo__block">
+            <motion.h3
+              className="four-pillars-habit-duo__heading font-serif"
+              {...fadeUp(0.08)}
+            >
+              {t("home.pillars.p1.title")}
+            </motion.h3>
+            <motion.p
+              className="four-pillars-habit-duo__body text-muted-foreground"
+              {...fadeUp(0.18)}
+            >
+              {t("home.pillars.p1.body")}
+            </motion.p>
+          </div>
+          <div className="four-pillars-habit-duo__block">
+            <motion.h3
+              className="four-pillars-habit-duo__heading font-serif"
+              {...fadeUp(0.3)}
+            >
+              {t("home.pillars.p2.title")}
+            </motion.h3>
+            <motion.p
+              className="four-pillars-habit-duo__body text-muted-foreground"
+              {...fadeUp(0.4)}
+            >
+              {t("home.pillars.p2.body")}
+            </motion.p>
+          </div>
+        </div>
+        <motion.div className="four-pillars-habit-duo__phone-col" {...phoneMotion}>
+          <img
+            src="/assets/brain-booster-mockup.png"
+            alt="EpiMinded Brain Booster Preview"
+            width={517}
+            height={1113}
+            decoding="async"
+            loading="lazy"
+            className="four-pillars-habit-duo__phone"
+          />
+        </motion.div>
+      </div>
+    </article>
+  );
+}
 
 export default function FourPillars() {
   const { t } = useLanguage();
@@ -101,41 +149,18 @@ export default function FourPillars() {
       <div className="four-pillars__bg" aria-hidden="true" />
       <div className="four-pillars__overlay" aria-hidden="true" />
       <div className="container relative z-10">
-        <SectionHeader
-          eyebrow={t("home.pillars.eyebrow")}
-          title={t("home.pillars.title")}
-          subtitle={t("home.pillars.subtitle")}
-        />
+        <div className="four-pillars-intro">
+          <SectionHeader
+            eyebrow={t("home.pillars.eyebrow")}
+            title={t("home.pillars.title")}
+            subtitle={t("home.pillars.subtitle")}
+          />
+        </div>
 
         <div className="space-y-10 md:space-y-14">
-          <article className="four-pillars-feature">
-            <div className="four-pillars-feature__layout four-pillars-feature__layout--image-left four-pillars-feature__layout--habit-duo">
-              <div className="four-pillars-feature__copy four-pillars-feature__copy--stacked">
-                {HABIT_PILLARS.map((key) => (
-                  <div key={key} className="four-pillars-feature__block">
-                    <h3 className="font-serif text-3xl md:text-4xl mb-4">{t(`home.pillars.${key}.title`)}</h3>
-                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">
-                      {t(`home.pillars.${key}.body`)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <HabitDuoImage>
-                <div className="four-pillars-habit-preview four-pillars-habit-preview--brain-booster flex justify-center shrink-0">
-                  <img
-                    src="/assets/brain-booster-phone.png"
-                    alt="EpiMinded Brain Booster Preview"
-                    width={1563}
-                    height={1563}
-                    decoding="async"
-                    className="four-pillars-habit-preview__img"
-                  />
-                </div>
-              </HabitDuoImage>
-            </div>
-          </article>
+          <HabitDuoFeature />
 
-          <article className="four-pillars-feature">
+          <article className="four-pillars-feature four-pillars-feature--peer-row">
             <div className="four-pillars-feature__layout">
               <div className="four-pillars-feature__copy four-pillars-feature__copy--stacked">
                 {STACKED_PILLARS.map((key) => (

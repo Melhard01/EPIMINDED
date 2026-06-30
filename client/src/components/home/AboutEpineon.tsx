@@ -57,7 +57,7 @@ export default function AboutEpineon() {
       <div className="about-epineon__bg" aria-hidden="true" />
       <div className="about-epineon__overlay" aria-hidden="true" />
 
-      <div className="container relative z-10">
+      <div className="container relative z-10 flex justify-center">
         <div className="about-epineon__layout">
           <Reveal variant="up" className="about-epineon__copy">
             <span className="eyebrow-pill mb-6 inline-block">

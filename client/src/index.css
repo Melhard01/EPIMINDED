@@ -131,9 +131,33 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    overflow-x: hidden;
+    max-width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
   body {
     @apply text-foreground font-sans antialiased;
     background: #080808;
+    overflow-x: hidden;
+    max-width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 
   .dark section.bg-surface {
@@ -592,8 +616,7 @@
   /* How It Works — metallic grain abstract background */
   .how-journey {
     position: relative;
-    overflow-x: visible;
-    overflow-y: hidden;
+    overflow: hidden;
     isolation: isolate;
     box-shadow:
       inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
@@ -2790,8 +2813,7 @@
   /* What We Bring — frosted grey abstract background */
   .what-we-bring {
     position: relative;
-    overflow-x: visible;
-    overflow-y: hidden;
+    overflow: hidden;
     isolation: isolate;
     box-shadow:
       inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
@@ -2987,10 +3009,12 @@
   /* Four Pillars — golden abstract section background */
   .four-pillars {
     position: relative;
-    overflow-x: visible;
-    overflow-y: hidden;
+    overflow: hidden;
     isolation: isolate;
-    box-shadow: inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+    box-shadow:
+      inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
+      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+    max-width: 100%;
   }
 
   .four-pillars::before {
@@ -3004,6 +3028,23 @@
     pointer-events: none;
     background: linear-gradient(
       180deg,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(0, 0, 0, 0.52) 42%,
+      transparent 100%
+    );
+  }
+
+  .four-pillars::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: min(32vh, 14rem);
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      0deg,
       rgba(0, 0, 0, 0.88) 0%,
       rgba(0, 0, 0, 0.52) 42%,
       transparent 100%
@@ -3062,6 +3103,14 @@
     box-shadow: none;
   }
 
+  .four-pillars-feature--peer-row {
+    margin-top: clamp(3rem, 8vw, 5.5rem);
+  }
+
+  .four-pillars-feature--peer-row .four-pillars-feature__layout {
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+  }
+
   .four-pillars-feature__layout {
     --four-pillars-copy-image-gap: 2cm;
     display: flex;
@@ -3072,125 +3121,108 @@
     column-gap: var(--four-pillars-copy-image-gap);
   }
 
-  .four-pillars-feature__layout--habit-duo {
-    --brain-booster-height: clamp(640px, 78vw, 1120px);
-    --four-pillars-habit-duo-png-right-pad: 532;
-    --four-pillars-habit-duo-png-bottom-pad: 230;
-    --four-pillars-habit-duo-png-size: 1563;
-    --four-pillars-habit-duo-frame-gap: 2cm;
-    --four-pillars-copy-image-gap: 0;
-    --four-pillars-habit-duo-left-inset: clamp(1.5rem, 8vw, 6cm);
-    --four-pillars-habit-duo-right-inset: clamp(0rem, 4vw, 3cm);
+  /* Daily habit / Cognitive matching — balanced two-column composition */
+  .four-pillars-habit-duo {
+    position: relative;
+    min-height: 760px;
+    height: 92vh;
+    max-height: 880px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
     width: 100%;
-    max-width: 100%;
+  }
+
+  .four-pillars-habit-duo__grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 330px);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+    width: 100%;
+  }
+
+  .four-pillars-habit-duo__copy {
+    max-width: 34em;
     min-width: 0;
-    box-sizing: border-box;
-    padding-inline-start: var(--four-pillars-habit-duo-left-inset);
-    padding-inline-end: var(--four-pillars-habit-duo-right-inset);
+    align-self: center;
   }
 
-  .four-pillars-feature__layout--habit-duo > .four-pillars-feature__copy {
-    margin-top: calc(
-      var(--brain-booster-height) * var(--four-pillars-habit-duo-png-bottom-pad) / var(--four-pillars-habit-duo-png-size) * -1
-      + var(--four-pillars-habit-duo-frame-gap)
-    );
+  .four-pillars-habit-duo__block {
+    margin: 0;
   }
 
-  .four-pillars-feature__layout--habit-duo > .four-pillars-habit-duo__motion {
-    flex: 0 0 auto;
-    overflow: visible;
+  .four-pillars-habit-duo__block + .four-pillars-habit-duo__block {
+    margin-top: 2.75rem;
   }
 
-  @media (max-width: 767px) {
-    .four-pillars-feature__layout {
-      align-items: center;
-    }
+  .four-pillars-habit-duo__heading {
+    margin: 0 0 0.85rem;
+    line-height: 1.1;
+    font-size: 1.875rem;
+  }
 
-    .four-pillars-feature__layout--habit-duo {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        "habit-image"
-        "pillar-one"
-        "pillar-two";
-      gap: 2rem;
-      padding-inline: 0;
+  @media (min-width: 768px) {
+    .four-pillars-habit-duo__heading {
+      font-size: 2.25rem;
     }
+  }
 
-    .four-pillars-feature__layout--habit-duo > .four-pillars-feature__copy {
-      display: contents;
-      margin-top: 0;
-    }
+  .four-pillars-habit-duo__body {
+    display: block;
+    margin: 0;
+    padding: 0;
+    max-width: 33em;
+    line-height: 1.75;
+    font-size: clamp(1rem, 1.05vw, 1.075rem);
+    text-wrap: pretty;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
 
-    .four-pillars-feature__layout--habit-duo .four-pillars-feature__block:first-child {
-      grid-area: pillar-one;
-      width: 100%;
-    }
+  .four-pillars-habit-duo__phone-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+  }
 
-    .four-pillars-feature__layout--habit-duo .four-pillars-feature__block:last-child {
-      grid-area: pillar-two;
-      width: 100%;
-    }
+  .four-pillars-habit-duo__phone {
+    width: clamp(230px, 24vw, 300px);
+    height: auto;
+    aspect-ratio: 517 / 1113;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    object-view-box: 515px 221px 517px 1113px;
+  }
 
-    .four-pillars-feature__layout--habit-duo > .four-pillars-habit-duo__motion,
-    .four-pillars-feature__layout--habit-duo > .four-pillars-habit-duo__motion--mobile-static {
-      grid-area: habit-image;
-      justify-self: center;
-      align-self: center;
-      width: 100vw;
-      max-width: 100vw;
-      margin-inline: calc(50% - 50vw);
-    }
-
-    .four-pillars-habit-duo__motion--mobile-static {
-      opacity: 1;
-      transform: none;
-      transition: none;
-      will-change: auto;
-      overflow: visible;
-    }
-
-    .four-pillars-habit-preview--brain-booster {
-      width: 100%;
-      max-width: 100%;
-      margin-inline: auto;
-    }
-
-    .four-pillars-habit-duo__motion--mobile-static .four-pillars-habit-preview__img {
-      display: block;
-      width: 100%;
+  @media (max-width: 860px) {
+    .four-pillars-habit-duo {
       height: auto;
-      max-width: 100vw;
-      margin-inline: auto;
-      transform: scale(1.16);
-      transform-origin: center top;
+      min-height: 0;
+      max-height: none;
+      padding: clamp(3rem, 9vw, 4.5rem) 0;
     }
 
-    .four-pillars-feature__layout > .four-pillars-image-motion {
-      margin-inline: auto;
-      align-self: center;
+    .four-pillars-habit-duo__grid {
+      grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 8vw, 3.5rem);
     }
 
-    .four-pillars-habit-duo__motion.four-pillars-image-motion--pan-left-right {
-      transform: none;
+    .four-pillars-habit-duo__copy {
+      max-width: none;
+      order: 2;
     }
-  }
 
-  @media (min-width: 768px) {
-    .four-pillars-feature__layout--habit-duo > .four-pillars-habit-duo__motion {
-      margin-left: -8cm;
+    .four-pillars-habit-duo__phone-col {
+      order: 1;
     }
-  }
 
-  @media (min-width: 768px) {
-    .four-pillars-feature__layout--habit-duo > .four-pillars-feature__copy {
-      flex: 1 1 0;
-      max-width: 36rem;
-      margin-top: 0;
-      margin-inline-start: calc(
-        var(--brain-booster-height) * var(--four-pillars-habit-duo-png-right-pad) / var(--four-pillars-habit-duo-png-size) * -1
-        + var(--four-pillars-habit-duo-frame-gap)
-      );
+    .four-pillars-habit-duo__phone {
+      width: clamp(210px, 62vw, 260px);
     }
   }
 
@@ -3211,102 +3243,48 @@
     }
   }
 
-  .four-pillars-habit-preview {
-    --habit-preview-size: min(100%, 500px);
+  .four-pillars-feature__visual--peer {
+    width: min(100%, 18rem);
+    aspect-ratio: 352 / 740;
     flex: 0 0 auto;
-    width: var(--habit-preview-size);
-    max-width: 500px;
-    min-width: 0;
-    pointer-events: none;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    overflow: visible;
-    box-shadow: none;
-  }
-
-  .four-pillars-habit-preview__img {
-    display: block;
-    width: var(--habit-preview-size);
-    max-width: 500px;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
-    mix-blend-mode: normal;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  /* Brain Booster — full image, no crop */
-  .four-pillars-habit-preview--brain-booster {
-    width: auto;
-    max-width: none;
-    height: auto;
-    overflow: visible;
-    flex: 0 0 auto;
-    background: transparent;
-  }
-
-  .four-pillars-habit-preview--brain-booster .four-pillars-habit-preview__img {
-    display: block;
-    width: auto;
-    height: var(--brain-booster-height);
-    max-width: none;
-    margin: 0;
-    object-fit: contain;
-    object-position: center;
   }
 
   @media (max-width: 767px) {
-    .four-pillars-habit-preview--brain-booster {
-      width: 100%;
+    .four-pillars-intro {
+      margin-bottom: 2rem;
+    }
+
+    .four-pillars-intro > div {
       max-width: 100%;
+      margin-inline: 0;
+      text-align: left;
     }
 
-    .four-pillars-habit-preview--brain-booster .four-pillars-habit-preview__img {
-      width: 100%;
-      height: auto;
-      max-width: 100vw;
-      transform: scale(1.16);
-      transform-origin: center top;
-    }
-  }
-
-  @media (max-width: 1100px) and (min-width: 768px) {
-    .four-pillars-feature__layout--habit-duo {
-      --four-pillars-habit-duo-left-inset: clamp(1.25rem, 5vw, 3cm);
-      --four-pillars-habit-duo-right-inset: 0rem;
-      --brain-booster-height: clamp(600px, 76vw, 920px);
-    }
-  }
-
-  @media (max-width: 900px) and (min-width: 768px) {
-    .four-pillars-feature__layout--habit-duo {
-      --brain-booster-height: clamp(540px, 80vw, 820px);
+    .four-pillars-intro .text-center {
+      text-align: left;
     }
 
-    .four-pillars-habit-duo__motion.four-pillars-image-motion--pan-left-right {
-      transform: translate3d(-3.5rem, 0, 0);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .four-pillars-feature__layout--habit-duo {
-      align-items: center;
-      justify-content: flex-start;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .four-pillars-feature__layout--habit-duo {
-      --four-pillars-habit-duo-left-inset: clamp(2.5cm, 8vw, 7cm);
-      justify-content: center;
+    .four-pillars-intro .mx-auto {
+      margin-inline: 0;
     }
 
-    .four-pillars-feature__layout--habit-duo > .four-pillars-feature__copy {
-      flex: 0 1 auto;
+    .four-pillars-intro h2 {
+      font-size: clamp(1.625rem, 7vw, 2rem);
+      line-height: 1.2;
+    }
+
+    .four-pillars-intro p {
+      font-size: clamp(0.9375rem, 3.8vw, 1.0625rem);
+      line-height: 1.6;
+    }
+
+    .four-pillars-feature__layout {
+      align-items: stretch;
+    }
+
+    .four-pillars-feature__layout > .four-pillars-image-motion {
+      margin-inline: auto;
+      align-self: center;
     }
   }
 
@@ -3332,11 +3310,6 @@
     mix-blend-mode: normal;
   }
 
-  .four-pillars-feature__visual--peer {
-    width: min(100%, 18rem);
-    aspect-ratio: 352 / 740;
-  }
-
   .four-pillars-feature__image {
     display: block;
     width: 100%;
@@ -3351,6 +3324,14 @@
   }
 
   @media (min-width: 768px) {
+    .four-pillars-feature--peer-row {
+      margin-top: clamp(4rem, 9vw, 7rem);
+    }
+
+    .four-pillars-feature--peer-row .four-pillars-feature__layout {
+      padding-top: clamp(2rem, 5vw, 4rem);
+    }
+
     .four-pillars-feature__layout {
       flex-direction: row;
       align-items: center;
@@ -3404,10 +3385,6 @@
     transform: translate3d(-5rem, 0, 0);
   }
 
-  .four-pillars-habit-duo__motion.four-pillars-image-motion--pan-left-right {
-    transform: translate3d(-6rem, 0, 0);
-  }
-
   .four-pillars-image-motion--rise {
     transform: translate3d(0, 4rem, 0);
   }
@@ -3424,11 +3401,6 @@
     will-change: auto;
   }
 
-  .four-pillars-habit-duo__motion.four-pillars-image-motion--visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .four-pillars-image-motion {
       opacity: 1;
@@ -3440,8 +3412,7 @@
   /* About Epineon — golden silk abstract background */
   .about-epineon {
     position: relative;
-    overflow-x: visible;
-    overflow-y: hidden;
+    overflow: hidden;
     isolation: isolate;
   }
 
@@ -3498,20 +3469,21 @@
     }
   }
 
-  @media (min-width: 1024px) {
-    .about-epineon .container {
-      display: flex;
-      justify-content: center;
-      max-width: 1600px;
-    }
+  .about-epineon .container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: min(1600px, 100%);
+    margin-inline: auto;
   }
 
   .about-epineon__layout {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    width: 100%;
+    align-items: flex-start;
+    width: fit-content;
     max-width: 100%;
+    margin-inline: auto;
     gap: 0;
   }
 
@@ -3520,7 +3492,7 @@
     flex: 0 1 auto;
     min-width: 0;
     max-width: 36rem;
-    width: 100%;
+    width: auto;
     margin: 0;
     text-align: left;
   }
@@ -3528,9 +3500,9 @@
   .about-epineon__visual {
     order: 2;
     flex: 0 0 auto;
-    width: 100%;
+    width: auto;
     max-width: 100%;
-    margin: -3rem 0 0;
+    margin: 1cm 0 0;
     display: flex;
     justify-content: center;
     overflow: visible;
@@ -3560,9 +3532,9 @@
     .about-epineon__layout {
       flex-direction: row;
       align-items: center;
-      justify-content: center;
-      width: fit-content;
+      justify-content: flex-start;
       margin-inline: auto;
+      transform: translateX(clamp(1.5rem, 5vw, 4rem));
     }
 
     .about-epineon__copy {
@@ -3586,7 +3558,7 @@
 
   @media (min-width: 1280px) {
     .about-epineon__layout {
-      transform: translateX(clamp(2rem, 8vw, 7rem));
+      transform: translateX(clamp(2rem, 7vw, 6rem));
     }
 
     .about-epineon__image {
@@ -3636,8 +3608,7 @@
   /* Pain section — frosted gold/navy abstract background */
   .pain-section {
     position: relative;
-    overflow-x: visible;
-    overflow-y: hidden;
+    overflow: hidden;
     isolation: isolate;
     box-shadow:
       inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),

@@ -45,7 +45,7 @@ function App() {
           <LanguageProvider>
             <ApplicationModalProvider>
               <TooltipProvider>
-                <div className="dark min-h-screen relative">
+                <div className="dark min-h-screen relative overflow-x-hidden">
                   <PageBackground />
                   <div className="relative z-[1]">
                     <Toaster />
