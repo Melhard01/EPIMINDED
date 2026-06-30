@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionHeader from "@/components/shared/SectionHeader";
 import BringAccordionItem from "@/components/shared/BringAccordionItem";
+import EnterpriseCompletionSection from "@/components/EnterpriseCompletionSection";
 import EnterpriseHowSection from "@/components/EnterpriseHowSection";
 import Reveal from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
@@ -86,50 +87,7 @@ export default function Enterprise() {
           </div>
         </section>
 
-        <section className="builders-ceiling-section enterprise-completion-section pt-24 md:pt-32 lg:pt-40 relative overflow-hidden">
-          <div className="builders-ceiling-section__bg" aria-hidden="true" />
-          <div className="builders-ceiling-section__overlay" aria-hidden="true" />
-
-          <div className="container relative z-10 max-w-5xl">
-            <Reveal variant="fade" className="text-center">
-              <span className="eyebrow-pill mb-6 md:mb-8 inline-block">{t("enterprise.completion.eyebrow")}</span>
-            </Reveal>
-
-            <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
-              <Reveal variant="up" delay={80} className="md:col-span-5">
-                <h2 className="font-serif text-4xl md:text-4xl lg:text-5xl leading-snug">
-                  {t("enterprise.completion.title")}
-                </h2>
-              </Reveal>
-
-              <div className="md:col-span-7 space-y-6">
-                {t("enterprise.completion.body")
-                  .split("\n\n")
-                  .map((paragraph, i) => (
-                    <Reveal key={i} variant="up" delay={120 + i * 100}>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-                        {paragraph}
-                      </p>
-                    </Reveal>
-                  ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="enterprise-completion__image-outer relative z-10">
-            <Reveal variant="up" delay={200} className="w-full">
-              <img
-                src="/assets/enterprise-completion-meeting.png"
-                alt={t("enterprise.completion.imageAlt")}
-                width={1200}
-                height={675}
-                decoding="async"
-                loading="lazy"
-                className="enterprise-completion__image"
-              />
-            </Reveal>
-          </div>
-        </section>
+        <EnterpriseCompletionSection />
 
         <section className="builders-bring enterprise-bring-section pt-28 md:pt-36 lg:pt-44 pb-24 md:pb-32 lg:pb-40 relative overflow-hidden">
           <div className="enterprise-bring-section__bg" aria-hidden="true" />
