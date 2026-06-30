@@ -3545,6 +3545,38 @@
     mix-blend-mode: normal;
   }
 
+  @media (max-width: 1023px) {
+    .about-epineon__layout {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .about-epineon__copy p {
+      margin-bottom: 1rem;
+    }
+
+    .about-epineon__visual {
+      align-self: stretch;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: clamp(-2rem, -7vw, -1.25rem) auto 0;
+    }
+
+    .about-epineon__image {
+      object-view-box: 39px 327px 1060px 796px;
+      aspect-ratio: 1060 / 796;
+      width: auto;
+      height: clamp(26rem, 80vw, 42rem);
+      margin-inline: auto;
+      transform: translate3d(
+        clamp(0.75rem, 4vw, 1.5rem),
+        clamp(-1.5rem, -5vw, -2.5rem),
+        0
+      );
+    }
+  }
+
   @media (min-width: 1024px) {
     .about-epineon__layout {
       flex-direction: row;

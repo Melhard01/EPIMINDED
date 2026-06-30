@@ -337,7 +337,7 @@ export default function Navbar() {
                 </Link>
 
                 <div className="flex flex-col items-center gap-4 w-full">
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
+                  <p className="text-lg font-medium text-center text-foreground">
                     {t("nav.useCases")}
                   </p>
                   {useCaseLinks.map((link) => (
