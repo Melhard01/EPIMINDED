@@ -7,7 +7,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useApplicationModal } from "@/contexts/ApplicationModalContext";
 import PartnerSection from "@/components/PartnerSection";
 import PartnershipSection from "@/components/PartnershipSection";
-import HeroAuroraBackground from "@/components/HeroAuroraBackground";
 import BringAccordionItem from "@/components/shared/BringAccordionItem";
 import { smoothScrollToId } from "@/lib/smoothScroll";
 
@@ -29,9 +28,10 @@ export default function CommunityBuilders() {
       <main>
         <section
           id="for-community-builders"
-          className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-aurora"
+          className="builders-hero relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16"
         >
-          <HeroAuroraBackground variant="builders" />
+          <div className="builders-hero__bg" aria-hidden="true" />
+          <div className="builders-hero__overlay" aria-hidden="true" />
           <div className="container relative z-10 px-4 sm:px-6">
             <div className="hero-content max-w-4xl mx-auto text-center">
               <Reveal immediate>

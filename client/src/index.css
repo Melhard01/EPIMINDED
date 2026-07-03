@@ -1120,8 +1120,8 @@
   /* Enterprise — hero section */
   .enterprise-hero {
     isolation: isolate;
-    background-color: #080604;
-    box-shadow: inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.68);
+    background-color: #050505;
+    box-shadow: inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
   }
 
   .enterprise-hero::after {
@@ -1130,13 +1130,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: min(32vh, 14rem);
+    height: min(36vh, 16rem);
     z-index: 3;
     pointer-events: none;
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.9) 0%,
-      rgba(0, 0, 0, 0.55) 42%,
+      rgba(0, 0, 0, 0.96) 0%,
+      rgba(0, 0, 0, 0.68) 38%,
       transparent 100%
     );
   }
@@ -1145,14 +1145,11 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #080604;
-    background-image:
-      radial-gradient(ellipse 72% 58% at 14% 10%, rgba(255, 176, 88, 0.38) 0%, rgba(255, 140, 48, 0.16) 34%, transparent 68%),
-      linear-gradient(145deg, rgba(255, 190, 110, 0.2) 0%, rgba(18, 12, 8, 0.45) 46%, #080604 100%),
-      url("/assets/enterprise-hero-bg.png");
+    background-color: #080808;
+    background-image: url("/assets/enterprise-hero-bg.png");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top left;
+    background-position: left bottom;
   }
 
   .enterprise-hero__overlay {
@@ -1163,15 +1160,14 @@
     background:
       linear-gradient(
         180deg,
-        rgba(8, 6, 4, 0.2) 0%,
-        rgba(8, 6, 4, 0.08) 42%,
-        rgba(8, 6, 4, 0.28) 100%
+        rgba(0, 0, 0, 0.12) 0%,
+        rgba(0, 0, 0, 0.02) 42%,
+        rgba(0, 0, 0, 0.42) 100%
       ),
-      linear-gradient(
-        145deg,
-        rgba(255, 170, 80, 0.08) 0%,
-        rgba(8, 6, 4, 0.12) 52%,
-        rgba(8, 6, 4, 0.42) 100%
+      radial-gradient(
+        ellipse 72% 58% at 22% 78%,
+        rgba(196, 160, 100, 0.12) 0%,
+        transparent 62%
       );
   }
 
@@ -1179,7 +1175,75 @@
     content: "";
     position: absolute;
     inset: 0;
-    opacity: 0.32;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  /* Community Builders — hero section */
+  .builders-hero {
+    isolation: isolate;
+    background-color: #050505;
+    box-shadow: inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
+  }
+
+  .builders-hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: min(36vh, 16rem);
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.96) 0%,
+      rgba(0, 0, 0, 0.68) 38%,
+      transparent 100%
+    );
+  }
+
+  .builders-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: #000000;
+    background-image: url("/assets/builders-hero-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .builders-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.08) 0%,
+        rgba(0, 0, 0, 0.02) 42%,
+        rgba(0, 0, 0, 0.38) 100%
+      ),
+      radial-gradient(
+        ellipse 68% 52% at 82% 18%,
+        rgba(196, 168, 108, 0.1) 0%,
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 62% 48% at 18% 82%,
+        rgba(196, 168, 108, 0.08) 0%,
+        transparent 55%
+      );
+  }
+
+  .builders-hero__overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.42;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   }
@@ -1782,10 +1846,11 @@
   /* Enterprise — how section background */
   .enterprise-how-section {
     position: relative;
+    overflow: hidden;
     isolation: isolate;
     box-shadow:
-      inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
-      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.82),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.82);
   }
 
   .enterprise-how-section::before {
@@ -1794,13 +1859,13 @@
     top: 0;
     left: 0;
     right: 0;
-    height: min(32vh, 14rem);
+    height: min(36vh, 16rem);
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
@@ -1811,13 +1876,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: min(32vh, 14rem);
+    height: min(36vh, 16rem);
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
@@ -1826,17 +1891,8 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #141810;
-    background-image:
-      linear-gradient(
-        135deg,
-        rgba(255, 157, 0, 0.42) 0%,
-        rgba(200, 140, 40, 0.28) 28%,
-        rgba(80, 72, 38, 0.22) 52%,
-        rgba(26, 29, 22, 0.88) 78%,
-        #0a0c08 100%
-      ),
-      url("/assets/enterprise-how-bg.png");
+    background-color: #141610;
+    background-image: url("/assets/enterprise-how-bg.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top left;
@@ -1850,16 +1906,15 @@
     background:
       linear-gradient(
         180deg,
-        rgba(10, 12, 8, 0.46) 0%,
-        rgba(10, 12, 8, 0.1) 38%,
-        rgba(10, 12, 8, 0.16) 68%,
-        rgba(10, 12, 8, 0.5) 100%
+        rgba(0, 0, 0, 0.32) 0%,
+        rgba(0, 0, 0, 0.04) 40%,
+        rgba(0, 0, 0, 0.1) 62%,
+        rgba(0, 0, 0, 0.44) 100%
       ),
-      linear-gradient(
-        135deg,
-        rgba(255, 157, 0, 0.1) 0%,
-        rgba(20, 24, 16, 0.08) 48%,
-        rgba(10, 12, 8, 0.38) 100%
+      radial-gradient(
+        ellipse 68% 58% at 12% 10%,
+        rgba(242, 240, 230, 0.1) 0%,
+        transparent 58%
       );
   }
 
@@ -1867,7 +1922,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    opacity: 0.32;
+    opacity: 0.34;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   }
@@ -2243,11 +2298,11 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #050505;
+    background-color: #080808;
     background-image: url("/assets/partnership-section-bg.png");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: left top;
+    background-position: top right;
   }
 
   .partnership-section__overlay {
@@ -2258,16 +2313,15 @@
     background:
       linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.42) 0%,
-        rgba(0, 0, 0, 0.06) 40%,
+        rgba(0, 0, 0, 0.36) 0%,
+        rgba(0, 0, 0, 0.04) 40%,
         rgba(0, 0, 0, 0.1) 62%,
-        rgba(0, 0, 0, 0.46) 100%
+        rgba(0, 0, 0, 0.44) 100%
       ),
-      linear-gradient(
-        135deg,
-        rgba(196, 160, 68, 0.08) 0%,
-        transparent 42%,
-        rgba(0, 0, 0, 0.22) 100%
+      radial-gradient(
+        ellipse 72% 62% at 88% 12%,
+        rgba(196, 150, 72, 0.14) 0%,
+        transparent 62%
       );
   }
 
@@ -2671,6 +2725,66 @@
   .enterprise-completion-section {
     padding-block: clamp(4rem, 8vw, 6.5rem);
     margin-bottom: 0;
+    box-shadow:
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.82),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.82);
+  }
+
+  .enterprise-completion-section.builders-ceiling-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: min(36vh, 16rem);
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      transparent 100%
+    );
+  }
+
+  .enterprise-completion-section .builders-ceiling-section__bg {
+    background-color: #000000;
+    background-image: url("/assets/enterprise-completion-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .enterprise-completion-section .builders-ceiling-section__overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.36) 0%,
+        rgba(0, 0, 0, 0.04) 40%,
+        rgba(0, 0, 0, 0.08) 62%,
+        rgba(0, 0, 0, 0.4) 100%
+      ),
+      radial-gradient(
+        ellipse 68% 52% at 82% 18%,
+        rgba(196, 168, 108, 0.1) 0%,
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 62% 48% at 18% 82%,
+        rgba(196, 168, 108, 0.08) 0%,
+        transparent 55%
+      );
+  }
+
+  .enterprise-completion-section.builders-ceiling-section::after {
+    height: min(36vh, 16rem);
+    z-index: 3;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      transparent 100%
+    );
   }
 
   .enterprise-completion__inner {
@@ -2742,40 +2856,6 @@
     .enterprise-completion__figure {
       margin-top: clamp(2rem, 7vw, 3rem);
     }
-  }
-
-  .enterprise-completion-section .builders-ceiling-section__overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(5, 5, 5, 0.42) 0%,
-        rgba(5, 5, 5, 0.1) 36%,
-        rgba(5, 5, 5, 0.04) 58%,
-        rgba(72, 58, 42, 0.14) 78%,
-        rgba(42, 32, 22, 0.32) 100%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(5, 5, 5, 0.34) 0%,
-        rgba(5, 5, 5, 0.08) 48%,
-        rgba(92, 72, 46, 0.1) 100%
-      );
-  }
-
-  .enterprise-completion-section.builders-ceiling-section::after {
-    height: min(52vh, 22rem);
-    z-index: 3;
-    background: linear-gradient(
-      0deg,
-      #000000 0%,
-      #000000 5%,
-      rgba(14, 10, 7, 0.98) 16%,
-      rgba(42, 32, 22, 0.82) 34%,
-      rgba(78, 62, 44, 0.48) 54%,
-      rgba(108, 86, 60, 0.2) 72%,
-      rgba(128, 102, 72, 0.06) 88%,
-      transparent 100%
-    );
   }
 
   .trust-band {
