@@ -16,7 +16,7 @@ export const translations = {
     "home.hero.title.lead": "Soyez curieux. Ayez un but. Restez en avance.",
     "home.hero.title.accent": "Ensemble.",
     "home.hero.subtitle": "EpiMinded associe un insight quotidien calibré sur votre situation à un réseau de pairs choisis selon votre façon de penser. Construit autour de ce que l'IA ne peut pas vous donner : connexion humaine, expérience vécue, et les personnes qui sont passées par là où vous allez.",
-    "home.hero.cta.primary": "Rejoindre la beta",
+    "home.hero.cta.primary": "Postuler pour rejoindre",
     "home.hero.cta.secondary": "Voir comment ça marche",
 
     "home.doors.eyebrow": "TROIS PORTES · UNE PLATEFORME",
@@ -109,7 +109,7 @@ export const translations = {
     "hero.title.lead": "L'IA vous donne des réponses.",
     "hero.title.accent": "Elle ne vous donne pas de conviction.",
     "hero.subtitle": "Cinq minutes d'insights quotidiens calibrés sur où vous en êtes. Des conversations quotidiennes entre opérateurs de votre niveau. Un matching cognitif IA qui reconstruit le cercle que vous ne pensiez plus pouvoir reformer.",
-    "hero.cta.primary": "Rejoindre la beta",
+    "hero.cta.primary": "Postuler pour rejoindre",
     "hero.cta.secondary": "Comment ça marche",
     "hero.brandLine": "Une verticale d'Epineon",
 
@@ -240,7 +240,7 @@ export const translations = {
     "builders.hero.eyebrow": "POUR LES COMMUNITY BUILDERS",
     "builders.hero.title": "Votre communauté mérite mieux qu'un flux de contenu de plus.",
     "builders.hero.subtitle": "EpiMinded est la couche de rétention pour les fondateurs, figures publiques et créateurs éducatifs dont l'audience paye pour apprendre d'eux. Vous apportez la marque et l'audience. Nous apportons le stack de rétention.",
-    "builders.hero.cta.primary": "Devenir partenaire",
+    "builders.hero.cta.primary": "Postuler pour rejoindre",
     "builders.hero.cta.secondary": "Comment fonctionne le partenariat",
 
     "builders.ceiling.eyebrow": "LÀ OÙ ÇA DEVIENT DIFFICILE",
@@ -288,7 +288,7 @@ export const translations = {
     "enterprise.hero.eyebrow": "POUR LES ORGANISATIONS",
     "enterprise.hero.title": "Infrastructure cognitive pour toute votre organisation.",
     "enterprise.hero.subtitle": "Apportez EpiMinded à qui vous choisissez d'inclure — du C-level aux opérationnels, d'un département à toute l'entreprise. Des insights quotidiens qu'ils utilisent vraiment. Un réseau de pairs auquel ils font vraiment confiance.",
-    "enterprise.hero.cta.primary": "Réserver un appel de découverte",
+    "enterprise.hero.cta.primary": "Postuler pour rejoindre",
     "enterprise.hero.cta.secondary": "Voir ce que chaque membre reçoit",
 
     "enterprise.completion.eyebrow": "LÀ OÙ ÇA DEVIENT DIFFICILE",
@@ -366,7 +366,7 @@ export const translations = {
     "home.hero.title.lead": "Be curious. Have purpose. Stay ahead.",
     "home.hero.title.accent": "Together.",
     "home.hero.subtitle": "EpiMinded pairs a daily insight tuned to where you are with a peer network matched on how you think. Built around what AI cannot give you: human connection, lived experience, and the people who've been where you're going.",
-    "home.hero.cta.primary": "Join the beta",
+    "home.hero.cta.primary": "Apply to join",
     "home.hero.cta.secondary": "See how it works",
 
     "home.doors.eyebrow": "THREE DOORS · ONE PLATFORM",
@@ -459,7 +459,7 @@ export const translations = {
     "hero.title.lead": "AI gives you answers.",
     "hero.title.accent": "It doesn't give you conviction.",
     "hero.subtitle": "Five-minute daily insights tuned to where you are. Daily peer conversations with operators at your level. AI cognitive matching that builds the circle you didn't think you could rebuild.",
-    "hero.cta.primary": "Join the beta",
+    "hero.cta.primary": "Apply to join",
     "hero.cta.secondary": "How it works",
     "hero.brandLine": "A vertical of Epineon",
 
@@ -590,7 +590,7 @@ export const translations = {
     "builders.hero.eyebrow": "FOR COMMUNITY BUILDERS",
     "builders.hero.title": "Your community deserves more than another content stream.",
     "builders.hero.subtitle": "EpiMinded is the retention layer for founders, public figures, and education-driven creators whose audience pays to learn from them. You bring the brand and the audience. We bring the retention stack.",
-    "builders.hero.cta.primary": "Become a partner",
+    "builders.hero.cta.primary": "Apply to join",
     "builders.hero.cta.secondary": "How partnership works",
 
     "builders.ceiling.eyebrow": "WHERE IT GETS HARD",
@@ -638,7 +638,7 @@ export const translations = {
     "enterprise.hero.eyebrow": "FOR ORGANISATIONS",
     "enterprise.hero.title": "Cognitive infrastructure for your whole organisation.",
     "enterprise.hero.subtitle": "Bring EpiMinded to anyone you choose to include - from execs to operators, from one department to the whole company. Daily insights they actually use. A peer network they actually trust.",
-    "enterprise.hero.cta.primary": "Book a discovery call",
+    "enterprise.hero.cta.primary": "Apply to join",
     "enterprise.hero.cta.secondary": "See what each member gets",
 
     "enterprise.completion.eyebrow": "WHERE IT GETS HARD",

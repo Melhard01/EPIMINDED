@@ -38,7 +38,7 @@ export default function Hero() {
           <Reveal immediate>
             <div className="hero-cta">
               <Button
-                onClick={openApplication}
+                onClick={() => window.open("https://web2app-two.vercel.app/quiz", "_blank")}
                 className="hero-cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
               >
                 {t("hero.cta.primary")}
