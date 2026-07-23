@@ -78,20 +78,6 @@ function HabitDuoFeature() {
           transition: { duration: 0.8, delay, ease: EASE_SOFT },
         };
 
-  const phoneMotion = reducedMotion
-    ? { initial: false as const, animate: { opacity: 1, y: 0, scale: 1 } }
-    : {
-        initial: { opacity: 0, y: 26, scale: 0.985 },
-        animate: shouldShow
-          ? { opacity: 1, y: 0, scale: 1 }
-          : { opacity: 0, y: 26, scale: 0.985 },
-        transition: {
-          opacity: { duration: 1.0, delay: 0.05, ease: EASE_SOFT },
-          y: { duration: 1.1, delay: 0.05, ease: EASE_SOFT },
-          scale: { duration: 1.1, delay: 0.05, ease: EASE_SOFT },
-        },
-      };
-
   return (
     <article ref={sectionRef} className="four-pillars-habit-duo">
       <div className="four-pillars-habit-duo__grid">
@@ -125,17 +111,19 @@ function HabitDuoFeature() {
             </motion.p>
           </div>
         </div>
-        <motion.div className="four-pillars-habit-duo__phone-col" {...phoneMotion}>
-          <img
-            src="/assets/brain-booster-mockup.png"
-            alt="EpiMinded Brain Booster Preview"
-            width={517}
-            height={1113}
-            decoding="async"
-            loading="lazy"
-            className="four-pillars-habit-duo__phone"
-          />
-        </motion.div>
+        <div className="four-pillars-habit-duo__phone-col">
+          <FourPillarsImageMotion motion="rise" delay={80}>
+            <img
+              src="/assets/brain-booster-mockup.png"
+              alt="EpiMinded Brain Booster Preview"
+              width={517}
+              height={1113}
+              decoding="async"
+              loading="lazy"
+              className="four-pillars-habit-duo__phone"
+            />
+          </FourPillarsImageMotion>
+        </div>
       </div>
     </article>
   );

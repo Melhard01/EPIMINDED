@@ -3712,6 +3712,17 @@
     .about-epineon__layout {
       width: 100%;
       max-width: 100%;
+      align-items: center;
+    }
+
+    .about-epineon__copy {
+      width: 100%;
+      max-width: 36rem;
+      margin-inline: auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .about-epineon__copy p {
@@ -3719,7 +3730,7 @@
     }
 
     .about-epineon__visual {
-      align-self: stretch;
+      align-self: center;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -3733,7 +3744,7 @@
       height: clamp(26rem, 80vw, 42rem);
       margin-inline: auto;
       transform: translate3d(
-        clamp(0.75rem, 4vw, 1.5rem),
+        clamp(3.5rem, 12vw, 4.75rem),
         clamp(-1.5rem, -5vw, -2.5rem),
         0
       );
