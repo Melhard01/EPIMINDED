@@ -119,8 +119,11 @@ export default function ThreeDoors() {
 
   return (
     <section id="three-doors" className="three-doors section-padding">
-      <div className="three-doors__bg" aria-hidden="true" />
-      <div className="three-doors__overlay" aria-hidden="true" />
+      <div className="three-doors__bg" aria-hidden="true">
+        <span className="three-doors__glow three-doors__glow--a" />
+        <span className="three-doors__glow three-doors__glow--b" />
+      </div>
+      <div className="three-doors__grain" aria-hidden="true" />
 
       <div className="container three-doors__content relative z-10">
         <div className="three-doors__intro max-w-3xl mb-10 text-center mx-auto sm:mb-12 lg:mb-16">

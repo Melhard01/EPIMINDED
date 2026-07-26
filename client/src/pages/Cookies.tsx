@@ -10,7 +10,7 @@ export default function Cookies() {
         <p className="text-sm mb-8">Dernière mise à jour : 08 Décembre 2025</p>
         
         <p>
-          Cette politique relative aux cookies explique comment Epiminded ("Société", "nous", "notre" et "nos") utilise les cookies et des technologies similaires pour vous reconnaître lorsque vous visitez notre site web à l'adresse https://www.epiminded.com ("Site web"). Elle explique ce que sont ces technologies et pourquoi nous les utilisons, ainsi que vos droits pour contrôler notre utilisation de celles-ci.
+          Cette politique relative aux cookies explique comment SOULCHAIN ("Société", "nous", "notre" et "nos") utilise les cookies et des technologies similaires pour vous reconnaître lorsque vous visitez notre site web à l'adresse https://www.epiminded.com ("Site web"). Elle explique ce que sont ces technologies et pourquoi nous les utilisons, ainsi que vos droits pour contrôler notre utilisation de celles-ci.
         </p>
 
         <h2>Que sont les cookies ?</h2>
@@ -18,7 +18,7 @@ export default function Cookies() {
           Les cookies sont de petits fichiers de données qui sont placés sur votre ordinateur ou appareil mobile lorsque vous visitez un site web. Les cookies sont largement utilisés par les propriétaires de sites web afin de faire fonctionner leurs sites web, ou de les faire fonctionner plus efficacement, ainsi que pour fournir des informations de rapport.
         </p>
         <p>
-          Les cookies définis par le propriétaire du site web (dans ce cas, Epiminded) sont appelés "cookies internes". Les cookies définis par des parties autres que le propriétaire du site web sont appelés "cookies tiers". Les cookies tiers permettent de fournir des caractéristiques ou des fonctionnalités tierces sur ou via le site web (par exemple, la publicité, le contenu interactif et les analyses).
+          Les cookies définis par le propriétaire du site web (dans ce cas, SOULCHAIN) sont appelés "cookies internes". Les cookies définis par des parties autres que le propriétaire du site web sont appelés "cookies tiers". Les cookies tiers permettent de fournir des caractéristiques ou des fonctionnalités tierces sur ou via le site web (par exemple, la publicité, le contenu interactif et les analyses).
         </p>
 
         <h2>Pourquoi utilisons-nous des cookies ?</h2>
@@ -52,7 +52,7 @@ export default function Cookies() {
       <p className="text-sm mb-8">Last updated December 08, 2025</p>
       
       <p>
-        This Cookie Policy explains how Epiminded ("Company," "we," "us," and "our") uses cookies and similar technologies to recognize you when you visit our website at https://www.epiminded.com ("Website"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
+        This Cookie Policy explains how SOULCHAIN ("Company," "we," "us," and "our") uses cookies and similar technologies to recognize you when you visit our website at https://www.epiminded.com ("Website"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
       </p>
 
       <h2>What are cookies?</h2>
@@ -60,7 +60,7 @@ export default function Cookies() {
         Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.
       </p>
       <p>
-        Cookies set by the website owner (in this case, Epiminded) are called "first-party cookies." Cookies set by parties other than the website owner are called "third-party cookies." Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics).
+        Cookies set by the website owner (in this case, SOULCHAIN) are called "first-party cookies." Cookies set by parties other than the website owner are called "third-party cookies." Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics).
       </p>
 
       <h2>Why do we use cookies?</h2>

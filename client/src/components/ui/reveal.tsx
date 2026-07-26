@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export type RevealVariant = "up" | "down" | "left" | "right" | "scale" | "fade";
+export type RevealVariant = "up" | "down" | "left" | "right" | "scale" | "fade" | "rise";
 
 interface RevealProps {
   children: ReactNode;
@@ -39,6 +39,10 @@ const variantClasses: Record<RevealVariant, { hidden: string; visible: string }>
   fade: {
     hidden: "opacity-0",
     visible: "opacity-100",
+  },
+  rise: {
+    hidden: "opacity-0 translate-y-16",
+    visible: "opacity-100 translate-y-0",
   },
 };
 

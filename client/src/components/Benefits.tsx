@@ -82,7 +82,7 @@ export default function Benefits() {
       <div className="mt-24 md:mt-32 pt-16 border-t border-border">
         <Reveal className="container text-center">
           <h3 className="text-xl md:text-2xl font-serif text-foreground mb-8">
-            {language === "fr" ? "Téléchargez l'application EpiMinded" : "Download the EpiMinded App"}
+            {language === "fr" ? "Téléchargez l'application SOULCHAIN" : "Download the SOULCHAIN App"}
           </h3>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a

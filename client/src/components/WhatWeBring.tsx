@@ -29,8 +29,11 @@ export default function WhatWeBring() {
 
   return (
     <section className="what-we-bring section-padding">
-      <div className="what-we-bring__bg" aria-hidden="true" />
-      <div className="what-we-bring__overlay" aria-hidden="true" />
+      <div className="what-we-bring__bg" aria-hidden="true">
+        <span className="what-we-bring__glow what-we-bring__glow--a" />
+        <span className="what-we-bring__glow what-we-bring__glow--b" />
+      </div>
+      <div className="what-we-bring__grain" aria-hidden="true" />
 
       <div className="container relative z-10">
         <SectionHeader eyebrow={t("bring.eyebrow")} title={t("bring.title")} />

@@ -1,7 +1,7 @@
-# Brainstorming Design - EpiMinded Landing Page
+# Brainstorming Design - SOULCHAIN Landing Page
 
 ## Context
-EpiMinded is a cognitive assistant for entrepreneurs and leaders.
+SOULCHAIN is a cognitive assistant for entrepreneurs and leaders.
 **Keywords:** Clarity, Focus, Strategy, Calm, Intelligence, Future-proof.
 **Target Audience:** High-level entrepreneurs, founders, leaders.
 **Core Value:** "Less noise, more clarity."

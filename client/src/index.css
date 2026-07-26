@@ -267,7 +267,9 @@
   /* Homepage hero — aurora orb photo background */
   .home-hero {
     isolation: isolate;
-    box-shadow: inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+    box-shadow:
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -1.5rem 2.5rem -0.5rem rgba(0, 0, 0, 0.72);
   }
 
   .home-hero::after {
@@ -276,20 +278,20 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: min(32vh, 14rem);
+    height: min(36vh, 16rem);
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
 
   @media (min-width: 768px) {
     .home-hero__desktop-bottom-space {
-      height: 10rem;
+      height: 7.5rem;
     }
   }
 
@@ -298,10 +300,7 @@
     inset: 0;
     z-index: 0;
     background-color: #000000;
-    background-image: url("/assets/home-hero-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 72% center;
+    overflow: hidden;
   }
 
   .home-hero__overlay {
@@ -312,46 +311,35 @@
     background:
       linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.55) 0%,
-        rgba(0, 0, 0, 0.22) 42%,
-        rgba(0, 0, 0, 0.48) 72%,
-        rgba(0, 0, 0, 0.82) 100%
+        rgba(0, 0, 0, 0.28) 0%,
+        rgba(0, 0, 0, 0.06) 40%,
+        rgba(0, 0, 0, 0.18) 72%,
+        rgba(0, 0, 0, 0.58) 100%
       ),
       radial-gradient(
-        ellipse 68% 58% at 50% 44%,
-        rgba(0, 0, 0, 0.42) 0%,
-        rgba(0, 0, 0, 0.12) 52%,
+        ellipse 70% 60% at 50% 45%,
+        rgba(0, 0, 0, 0.08) 0%,
+        rgba(0, 0, 0, 0.04) 52%,
         transparent 72%
-      ),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0%, transparent 42%, rgba(0, 0, 0, 0.18) 100%);
+      );
   }
 
   @media (max-width: 639px) {
-    .home-hero__bg {
-      background-position: 68% center;
-    }
-
     .home-hero__overlay {
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.62) 0%,
-          rgba(0, 0, 0, 0.32) 45%,
-          rgba(0, 0, 0, 0.68) 72%,
-          rgba(0, 0, 0, 0.85) 100%
+          rgba(0, 0, 0, 0.32) 0%,
+          rgba(0, 0, 0, 0.1) 45%,
+          rgba(0, 0, 0, 0.28) 72%,
+          rgba(0, 0, 0, 0.62) 100%
         ),
         radial-gradient(
           ellipse 100% 72% at 50% 42%,
-          rgba(0, 0, 0, 0.38) 0%,
-          rgba(0, 0, 0, 0.15) 55%,
+          rgba(0, 0, 0, 0.12) 0%,
+          rgba(0, 0, 0, 0.06) 55%,
           transparent 78%
         );
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .home-hero__bg {
-      background-position: 78% center;
     }
   }
 
@@ -628,46 +616,45 @@
     background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(196, 160, 68, 0.06), transparent 72%);
   }
 
-  /* How It Works — metallic grain abstract background */
+  /* How It Works — same atmosphere as Why Now */
   .how-journey {
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    background: #0a0908;
     box-shadow:
-      inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
-      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
+  }
+
+  .how-journey::before,
+  .how-journey::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
   }
 
   .how-journey::before {
-    content: "";
-    position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
 
   .how-journey::after {
-    content: "";
-    position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
@@ -676,61 +663,70 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #080a0e;
-    background-image: url("/assets/how-it-works-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 36%;
+    pointer-events: none;
   }
 
-  .how-journey__overlay {
+  .how-journey__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .how-journey__glow--a {
+    top: -12%;
+    left: 6%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at center, rgba(198, 161, 91, 0.1), rgba(198, 161, 91, 0) 70%);
+    animation: how-journey-drift-a 34s ease-in-out infinite alternate;
+  }
+
+  .how-journey__glow--b {
+    bottom: -18%;
+    right: 2%;
+    width: 52vw;
+    height: 52vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at center, rgba(120, 90, 40, 0.12), rgba(120, 90, 40, 0) 70%);
+    animation: how-journey-drift-b 42s ease-in-out infinite alternate;
+  }
+
+  @keyframes how-journey-drift-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(40px, 28px, 0);
+    }
+  }
+
+  @keyframes how-journey-drift-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-46px, -24px, 0);
+    }
+  }
+
+  .how-journey__grain {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(8, 10, 14, 0.76) 0%,
-        rgba(8, 10, 14, 0.38) 38%,
-        rgba(8, 10, 14, 0.48) 68%,
-        rgba(8, 10, 14, 0.8) 100%
-      ),
-      radial-gradient(
-        ellipse 76% 62% at 50% 42%,
-        rgba(8, 10, 14, 0.14) 0%,
-        rgba(8, 10, 14, 0.56) 72%,
-        rgba(8, 10, 14, 0.86) 100%
-      );
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .how-journey__overlay::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.34;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  }
-
-  @media (max-width: 767px) {
-    .how-journey__bg {
-      background-position: center 32%;
-    }
-
-    .how-journey__overlay {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(8, 10, 14, 0.84) 0%,
-          rgba(8, 10, 14, 0.5) 50%,
-          rgba(8, 10, 14, 0.86) 100%
-        ),
-        radial-gradient(
-          ellipse 100% 74% at 50% 40%,
-          rgba(8, 10, 14, 0.18) 0%,
-          rgba(8, 10, 14, 0.82) 84%
-        );
+  @media (prefers-reduced-motion: reduce) {
+    .how-journey__glow--a,
+    .how-journey__glow--b {
+      animation: none;
     }
   }
 
@@ -1541,6 +1537,118 @@
 
   .step-number {
     @apply font-serif text-5xl md:text-6xl text-gold/20 leading-none select-none;
+  }
+
+  /* Shared Why Now atmosphere — warm dark + gold glows + soft grain + edge shadows */
+  .atmosphere-why-now {
+    background: #0a0908;
+    box-shadow:
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88) !important;
+  }
+
+  .atmosphere-why-now::before,
+  .atmosphere-why-now::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .atmosphere-why-now::before {
+    top: 0;
+    height: min(36vh, 16rem);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      transparent 100%
+    );
+  }
+
+  .atmosphere-why-now::after {
+    bottom: 0;
+    height: min(36vh, 16rem);
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      transparent 100%
+    );
+  }
+
+  .atmosphere-why-now__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .atmosphere-why-now__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .atmosphere-why-now__glow--a {
+    top: -12%;
+    left: 6%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at center, rgba(198, 161, 91, 0.1), rgba(198, 161, 91, 0) 70%);
+    animation: atmosphere-why-now-drift-a 34s ease-in-out infinite alternate;
+  }
+
+  .atmosphere-why-now__glow--b {
+    bottom: -18%;
+    right: 2%;
+    width: 52vw;
+    height: 52vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at center, rgba(120, 90, 40, 0.12), rgba(120, 90, 40, 0) 70%);
+    animation: atmosphere-why-now-drift-b 42s ease-in-out infinite alternate;
+  }
+
+  @keyframes atmosphere-why-now-drift-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(40px, 28px, 0);
+    }
+  }
+
+  @keyframes atmosphere-why-now-drift-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-46px, -24px, 0);
+    }
+  }
+
+  .atmosphere-why-now__grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .atmosphere-why-now__glow--a,
+    .atmosphere-why-now__glow--b {
+      animation: none;
+    }
   }
 
   /* Community Builders — bring section */
@@ -2976,46 +3084,45 @@
     color: var(--foreground);
   }
 
-  /* What We Bring — frosted grey abstract background */
+  /* What We Bring — same atmosphere as Why Now */
   .what-we-bring {
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    background: #0a0908;
     box-shadow:
-      inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
-      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
+  }
+
+  .what-we-bring::before,
+  .what-we-bring::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
   }
 
   .what-we-bring::before {
-    content: "";
-    position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
 
   .what-we-bring::after {
-    content: "";
-    position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       0deg,
-      rgba(10, 11, 13, 0.92) 0%,
-      rgba(10, 11, 13, 0.58) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
@@ -3024,61 +3131,70 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #0a0b0d;
-    background-image: url("/assets/what-we-bring-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 40%;
+    pointer-events: none;
   }
 
-  .what-we-bring__overlay {
+  .what-we-bring__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .what-we-bring__glow--a {
+    top: -12%;
+    left: 6%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at center, rgba(198, 161, 91, 0.1), rgba(198, 161, 91, 0) 70%);
+    animation: what-we-bring-drift-a 34s ease-in-out infinite alternate;
+  }
+
+  .what-we-bring__glow--b {
+    bottom: -18%;
+    right: 2%;
+    width: 52vw;
+    height: 52vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at center, rgba(120, 90, 40, 0.12), rgba(120, 90, 40, 0) 70%);
+    animation: what-we-bring-drift-b 42s ease-in-out infinite alternate;
+  }
+
+  @keyframes what-we-bring-drift-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(40px, 28px, 0);
+    }
+  }
+
+  @keyframes what-we-bring-drift-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-46px, -24px, 0);
+    }
+  }
+
+  .what-we-bring__grain {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(10, 11, 13, 0.78) 0%,
-        rgba(10, 11, 13, 0.42) 36%,
-        rgba(10, 11, 13, 0.5) 68%,
-        rgba(10, 11, 13, 0.82) 100%
-      ),
-      radial-gradient(
-        ellipse 74% 60% at 48% 44%,
-        rgba(10, 11, 13, 0.16) 0%,
-        rgba(10, 11, 13, 0.58) 70%,
-        rgba(10, 11, 13, 0.86) 100%
-      );
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .what-we-bring__overlay::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.32;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  }
-
-  @media (max-width: 767px) {
-    .what-we-bring__bg {
-      background-position: center 36%;
-    }
-
-    .what-we-bring__overlay {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(10, 11, 13, 0.86) 0%,
-          rgba(10, 11, 13, 0.52) 50%,
-          rgba(10, 11, 13, 0.88) 100%
-        ),
-        radial-gradient(
-          ellipse 100% 74% at 50% 42%,
-          rgba(10, 11, 13, 0.2) 0%,
-          rgba(10, 11, 13, 0.84) 84%
-        );
+  @media (prefers-reduced-motion: reduce) {
+    .what-we-bring__glow--a,
+    .what-we-bring__glow--b {
+      animation: none;
     }
   }
 
@@ -3172,47 +3288,46 @@
     @apply flex items-center justify-center h-12 px-6 rounded-lg border border-border/60 bg-surface/50 text-muted-foreground/40 font-serif text-sm tracking-widest transition-all duration-300 hover:border-gold/30 hover:text-gold/60;
   }
 
-  /* Four Pillars — golden abstract section background */
+  /* Four Pillars — same atmosphere as Why Now / Three Doors */
   .four-pillars {
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    box-shadow:
-      inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
-      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+    background: #0a0908;
     max-width: 100%;
+    box-shadow:
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
+  }
+
+  .four-pillars::before,
+  .four-pillars::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
   }
 
   .four-pillars::before {
-    content: "";
-    position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
 
   .four-pillars::after {
-    content: "";
-    position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
@@ -3221,43 +3336,70 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #080808;
-    background-image: url("/assets/four-pillars-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    pointer-events: none;
   }
 
-  .four-pillars__overlay {
+  .four-pillars__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .four-pillars__glow--a {
+    top: -12%;
+    left: 6%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at center, rgba(198, 161, 91, 0.1), rgba(198, 161, 91, 0) 70%);
+    animation: four-pillars-drift-a 34s ease-in-out infinite alternate;
+  }
+
+  .four-pillars__glow--b {
+    bottom: -18%;
+    right: 2%;
+    width: 52vw;
+    height: 52vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at center, rgba(120, 90, 40, 0.12), rgba(120, 90, 40, 0) 70%);
+    animation: four-pillars-drift-b 42s ease-in-out infinite alternate;
+  }
+
+  @keyframes four-pillars-drift-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(40px, 28px, 0);
+    }
+  }
+
+  @keyframes four-pillars-drift-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-46px, -24px, 0);
+    }
+  }
+
+  .four-pillars__grain {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.78) 0%,
-        rgba(8, 8, 8, 0.38) 42%,
-        rgba(8, 8, 8, 0.48) 72%,
-        rgba(8, 8, 8, 0.72) 100%
-      ),
-      radial-gradient(ellipse 85% 55% at 50% 38%, rgba(8, 8, 8, 0.2), rgba(8, 8, 8, 0.55) 72%);
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  @media (max-width: 767px) {
-    .four-pillars__bg {
-      background-position: center 40%;
-    }
-
-    .four-pillars__overlay {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(8, 8, 8, 0.72) 0%,
-          rgba(8, 8, 8, 0.48) 50%,
-          rgba(8, 8, 8, 0.78) 100%
-        ),
-        radial-gradient(ellipse 100% 70% at 50% 35%, rgba(8, 8, 8, 0.15), rgba(8, 8, 8, 0.65) 75%);
+  @media (prefers-reduced-motion: reduce) {
+    .four-pillars__glow--a,
+    .four-pillars__glow--b {
+      animation: none;
     }
   }
 
@@ -3410,7 +3552,7 @@
   }
 
   .four-pillars-feature__visual--peer {
-    width: min(100%, 18rem);
+    width: min(100%, 19rem);
     min-width: 0;
     aspect-ratio: 352 / 740;
     flex: 0 0 auto;
@@ -3456,13 +3598,13 @@
 
     .four-pillars-feature--peer-row .four-pillars-feature__layout > .four-pillars-image-motion {
       min-width: 0;
-      width: min(64vw, 17rem);
-      max-width: 17rem;
+      width: min(67vw, 18rem);
+      max-width: 18rem;
     }
 
     .four-pillars-feature--peer-row .four-pillars-feature__visual--peer {
       width: 100%;
-      max-width: 17rem;
+      max-width: 18rem;
       min-width: 0;
     }
   }
@@ -3534,7 +3676,7 @@
     }
 
     .four-pillars-feature__visual--peer {
-      width: min(100%, 18rem);
+      width: min(100%, 19rem);
     }
   }
 
@@ -3544,7 +3686,7 @@
     }
 
     .four-pillars-feature__visual--peer {
-      width: min(100%, 17rem);
+      width: min(100%, 19.5rem);
     }
   }
 
@@ -3589,63 +3731,117 @@
     }
   }
 
-  /* About Epineon — golden silk abstract background */
+  /* About Epineon — same atmosphere as Why Now / Three Doors / Four Pillars */
   .about-epineon {
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    background: #0a0908;
+    box-shadow:
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
+  }
+
+  .about-epineon::before,
+  .about-epineon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .about-epineon::before {
+    top: 0;
+    height: min(36vh, 16rem);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      transparent 100%
+    );
+  }
+
+  .about-epineon::after {
+    bottom: 0;
+    height: min(36vh, 16rem);
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      transparent 100%
+    );
   }
 
   .about-epineon__bg {
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #000000;
-    background-image: url("/assets/about-epineon-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    pointer-events: none;
   }
 
-  .about-epineon__overlay {
+  .about-epineon__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .about-epineon__glow--a {
+    top: -12%;
+    left: 6%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at center, rgba(198, 161, 91, 0.1), rgba(198, 161, 91, 0) 70%);
+    animation: about-epineon-drift-a 34s ease-in-out infinite alternate;
+  }
+
+  .about-epineon__glow--b {
+    bottom: -18%;
+    right: 2%;
+    width: 52vw;
+    height: 52vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at center, rgba(120, 90, 40, 0.12), rgba(120, 90, 40, 0) 70%);
+    animation: about-epineon-drift-b 42s ease-in-out infinite alternate;
+  }
+
+  @keyframes about-epineon-drift-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(40px, 28px, 0);
+    }
+  }
+
+  @keyframes about-epineon-drift-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-46px, -24px, 0);
+    }
+  }
+
+  .about-epineon__grain {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.72) 0%,
-        rgba(0, 0, 0, 0.55) 28%,
-        rgba(0, 0, 0, 0.62) 58%,
-        rgba(0, 0, 0, 0.78) 100%
-      ),
-      radial-gradient(
-        ellipse 68% 52% at 50% 48%,
-        rgba(0, 0, 0, 0.35) 0%,
-        rgba(0, 0, 0, 0.72) 72%,
-        rgba(0, 0, 0, 0.88) 100%
-      );
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  @media (max-width: 767px) {
-    .about-epineon__bg {
-      background-position: center 46%;
-    }
-
-    .about-epineon__overlay {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.78) 0%,
-          rgba(0, 0, 0, 0.62) 42%,
-          rgba(0, 0, 0, 0.82) 100%
-        ),
-        radial-gradient(
-          ellipse 100% 68% at 50% 46%,
-          rgba(0, 0, 0, 0.28) 0%,
-          rgba(0, 0, 0, 0.78) 80%
-        );
+  @media (prefers-reduced-motion: reduce) {
+    .about-epineon__glow--a,
+    .about-epineon__glow--b {
+      animation: none;
     }
   }
 
@@ -3828,46 +4024,45 @@
     }
   }
 
-  /* Pain section — frosted gold/navy abstract background */
+  /* Pain section — same atmosphere as Why Now */
   .pain-section {
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    background: #0a0908;
     box-shadow:
-      inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
-      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
+  }
+
+  .pain-section::before,
+  .pain-section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
   }
 
   .pain-section::before {
-    content: "";
-    position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
 
   .pain-section::after {
-    content: "";
-    position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
@@ -3876,61 +4071,70 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #06080c;
-    background-image: url("/assets/where-it-gets-hard-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 42%;
+    pointer-events: none;
   }
 
-  .pain-section__overlay {
+  .pain-section__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .pain-section__glow--a {
+    top: -12%;
+    left: 6%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at center, rgba(198, 161, 91, 0.1), rgba(198, 161, 91, 0) 70%);
+    animation: pain-section-drift-a 34s ease-in-out infinite alternate;
+  }
+
+  .pain-section__glow--b {
+    bottom: -18%;
+    right: 2%;
+    width: 52vw;
+    height: 52vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at center, rgba(120, 90, 40, 0.12), rgba(120, 90, 40, 0) 70%);
+    animation: pain-section-drift-b 42s ease-in-out infinite alternate;
+  }
+
+  @keyframes pain-section-drift-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(40px, 28px, 0);
+    }
+  }
+
+  @keyframes pain-section-drift-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-46px, -24px, 0);
+    }
+  }
+
+  .pain-section__grain {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(6, 8, 12, 0.82) 0%,
-        rgba(6, 8, 12, 0.48) 34%,
-        rgba(6, 8, 12, 0.55) 68%,
-        rgba(6, 8, 12, 0.84) 100%
-      ),
-      radial-gradient(
-        ellipse 72% 58% at 52% 46%,
-        rgba(6, 8, 12, 0.2) 0%,
-        rgba(6, 8, 12, 0.62) 68%,
-        rgba(6, 8, 12, 0.88) 100%
-      );
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .pain-section__overlay::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.35;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  }
-
-  @media (max-width: 767px) {
-    .pain-section__bg {
-      background-position: center 38%;
-    }
-
-    .pain-section__overlay {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(6, 8, 12, 0.88) 0%,
-          rgba(6, 8, 12, 0.58) 48%,
-          rgba(6, 8, 12, 0.9) 100%
-        ),
-        radial-gradient(
-          ellipse 100% 72% at 50% 44%,
-          rgba(6, 8, 12, 0.24) 0%,
-          rgba(6, 8, 12, 0.82) 82%
-        );
+  @media (prefers-reduced-motion: reduce) {
+    .pain-section__glow--a,
+    .pain-section__glow--b {
+      animation: none;
     }
   }
 
@@ -3985,14 +4189,14 @@
     background-color: #000000;
   }
 
-  /* Founder cohort form — mesh gradient background */
+  /* Founder cohort — dark grain (same treatment as Three Doors) */
   .founder-cohort-section {
     position: relative;
     overflow: hidden;
     isolation: isolate;
     box-shadow:
       inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62),
-      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+      inset 0 -3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.55);
   }
 
   .founder-cohort-section::before {
@@ -4033,11 +4237,11 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #0c1118;
+    background-color: #0a0a0a;
     background-image: url("/assets/founder-cohort-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 68% 92%;
+    background-repeat: repeat;
+    background-size: 280px auto;
+    background-position: center top;
   }
 
   .founder-cohort-section__overlay {
@@ -4048,16 +4252,10 @@
     background:
       linear-gradient(
         180deg,
-        rgba(12, 17, 24, 0.74) 0%,
-        rgba(12, 17, 24, 0.34) 42%,
-        rgba(12, 17, 24, 0.28) 62%,
-        rgba(12, 17, 24, 0.62) 100%
-      ),
-      radial-gradient(
-        ellipse 68% 58% at 78% 88%,
-        rgba(245, 236, 220, 0.14) 0%,
-        rgba(12, 17, 24, 0.18) 52%,
-        rgba(12, 17, 24, 0.72) 100%
+        rgba(0, 0, 0, 0.68) 0%,
+        rgba(0, 0, 0, 0.48) 40%,
+        rgba(0, 0, 0, 0.52) 70%,
+        rgba(0, 0, 0, 0.72) 100%
       );
   }
 
@@ -4067,56 +4265,70 @@
     inset: 0;
     opacity: 0.22;
     mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    pointer-events: none;
   }
 
   @media (max-width: 767px) {
     .founder-cohort-section__bg {
-      background-position: 62% 96%;
+      background-size: 220px auto;
     }
 
     .founder-cohort-section__overlay {
       background:
         linear-gradient(
           180deg,
-          rgba(12, 17, 24, 0.82) 0%,
-          rgba(12, 17, 24, 0.42) 48%,
-          rgba(12, 17, 24, 0.72) 100%
-        ),
-        radial-gradient(
-          ellipse 90% 72% at 72% 92%,
-          rgba(245, 236, 220, 0.1) 0%,
-          rgba(12, 17, 24, 0.78) 84%
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0.5) 45%,
+          rgba(0, 0, 0, 0.74) 100%
         );
     }
   }
 
   /* Home CTA — inherits founder-cohort-section background + top shadow */
   .home-cta {
-    background-color: #0c1118;
+    background-color: #0a0a0a;
   }
 
-  /* Three Doors — golden abstract photo background */
+  /* Three Doors — same atmosphere as Why Now (warm dark + gold glows + grain) */
   .three-doors {
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    box-shadow: inset 0 3.5rem 4.5rem -2rem rgba(0, 0, 0, 0.62);
+    background: #0a0908;
+    box-shadow:
+      inset 0 4rem 5rem -2rem rgba(0, 0, 0, 0.88),
+      inset 0 -4rem 5rem -2rem rgba(0, 0, 0, 0.88);
+  }
+
+  .three-doors::before,
+  .three-doors::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    pointer-events: none;
   }
 
   .three-doors::before {
-    content: "";
-    position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: min(32vh, 14rem);
-    z-index: 2;
-    pointer-events: none;
+    height: min(36vh, 16rem);
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.52) 42%,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      transparent 100%
+    );
+  }
+
+  .three-doors::after {
+    bottom: 0;
+    height: min(36vh, 16rem);
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
       transparent 100%
     );
   }
@@ -4125,52 +4337,70 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: #000000;
-    background-image: url("/assets/three-doors-bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    pointer-events: none;
   }
 
-  .three-doors__overlay {
+  .three-doors__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .three-doors__glow--a {
+    top: -12%;
+    left: 6%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 640px;
+    max-height: 640px;
+    background: radial-gradient(circle at center, rgba(198, 161, 91, 0.1), rgba(198, 161, 91, 0) 70%);
+    animation: three-doors-drift-a 34s ease-in-out infinite alternate;
+  }
+
+  .three-doors__glow--b {
+    bottom: -18%;
+    right: 2%;
+    width: 52vw;
+    height: 52vw;
+    max-width: 720px;
+    max-height: 720px;
+    background: radial-gradient(circle at center, rgba(120, 90, 40, 0.12), rgba(120, 90, 40, 0) 70%);
+    animation: three-doors-drift-b 42s ease-in-out infinite alternate;
+  }
+
+  @keyframes three-doors-drift-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(40px, 28px, 0);
+    }
+  }
+
+  @keyframes three-doors-drift-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-46px, -24px, 0);
+    }
+  }
+
+  .three-doors__grain {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.78) 0%,
-        rgba(0, 0, 0, 0.32) 38%,
-        rgba(0, 0, 0, 0.38) 68%,
-        rgba(0, 0, 0, 0.68) 100%
-      ),
-      radial-gradient(
-        ellipse 72% 58% at 50% 44%,
-        rgba(0, 0, 0, 0.12) 0%,
-        rgba(0, 0, 0, 0.48) 72%,
-        rgba(0, 0, 0, 0.78) 100%
-      );
+    opacity: 0.05;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  @media (max-width: 767px) {
-    .three-doors__bg {
-      background-position: center 42%;
-    }
-
-    .three-doors__overlay {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.68) 0%,
-          rgba(0, 0, 0, 0.42) 45%,
-          rgba(0, 0, 0, 0.72) 100%
-        ),
-        radial-gradient(
-          ellipse 100% 70% at 50% 40%,
-          rgba(0, 0, 0, 0.1) 0%,
-          rgba(0, 0, 0, 0.62) 78%
-        );
+  @media (prefers-reduced-motion: reduce) {
+    .three-doors__glow--a,
+    .three-doors__glow--b {
+      animation: none;
     }
   }
 

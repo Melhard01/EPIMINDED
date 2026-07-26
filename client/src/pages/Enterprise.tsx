@@ -1,3 +1,4 @@
+import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -35,6 +36,7 @@ function MemberCard({ cardKey, index }: { cardKey: MemberCardKey; index: number 
 
 export default function Enterprise() {
   const { t } = useLanguage();
+  const [, setLocation] = useLocation();
 
   const scrollToMember = () => {
     smoothScrollToId("member-experience");
@@ -53,23 +55,24 @@ export default function Enterprise() {
 
           <div className="container relative z-10 px-4 sm:px-6">
             <div className="hero-content max-w-4xl mx-auto text-center">
-              <Reveal immediate>
+              <Reveal variant="rise" delay={0} duration={1100}>
                 <span className="eyebrow-pill hero-eyebrow">{t("enterprise.hero.eyebrow")}</span>
               </Reveal>
-              <Reveal immediate>
+              <Reveal variant="rise" delay={120} duration={1100}>
                 <h1 className="font-serif hero-headline text-balance">
                   {t("enterprise.hero.title")}
                 </h1>
               </Reveal>
-              <Reveal immediate>
+              <Reveal variant="rise" delay={240} duration={1100}>
                 <p className="hero-subtitle text-muted-foreground text-balance">
                   {t("enterprise.hero.subtitle")}
                 </p>
               </Reveal>
-              <Reveal immediate>
+              <Reveal variant="rise" delay={360} duration={1100}>
                 <div className="hero-cta">
                   <Button
-                    onClick={() => window.open("https://web2app-two.vercel.app/quiz", "_blank")}
+                    type="button"
+                    onClick={() => setLocation("/quiz")}
                     className="hero-cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
                   >
                     {t("enterprise.hero.cta.primary")}
@@ -89,9 +92,12 @@ export default function Enterprise() {
 
         <EnterpriseCompletionSection />
 
-        <section className="builders-bring enterprise-bring-section pt-28 md:pt-36 lg:pt-44 pb-24 md:pb-32 lg:pb-40 relative overflow-hidden">
-          <div className="enterprise-bring-section__bg" aria-hidden="true" />
-          <div className="enterprise-bring-section__overlay" aria-hidden="true" />
+        <section className="builders-bring enterprise-bring-section atmosphere-why-now pt-28 md:pt-36 lg:pt-44 pb-24 md:pb-32 lg:pb-40 relative overflow-hidden">
+          <div className="atmosphere-why-now__bg" aria-hidden="true">
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+          </div>
+          <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
           <div className="container relative z-10">
             <SectionHeader eyebrow={t("enterprise.bring.eyebrow")} title={t("enterprise.bring.title")} />
@@ -128,9 +134,12 @@ export default function Enterprise() {
           </div>
         </section>
 
-        <section id="member-experience" className="enterprise-member-section section-padding relative overflow-hidden">
-          <div className="enterprise-member-section__bg" aria-hidden="true" />
-          <div className="enterprise-member-section__overlay" aria-hidden="true" />
+        <section id="member-experience" className="enterprise-member-section atmosphere-why-now section-padding relative overflow-hidden">
+          <div className="atmosphere-why-now__bg" aria-hidden="true">
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+          </div>
+          <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
           <div className="container relative z-10">
             <SectionHeader eyebrow={t("enterprise.member.eyebrow")} title={t("enterprise.member.title")} />
@@ -155,9 +164,12 @@ export default function Enterprise() {
 
         <EnterpriseHowSection />
 
-        <section className="enterprise-final-cta-section section-padding relative overflow-hidden">
-          <div className="enterprise-final-cta-section__bg" aria-hidden="true" />
-          <div className="enterprise-final-cta-section__overlay" aria-hidden="true" />
+        <section className="enterprise-final-cta-section atmosphere-why-now section-padding relative overflow-hidden">
+          <div className="atmosphere-why-now__bg" aria-hidden="true">
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+          </div>
+          <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
           <div className="container relative z-10 max-w-3xl text-center">
             <Reveal variant="scale">

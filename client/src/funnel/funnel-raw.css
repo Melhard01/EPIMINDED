@@ -1,0 +1,280 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #000000;
+  color: #e6e3da;
+  -webkit-font-smoothing: antialiased;
+  max-width: 100%;
+  scrollbar-gutter: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Keep horizontal overflow clipped without breaking position:sticky navbar. */
+html {
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Black canvas with a warm gold glow rising from the lower-left (brand hero). */
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      130% 95% at 0% 100%,
+      rgba(184, 145, 60, 0.30),
+      rgba(120, 95, 40, 0.06) 38%,
+      transparent 60%
+    ),
+    #000000;
+  background-attachment: fixed;
+}
+
+@layer components {
+  .kicker {
+    @apply font-mono text-[12px] uppercase tracking-kicker text-gold;
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-eyebrow text-muted;
+  }
+  .lab {
+    @apply font-mono text-[11px] uppercase tracking-label text-muted;
+  }
+
+  /* Quiz / choice option button — glassmorphism cards. */
+  .opt {
+    @apply flex w-full items-start gap-3.5 rounded-[13px] border border-gold/70 px-[17px] py-4 text-left text-base leading-snug text-body backdrop-blur-2xl ring-1 ring-white/10;
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.06) 45%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(212, 175, 55, 0.14),
+      0 14px 36px rgba(0, 0, 0, 0.5);
+    transition:
+      border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.3s ease;
+  }
+  .opt:hover {
+    border-color: rgba(228, 198, 107, 0.95);
+    color: #f4ead0;
+    background: linear-gradient(
+      160deg,
+      rgba(228, 198, 107, 0.28) 0%,
+      rgba(201, 162, 75, 0.14) 42%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 240, 200, 0.28),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.38),
+      0 0 0 1px rgba(228, 198, 107, 0.35),
+      0 0 28px rgba(201, 162, 75, 0.28),
+      0 0 56px rgba(201, 162, 75, 0.14),
+      0 18px 42px rgba(0, 0, 0, 0.55);
+    transform: translateY(-1px);
+  }
+  .opt:hover .ltr {
+    border-color: rgba(228, 198, 107, 0.55);
+    background: rgba(201, 162, 75, 0.18);
+    color: var(--color-gold-hi, #e4c66b);
+    box-shadow: 0 0 14px rgba(201, 162, 75, 0.25);
+  }
+  .opt.sel {
+    border-color: rgba(201, 162, 75, 0.55);
+    background: linear-gradient(
+      160deg,
+      rgba(201, 162, 75, 0.16) 0%,
+      rgba(255, 255, 255, 0.05) 45%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 240, 200, 0.18),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(201, 162, 75, 0.22),
+      0 0 22px rgba(201, 162, 75, 0.12),
+      0 14px 36px rgba(0, 0, 0, 0.5);
+  }
+  .opt.sel:hover {
+    border-color: rgba(228, 198, 107, 0.95);
+    background: linear-gradient(
+      160deg,
+      rgba(228, 198, 107, 0.3) 0%,
+      rgba(201, 162, 75, 0.16) 42%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 240, 200, 0.3),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.36),
+      0 0 0 1px rgba(228, 198, 107, 0.4),
+      0 0 32px rgba(201, 162, 75, 0.32),
+      0 0 60px rgba(201, 162, 75, 0.16),
+      0 18px 42px rgba(0, 0, 0, 0.55);
+  }
+  .opt .ltr {
+    @apply mt-px flex h-6 w-6 flex-none items-center justify-center rounded-md border border-white/15 bg-white/5 font-mono text-[12px] text-muted backdrop-blur-sm;
+    transition:
+      border-color 0.35s ease,
+      background 0.35s ease,
+      color 0.35s ease,
+      box-shadow 0.45s ease;
+  }
+  .opt.sel .ltr {
+    @apply border-white/15 bg-white/5 text-muted;
+  }
+
+  /* Premium glass card — cinematic dark gold aesthetic. */
+  .premium-card {
+    @apply relative overflow-hidden rounded-[28px] border border-gold/60 bg-[#050505];
+    box-shadow:
+      inset 0 1px 0 rgba(228, 198, 107, 0.08),
+      inset 0 -20px 44px rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(201, 162, 75, 0.15),
+      0 12px 40px rgba(0, 0, 0, 0.55),
+      0 0 52px rgba(201, 162, 75, 0.08);
+  }
+
+  .premium-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+      145deg,
+      rgba(201, 162, 75, 0.08) 0%,
+      transparent 38%,
+      transparent 62%,
+      rgba(120, 90, 40, 0.04) 100%
+    );
+  }
+
+  .premium-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .premium-card-header {
+    @apply border-b border-gold/25 bg-[rgba(201,162,75,0.04)];
+  }
+
+  .premium-icon-wrap {
+    @apply grid place-items-center rounded-2xl border border-gold/25 bg-[rgba(8,7,5,0.55)] text-gold backdrop-blur-sm;
+    box-shadow:
+      inset 0 1px 0 rgba(228, 198, 107, 0.08),
+      0 0 20px rgba(201, 162, 75, 0.06);
+  }
+
+  /* Atmospheric lighting for premium report scenes. */
+  .premium-scene {
+    @apply relative isolate;
+  }
+
+  .premium-ambient {
+    @apply pointer-events-none absolute inset-0 overflow-hidden;
+  }
+
+  .premium-ambient::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(
+        ellipse 55% 45% at 18% 28%,
+        rgba(201, 162, 75, 0.14),
+        transparent 68%
+      ),
+      radial-gradient(
+        ellipse 50% 40% at 82% 22%,
+        rgba(184, 145, 60, 0.1),
+        transparent 65%
+      ),
+      radial-gradient(
+        ellipse 70% 50% at 50% 85%,
+        rgba(120, 90, 40, 0.12),
+        transparent 70%
+      );
+    filter: blur(28px);
+  }
+
+  .premium-ambient::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 85% 75% at 50% 45%,
+      transparent 35%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+
+  .premium-beam {
+    @apply pointer-events-none absolute rounded-full opacity-60;
+    filter: blur(64px);
+    background: linear-gradient(
+      115deg,
+      rgba(201, 162, 75, 0.18),
+      rgba(201, 162, 75, 0.04) 55%,
+      transparent
+    );
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #e4c66b;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Ultrawide 2560px+: lock dominant profile card to a fixed width. */
+@media (min-width: 2560px) {
+  .report-cards-grid {
+    grid-template-columns: 680px minmax(0, 1fr) !important;
+    gap: 2rem;
+    min-height: min(62vh, 42rem);
+  }
+
+  .report-profile-card {
+    width: 680px !important;
+    max-width: 680px !important;
+  }
+
+  /* Pricing table — slightly tighter than the widened desktop layout. */
+  .paywall-main {
+    max-width: 1440px !important;
+  }
+}

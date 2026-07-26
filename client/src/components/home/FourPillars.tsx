@@ -115,7 +115,7 @@ function HabitDuoFeature() {
           <FourPillarsImageMotion motion="rise" delay={80}>
             <img
               src="/assets/brain-booster-mockup.png"
-              alt="EpiMinded Brain Booster Preview"
+              alt="SOULCHAIN Brain Booster Preview"
               width={517}
               height={1113}
               decoding="async"
@@ -134,8 +134,11 @@ export default function FourPillars() {
 
   return (
     <section id="four-pillars" className="four-pillars section-padding">
-      <div className="four-pillars__bg" aria-hidden="true" />
-      <div className="four-pillars__overlay" aria-hidden="true" />
+      <div className="four-pillars__bg" aria-hidden="true">
+        <span className="four-pillars__glow four-pillars__glow--a" />
+        <span className="four-pillars__glow four-pillars__glow--b" />
+      </div>
+      <div className="four-pillars__grain" aria-hidden="true" />
       <div className="container relative z-10">
         <div className="four-pillars-intro">
           <SectionHeader

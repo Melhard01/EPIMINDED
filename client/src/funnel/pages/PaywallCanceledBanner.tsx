@@ -1,0 +1,17 @@
+
+
+import { useSearchParams } from "@/funnel/lib/navigation";
+
+export function PaywallCanceledBanner() {
+  const canceled = useSearchParams().get("canceled");
+
+  if (!canceled) return null;
+
+  return (
+    <p className="mx-auto mb-6 max-w-[1240px] px-8 text-center sm:px-12 lg:px-20">
+      <span className="inline-block rounded-[11px] border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-gold-hi">
+        Checkout canceled — your plan is still here when you&apos;re ready.
+      </span>
+    </p>
+  );
+}

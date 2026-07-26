@@ -54,8 +54,11 @@ export default function AboutEpineon() {
 
   return (
     <section id="about-epineon" className="about-epineon section-padding">
-      <div className="about-epineon__bg" aria-hidden="true" />
-      <div className="about-epineon__overlay" aria-hidden="true" />
+      <div className="about-epineon__bg" aria-hidden="true">
+        <span className="about-epineon__glow about-epineon__glow--a" />
+        <span className="about-epineon__glow about-epineon__glow--b" />
+      </div>
+      <div className="about-epineon__grain" aria-hidden="true" />
 
       <div className="container relative z-10 flex justify-center">
         <div className="about-epineon__layout">

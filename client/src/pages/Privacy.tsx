@@ -10,12 +10,12 @@ export default function Privacy() {
         <p className="text-sm mb-8">Dernière mise à jour : 08 Décembre 2025</p>
         
         <p>
-          Cette politique de confidentialité pour Epiminded ("nous", "notre" ou "nos") décrit comment et pourquoi nous pourrions accéder, collecter, stocker, utiliser et/ou partager ("traiter") vos informations personnelles lorsque vous utilisez nos services ("Services"), y compris lorsque vous :
+          Cette politique de confidentialité pour SOULCHAIN ("nous", "notre" ou "nos") décrit comment et pourquoi nous pourrions accéder, collecter, stocker, utiliser et/ou partager ("traiter") vos informations personnelles lorsque vous utilisez nos services ("Services"), y compris lorsque vous :
         </p>
         <ul>
-          <li>Téléchargez et utilisez notre application mobile (Epiminded), ou toute autre application de notre part qui renvoie à cette politique de confidentialité</li>
+          <li>Téléchargez et utilisez notre application mobile (SOULCHAIN), ou toute autre application de notre part qui renvoie à cette politique de confidentialité</li>
           <li>Visitez notre site web à l'adresse https://www.epiminded.com</li>
-          <li>Utilisez Epiminded. *Epiminded* est un système de diffusion de contenu ultra-personnalisé qui adapte les boosters aux intérêts uniques de chaque utilisateur, fournissant des mises à jour quotidiennes sur les sujets qui leur tiennent à cœur.</li>
+          <li>Utilisez SOULCHAIN. *SOULCHAIN* est un système de diffusion de contenu ultra-personnalisé qui adapte les boosters aux intérêts uniques de chaque utilisateur, fournissant des mises à jour quotidiennes sur les sujets qui leur tiennent à cœur.</li>
         </ul>
 
         <h2>1. QUELLES INFORMATIONS COLLECTONS-NOUS ?</h2>
@@ -81,12 +81,12 @@ export default function Privacy() {
       <p className="text-sm mb-8">Last updated December 08, 2025</p>
       
       <p>
-        This Privacy Notice for Epiminded ("we," "us," or "our"), describes how and why we might access, collect, store, use, and/or share ("process") your personal information when you use our services ("Services"), including when you:
+        This Privacy Notice for SOULCHAIN ("we," "us," or "our"), describes how and why we might access, collect, store, use, and/or share ("process") your personal information when you use our services ("Services"), including when you:
       </p>
       <ul>
-        <li>Download and use our mobile application (Epiminded), or any other application of ours that links to this Privacy Notice</li>
+        <li>Download and use our mobile application (SOULCHAIN), or any other application of ours that links to this Privacy Notice</li>
         <li>Visit our website at https://www.epiminded.com</li>
-        <li>Use Epiminded. *Epiminded* is an ultra-personalized content delivery system that tailors boosters to each user's unique interests, providing daily updates on topics they care about.</li>
+        <li>Use SOULCHAIN. *SOULCHAIN* is an ultra-personalized content delivery system that tailors boosters to each user's unique interests, providing daily updates on topics they care about.</li>
       </ul>
 
       <h2>1. WHAT INFORMATION DO WE COLLECT?</h2>

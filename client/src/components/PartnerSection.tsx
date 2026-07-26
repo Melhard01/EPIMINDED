@@ -6,9 +6,12 @@ export default function PartnerSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="partner" className="partner-section section-padding relative overflow-hidden">
-      <div className="partner-section__bg" aria-hidden="true" />
-      <div className="partner-section__overlay" aria-hidden="true" />
+    <section id="partner" className="partner-section atmosphere-why-now section-padding relative overflow-hidden">
+      <div className="atmosphere-why-now__bg" aria-hidden="true">
+        <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+        <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+      </div>
+      <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
       <div className="container relative z-10 max-w-4xl mx-auto">
         <Reveal variant="up">

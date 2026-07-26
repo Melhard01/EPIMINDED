@@ -10,17 +10,17 @@ export default function Terms() {
         <p className="text-sm mb-8">Dernière mise à jour : 08 Décembre 2025</p>
         
         <p>
-          Bienvenue sur Epiminded. En accédant à notre site web et en utilisant nos services, vous acceptez d'être lié par les présentes Conditions Générales d'Utilisation.
+          Bienvenue sur SOULCHAIN. En accédant à notre site web et en utilisant nos services, vous acceptez d'être lié par les présentes Conditions Générales d'Utilisation.
         </p>
 
         <h2>1. Acceptation des conditions</h2>
         <p>
-          En utilisant notre application mobile (Epiminded) ou notre site web, vous acceptez ces conditions dans leur intégralité. Si vous n'êtes pas d'accord avec une partie de ces conditions, vous ne devez pas utiliser nos services.
+          En utilisant notre application mobile (SOULCHAIN) ou notre site web, vous acceptez ces conditions dans leur intégralité. Si vous n'êtes pas d'accord avec une partie de ces conditions, vous ne devez pas utiliser nos services.
         </p>
 
         <h2>2. Description du service</h2>
         <p>
-          Epiminded est un système de diffusion de contenu ultra-personnalisé qui adapte les boosters aux intérêts uniques de chaque utilisateur, fournissant des mises à jour quotidiennes sur les sujets qui leur tiennent à cœur. La plateforme favorise également le réseautage en regroupant les utilisateurs ayant des sujets communs.
+          SOULCHAIN est un système de diffusion de contenu ultra-personnalisé qui adapte les boosters aux intérêts uniques de chaque utilisateur, fournissant des mises à jour quotidiennes sur les sujets qui leur tiennent à cœur. La plateforme favorise également le réseautage en regroupant les utilisateurs ayant des sujets communs.
         </p>
 
         <h2>3. Inscription et compte</h2>
@@ -35,12 +35,12 @@ export default function Terms() {
 
         <h2>5. Propriété intellectuelle</h2>
         <p>
-          Le service et son contenu original, ses caractéristiques et ses fonctionnalités sont et resteront la propriété exclusive d'Epiminded et de ses concédants de licence.
+          Le service et son contenu original, ses caractéristiques et ses fonctionnalités sont et resteront la propriété exclusive d'SOULCHAIN et de ses concédants de licence.
         </p>
 
         <h2>6. Limitation de responsabilité</h2>
         <p>
-          En aucun cas Epiminded, ni ses directeurs, employés, partenaires, agents, fournisseurs ou affiliés, ne pourront être tenus responsables de tout dommage indirect, accessoire, spécial, consécutif ou punitif, y compris, sans s'y limiter, la perte de profits, de données, d'utilisation, de bonne volonté ou d'autres pertes intangibles.
+          En aucun cas SOULCHAIN, ni ses directeurs, employés, partenaires, agents, fournisseurs ou affiliés, ne pourront être tenus responsables de tout dommage indirect, accessoire, spécial, consécutif ou punitif, y compris, sans s'y limiter, la perte de profits, de données, d'utilisation, de bonne volonté ou d'autres pertes intangibles.
         </p>
 
         <h2>7. Modifications</h2>
@@ -61,17 +61,17 @@ export default function Terms() {
       <p className="text-sm mb-8">Last updated December 08, 2025</p>
       
       <p>
-        Welcome to Epiminded. By accessing our website and using our services, you agree to be bound by these Terms and Conditions.
+        Welcome to SOULCHAIN. By accessing our website and using our services, you agree to be bound by these Terms and Conditions.
       </p>
 
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By using our mobile application (Epiminded) or our website, you agree to these terms in full. If you disagree with any part of these terms, you must not use our services.
+        By using our mobile application (SOULCHAIN) or our website, you agree to these terms in full. If you disagree with any part of these terms, you must not use our services.
       </p>
 
       <h2>2. Description of Service</h2>
       <p>
-        Epiminded is an ultra-personalized content delivery system that tailors boosters to each user's unique interests, providing daily updates on topics they care about. The platform also leverages networking by grouping users with shared topics.
+        SOULCHAIN is an ultra-personalized content delivery system that tailors boosters to each user's unique interests, providing daily updates on topics they care about. The platform also leverages networking by grouping users with shared topics.
       </p>
 
       <h2>3. Registration and Account</h2>
@@ -86,12 +86,12 @@ export default function Terms() {
 
       <h2>5. Intellectual Property</h2>
       <p>
-        The service and its original content, features, and functionality are and will remain the exclusive property of Epiminded and its licensors.
+        The service and its original content, features, and functionality are and will remain the exclusive property of SOULCHAIN and its licensors.
       </p>
 
       <h2>6. Limitation of Liability</h2>
       <p>
-        In no event shall Epiminded, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
+        In no event shall SOULCHAIN, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
       </p>
 
       <h2>7. Changes</h2>

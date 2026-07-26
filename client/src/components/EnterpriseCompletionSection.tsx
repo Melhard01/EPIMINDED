@@ -27,10 +27,13 @@ export default function EnterpriseCompletionSection() {
   return (
     <section
       ref={sectionRef}
-      className="builders-ceiling-section enterprise-completion-section relative overflow-hidden"
+      className="builders-ceiling-section enterprise-completion-section atmosphere-why-now relative overflow-hidden"
     >
-      <div className="builders-ceiling-section__bg" aria-hidden="true" />
-      <div className="builders-ceiling-section__overlay" aria-hidden="true" />
+      <div className="atmosphere-why-now__bg" aria-hidden="true">
+        <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+        <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+      </div>
+      <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
       <div className="enterprise-completion__inner relative z-10">
         <motion.span

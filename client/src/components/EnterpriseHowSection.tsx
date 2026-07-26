@@ -15,9 +15,12 @@ export default function EnterpriseHowSection() {
   }));
 
   return (
-    <section className="enterprise-how-section section-padding relative overflow-hidden">
-      <div className="enterprise-how-section__bg" aria-hidden="true" />
-      <div className="enterprise-how-section__overlay" aria-hidden="true" />
+    <section className="enterprise-how-section atmosphere-why-now section-padding relative overflow-hidden">
+      <div className="atmosphere-why-now__bg" aria-hidden="true">
+        <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+        <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+      </div>
+      <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
       <div className="container relative z-10">
         <SectionHeader eyebrow={t("enterprise.how.eyebrow")} title={t("enterprise.how.title")} />

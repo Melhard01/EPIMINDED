@@ -183,12 +183,12 @@ export default function Navbar() {
           : "bg-transparent backdrop-blur-none shadow-none py-4"
       )}
     >
-      <div className="container relative flex items-center gap-3 min-h-9">
-        <Link href="/" className="flex h-9 shrink-0 items-center lg:-ml-2 xl:-ml-4">
+      <div className="container relative flex items-center gap-3 min-h-9 lg:min-h-12">
+        <Link href="/" className="flex h-8 shrink-0 items-center lg:h-12 lg:-ml-2 xl:-ml-4">
           <img
-            src="/assets/epiminded-logo.png"
-            alt="EpiMinded"
-            className="h-6 w-auto cursor-pointer lg:h-9 lg:max-h-9 lg:object-contain"
+            src="/assets/navbar-logo.png"
+            alt="SOULCHAIN"
+            className="h-8 w-auto cursor-pointer lg:h-12 lg:max-h-12 lg:object-contain"
           />
         </Link>
 

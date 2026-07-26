@@ -78,8 +78,11 @@ export default function HowItWorks() {
       id="how-it-works"
       className={cn("how-journey section-padding relative overflow-hidden", active && "how-journey--active")}
     >
-      <div className="how-journey__bg" aria-hidden="true" />
-      <div className="how-journey__overlay" aria-hidden="true" />
+      <div className="how-journey__bg" aria-hidden="true">
+        <span className="how-journey__glow how-journey__glow--a" />
+        <span className="how-journey__glow how-journey__glow--b" />
+      </div>
+      <div className="how-journey__grain" aria-hidden="true" />
 
       <div className="container relative z-10">
         <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />

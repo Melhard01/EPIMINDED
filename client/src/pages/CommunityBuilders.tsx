@@ -1,10 +1,10 @@
+import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionHeader from "@/components/shared/SectionHeader";
 import Reveal from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useApplicationModal } from "@/contexts/ApplicationModalContext";
 import PartnerSection from "@/components/PartnerSection";
 import PartnershipSection from "@/components/PartnershipSection";
 import BringAccordionItem from "@/components/shared/BringAccordionItem";
@@ -16,7 +16,7 @@ const DOESNT_ITEMS = ["item1", "item2", "item3", "item4"] as const;
 
 export default function CommunityBuilders() {
   const { t } = useLanguage();
-  const { openPartner } = useApplicationModal();
+  const [, setLocation] = useLocation();
 
   const scrollToPartnership = () => {
     smoothScrollToId("partnership");
@@ -50,7 +50,8 @@ export default function CommunityBuilders() {
               <Reveal immediate>
                 <div className="hero-cta">
                   <Button
-                    onClick={() => window.open("https://web2app-two.vercel.app/quiz", "_blank")}
+                    type="button"
+                    onClick={() => setLocation("/quiz")}
                     className="hero-cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
                   >
                     {t("builders.hero.cta.primary")}
@@ -68,9 +69,12 @@ export default function CommunityBuilders() {
           </div>
         </section>
 
-        <section className="builders-ceiling-section section-padding relative overflow-hidden">
-          <div className="builders-ceiling-section__bg" aria-hidden="true" />
-          <div className="builders-ceiling-section__overlay" aria-hidden="true" />
+        <section className="builders-ceiling-section atmosphere-why-now section-padding relative overflow-hidden">
+          <div className="atmosphere-why-now__bg" aria-hidden="true">
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+          </div>
+          <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
           <div className="container relative z-10 max-w-5xl">
             <Reveal variant="fade" className="text-center">
@@ -99,9 +103,12 @@ export default function CommunityBuilders() {
           </div>
         </section>
 
-        <section className="builders-bring builders-bring--community section-padding relative overflow-hidden">
-          <div className="builders-bring__bg" aria-hidden="true" />
-          <div className="builders-bring__overlay" aria-hidden="true" />
+        <section className="builders-bring builders-bring--community atmosphere-why-now section-padding relative overflow-hidden">
+          <div className="atmosphere-why-now__bg" aria-hidden="true">
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+          </div>
+          <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
           <div className="container relative z-10">
             <SectionHeader eyebrow={t("builders.bring.eyebrow")} title={t("builders.bring.title")} />
@@ -139,9 +146,12 @@ export default function CommunityBuilders() {
 
         <PartnershipSection />
 
-        <section className="builders-fit-section section-padding relative overflow-hidden">
-          <div className="builders-fit-section__bg" aria-hidden="true" />
-          <div className="builders-fit-section__overlay" aria-hidden="true" />
+        <section className="builders-fit-section atmosphere-why-now section-padding relative overflow-hidden">
+          <div className="atmosphere-why-now__bg" aria-hidden="true">
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+          </div>
+          <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
           <div className="container relative z-10 max-w-6xl">
             <SectionHeader eyebrow={t("builders.fit.eyebrow")} title={t("builders.fit.title")} />

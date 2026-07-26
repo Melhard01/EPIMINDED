@@ -1,5 +1,5 @@
+import { useLocation } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useApplicationModal } from "@/contexts/ApplicationModalContext";
 import { Button } from "@/components/ui/button";
 import HeroAuroraBackground from "@/components/HeroAuroraBackground";
 import Reveal from "@/components/ui/reveal";
@@ -7,7 +7,7 @@ import { smoothScrollToId } from "@/lib/smoothScroll";
 
 export default function Hero() {
   const { t } = useLanguage();
-  const { openApplication } = useApplicationModal();
+  const [, setLocation] = useLocation();
 
   const scrollToHow = () => {
     smoothScrollToId("how-it-works");
@@ -38,7 +38,8 @@ export default function Hero() {
           <Reveal immediate>
             <div className="hero-cta">
               <Button
-                onClick={() => window.open("https://web2app-two.vercel.app/quiz", "_blank")}
+                type="button"
+                onClick={() => setLocation("/quiz")}
                 className="hero-cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
               >
                 {t("hero.cta.primary")}

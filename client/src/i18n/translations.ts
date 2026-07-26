@@ -15,13 +15,13 @@ export const translations = {
     "home.hero.eyebrow": "APPRENTISSAGE ENTRE PAIRS POUR CEUX QUI REFUSENT DE DÉCROCHER",
     "home.hero.title.lead": "Soyez curieux. Ayez un but. Restez en avance.",
     "home.hero.title.accent": "Ensemble.",
-    "home.hero.subtitle": "EpiMinded associe un insight quotidien calibré sur votre situation à un réseau de pairs choisis selon votre façon de penser. Construit autour de ce que l'IA ne peut pas vous donner : connexion humaine, expérience vécue, et les personnes qui sont passées par là où vous allez.",
+    "home.hero.subtitle": "SOULCHAIN associe un insight quotidien calibré sur votre situation à un réseau de pairs choisis selon votre façon de penser. Construit autour de ce que l'IA ne peut pas vous donner : connexion humaine, expérience vécue, et les personnes qui sont passées par là où vous allez.",
     "home.hero.cta.primary": "Postuler pour rejoindre",
     "home.hero.cta.secondary": "Voir comment ça marche",
 
     "home.doors.eyebrow": "TROIS PORTES · UNE PLATEFORME",
     "home.doors.title": "Un produit. Trois portes d'entrée.",
-    "home.doors.subtitle": "Nous avons construit EpiMinded pour trois audiences. Le produit est un. Les portes sont trois.",
+    "home.doors.subtitle": "Nous avons construit SOULCHAIN pour trois audiences. Le produit est un. Les portes sont trois.",
     "home.doors.founders.eyebrow": "POUR LES FONDATEURS",
     "home.doors.founders.title": "Pensé pour les fondateurs, en premier.",
     "home.doors.founders.body": "Une habitude quotidienne et une cohorte d'opérateurs qui apprennent à vos côtés. Pour des fondateurs qui dirigent de vraies entreprises et refusent d'apprendre seuls.",
@@ -35,20 +35,20 @@ export const translations = {
     "home.doors.enterprise.body": "Une infrastructure cognitive pour les personnes que vous choisissez d'inclure. Des dirigeants aux opérationnels. D'un département à toute l'entreprise.",
     "home.doors.enterprise.link": "En savoir plus →",
 
-    "home.pillars.eyebrow": "CE QU'EPIMINDED EST VRAIMENT",
+    "home.pillars.eyebrow": "CE QUE SOULCHAIN EST VRAIMENT",
     "home.pillars.title": "Construit autour de ce que l'IA ne peut pas remplacer.",
-    "home.pillars.subtitle": "EpiMinded n'est pas une application d'apprentissage. C'est une plateforme d'apprentissage entre pairs organisée autour de quatre piliers.",
+    "home.pillars.subtitle": "SOULCHAIN n'est pas une application d'apprentissage. C'est une plateforme d'apprentissage entre pairs organisée autour de quatre piliers.",
     "home.pillars.p1.title": "Habitude quotidienne",
     "home.pillars.p1.body": "Cinq minutes par jour. Un insight personnalisé calibré sur où vous en êtes, dans le format qui convient à votre moment : texte, audio ou podcast. Le rythme que les abonnements IA ne structurent pas.",
     "home.pillars.p1.bodyLine1": "Cinq minutes par jour. Un insight personnalisé calibré sur où vous en êtes,",
     "home.pillars.p1.bodyLine2": "dans le format qui convient à votre moment : texte, audio ou podcast.",
     "home.pillars.p1.bodyLine3": "Le rythme que les abonnements IA ne structurent pas.",
     "home.pillars.p2.title": "Matching cognitif",
-    "home.pillars.p2.body": "Un algorithme qui vous associe à des personnes qui pensent comme vous. Plus vous utilisez EpiMinded, plus les correspondances s'affinent. C'est la partie que les concurrents ne peuvent pas reproduire en ajoutant des fonctionnalités.",
+    "home.pillars.p2.body": "Un algorithme qui vous associe à des personnes qui pensent comme vous. Plus vous utilisez SOULCHAIN, plus les correspondances s'affinent. C'est la partie que les concurrents ne peuvent pas reproduire en ajoutant des fonctionnalités.",
     "home.pillars.p3.title": "Présence de pairs",
     "home.pillars.p3.body": "De vraies personnes dans de vraies conversations. Des opérateurs qui ont déjà pris la décision que vous affrontez cette semaine. Ce que ChatGPT, Claude et Perplexity ne peuvent fondamentalement pas remplacer, quelle que soit la qualité du modèle.",
     "home.pillars.p4.title": "Expérience vécue",
-    "home.pillars.p4.body": "Une communauté est plus qu'une liste de contacts. EpiMinded vous donne la structure pour transformer un insight en conversation, une conversation en relation, et une relation en pensée que vous ne pouvez pas avoir seul.",
+    "home.pillars.p4.body": "Une communauté est plus qu'une liste de contacts. SOULCHAIN vous donne la structure pour transformer un insight en conversation, une conversation en relation, et une relation en pensée que vous ne pouvez pas avoir seul.",
 
     "home.whynow.eyebrow": "Pourquoi maintenant",
     "home.whynow.title": "Trois conditions viennent d'ouvrir la fenêtre.",
@@ -73,7 +73,7 @@ export const translations = {
     "home.proof.stat2.range": "3–15",
     "home.proof.stat2.label": "Taux d'achèvement avec l'apprentissage classique en autonomie",
     "home.proof.citation": "Référence sectorielle — recherche sur l'apprentissage en cohorte, 2024.",
-    "home.proof.bodyLead": "EpiMinded est construit sur le stack de rétention : ",
+    "home.proof.bodyLead": "SOULCHAIN est construit sur le stack de rétention : ",
     "home.proof.bodyStrong": "micro-stimulation quotidienne, redevabilité entre pairs, conversation appliquée.",
     "home.proof.bodyTail": " Ce que vous engagez le premier jour se retrouve dans vos décisions au quatre-vingt-dixième.",
 
@@ -82,7 +82,7 @@ export const translations = {
 
     "home.about.eyebrow": "À PROPOS D'EPINEON",
     "home.about.title": "Une verticale d'Epineon.",
-    "home.about.body": "EpiMinded est construit par Epineon, une entreprise qui travaille sur ce que nous pensons que l'IA ne peut pas remplacer : matching cognitif, habitude quotidienne, présence de pairs, identité. EpiMinded est la première application de cette thèse. D'autres suivront.",
+    "home.about.body": "SOULCHAIN est construit par Epineon, une entreprise qui travaille sur ce que nous pensons que l'IA ne peut pas remplacer : matching cognitif, habitude quotidienne, présence de pairs, identité. SOULCHAIN est la première application de cette thèse. D'autres suivront.",
     "home.about.link": "Visiter Epineon →",
 
     "home.cta.title": "Nous déployons par vagues. Rejoignez la prochaine.",
@@ -103,7 +103,7 @@ export const translations = {
     "footer.legal.privacy": "Confidentialite",
     "footer.legal.cookies": "Cookies",
     "footer.legal.contact": "Contact",
-    "footer.copyright": "© 2026 Epineon - EpiMinded. Casablanca - Concu pour les decideurs du monde entier.",
+    "footer.copyright": "© 2026 Epineon - SOULCHAIN. Casablanca - Concu pour les decideurs du monde entier.",
 
     "hero.eyebrow": "POUR LES FONDATEURS",
     "hero.title.lead": "L'IA vous donne des réponses.",
@@ -127,9 +127,9 @@ export const translations = {
     "bring.card1.title": "Brain Booster personnalisé",
     "bring.card1.body": "Cinq minutes par jour, dans le format qui convient à votre moment. Texte, audio ou podcast. Calibré sur votre secteur, votre stade, vos thèmes. Les thèmes de départ (Pro, Santé, Sport, Famille, Hobbies) sont des suggestions ; vous ajoutez les vôtres. Chaque booster se termine par un quiz rapide qui vérifie que l'insight s'est vraiment ancré.",
     "bring.card2.title": "Near By",
-    "bring.card2.body": "Où que vous soyez, EpiMinded fait remonter les membres de votre communauté qui sont à proximité — des personnes avec qui vous avez déjà connecté, désormais à portée. Envoyez un message. Organisez un café. La plateforme transforme le matching entre pairs en présence dans le monde réel.",
+    "bring.card2.body": "Où que vous soyez, SOULCHAIN fait remonter les membres de votre communauté qui sont à proximité — des personnes avec qui vous avez déjà connecté, désormais à portée. Envoyez un message. Organisez un café. La plateforme transforme le matching entre pairs en présence dans le monde réel.",
     "bring.card3.title": "Daily Groups",
-    "bring.card3.body": "Chaque jour, EpiMinded vous groupe avec d'autres membres dont le booster recoupe le vôtre. Un sujet. Une conversation. Quand la journée se termine, la discussion passe. Pas de chat mort. Pas de feed infini.",
+    "bring.card3.body": "Chaque jour, SOULCHAIN vous groupe avec d'autres membres dont le booster recoupe le vôtre. Un sujet. Une conversation. Quand la journée se termine, la discussion passe. Pas de chat mort. Pas de feed infini.",
     "bring.card4.title": "Peers",
     "bring.card4.body": "Une liste de personnes dans votre communauté qui pensent comme vous. Connectez-vous directement avec n'importe qui sur la liste. Le type de relations un-à-un pour lesquelles on prendrait l'avion — identifiées par un algorithme entraîné sur l'affinité cognitive.",
 
@@ -148,7 +148,7 @@ export const translations = {
     "whyFounders.eyebrow": "POURQUOI LES FONDATEURS D'ABORD",
     "whyFounders.title": "Un focus, pas un filtre.",
     "whyFounders.highlight": "les vingt ans d'expérience d'opérateur de Karim",
-    "whyFounders.body": "EpiMinded est construit pour quiconque refuse d'apprendre seul. Mais nous avons construit la première version pour les fondateurs parce que c'est là où notre réseau est le plus aiguisé — là où les vingt ans d'expérience d'opérateur de Karim et les personnes de son cercle s'alignent. Le prisme fondateur façonne le discours, le ton et la cohorte initiale. Le produit lui-même fonctionne pour quiconque le rejoint.\n\nSi vous êtes fondateur, la porte est directe. Si vous ne l'êtes pas, la porte est la même — les conversations apportent simplement un angle différent.",
+    "whyFounders.body": "SOULCHAIN est construit pour quiconque refuse d'apprendre seul. Mais nous avons construit la première version pour les fondateurs parce que c'est là où notre réseau est le plus aiguisé — là où les vingt ans d'expérience d'opérateur de Karim et les personnes de son cercle s'alignent. Le prisme fondateur façonne le discours, le ton et la cohorte initiale. Le produit lui-même fonctionne pour quiconque le rejoint.\n\nSi vous êtes fondateur, la porte est directe. Si vous ne l'êtes pas, la porte est la même — les conversations apportent simplement un angle différent.",
 
     "whynow.eyebrow": "POURQUOI MAINTENANT",
     "whynow.title": "Trois conditions viennent d'ouvrir la fenêtre.",
@@ -164,17 +164,17 @@ export const translations = {
 
     "cohort.eyebrow": "LA COHORTE DES FONDATEURS",
     "cohort.title": "Choisi, pas démarché.",
-    "cohort.body": "EpiMinded est un réseau de pairs avec une porte. Nous examinons chaque candidature. Nous cherchons des fondateurs et CEOs qui dirigent des entreprises entre 1M$ et 50M$ de revenus, qui ont dépassé leur premier réseau, et qui sont prêts à honorer le rituel quotidien. La sélection est ce qui rend la pièce digne d'être occupée. La cohorte est la raison d'être de la plateforme.",
+    "cohort.body": "SOULCHAIN est un réseau de pairs avec une porte. Nous examinons chaque candidature. Nous cherchons des fondateurs et CEOs qui dirigent des entreprises entre 1M$ et 50M$ de revenus, qui ont dépassé leur premier réseau, et qui sont prêts à honorer le rituel quotidien. La sélection est ce qui rend la pièce digne d'être occupée. La cohorte est la raison d'être de la plateforme.",
     "cohort.cta": "Postuler à la cohorte",
 
     "bridge.eyebrow": "VOUS N'ÊTES PAS FONDATEUR ?",
     "bridge.card1.label": "Pour les community builders",
-    "bridge.card1.title": "Apportez EpiMinded à votre audience.",
-    "bridge.card1.body": "Fondateurs, figures publiques et créateurs éducatifs utilisent EpiMinded comme couche de rétention pour leur communauté payante. Vous gardez la marque ; nous apportons l'infrastructure.",
+    "bridge.card1.title": "Apportez SOULCHAIN à votre audience.",
+    "bridge.card1.body": "Fondateurs, figures publiques et créateurs éducatifs utilisent SOULCHAIN comme couche de rétention pour leur communauté payante. Vous gardez la marque ; nous apportons l'infrastructure.",
     "bridge.card1.cta": "En savoir plus →",
     "bridge.card2.label": "Pour les organisations",
-    "bridge.card2.title": "Apportez EpiMinded à votre équipe.",
-    "bridge.card2.body": "Les directions L&D utilisent EpiMinded pour résoudre le problème de complétion des LMS. Rituel quotidien et matching entre pairs, déployés sur les personnes que vous choisissez d'inclure.",
+    "bridge.card2.title": "Apportez SOULCHAIN à votre équipe.",
+    "bridge.card2.body": "Les directions L&D utilisent SOULCHAIN pour résoudre le problème de complétion des LMS. Rituel quotidien et matching entre pairs, déployés sur les personnes que vous choisissez d'inclure.",
     "bridge.card2.cta": "En savoir plus →",
 
     "finalCta.title": "Nous déployons la cohorte fondateurs par vagues. Rejoignez la prochaine.",
@@ -182,7 +182,7 @@ export const translations = {
     "finalCta.cta.primary": "Rejoindre la beta",
     "finalCta.cta.secondary": "Parler à notre équipe",
 
-    "apply.title": "Rejoindre la beta EpiMinded",
+    "apply.title": "Rejoindre la beta SOULCHAIN",
     "apply.subhead": "Deux minutes. Nous répondons sous 48 heures.",
     "apply.submit": "Rejoindre la beta",
     "apply.confirm.title": "Vérifiez votre boîte mail.",
@@ -239,7 +239,7 @@ export const translations = {
 
     "builders.hero.eyebrow": "POUR LES COMMUNITY BUILDERS",
     "builders.hero.title": "Votre communauté mérite mieux qu'un flux de contenu de plus.",
-    "builders.hero.subtitle": "EpiMinded est la couche de rétention pour les fondateurs, figures publiques et créateurs éducatifs dont l'audience paye pour apprendre d'eux. Vous apportez la marque et l'audience. Nous apportons le stack de rétention.",
+    "builders.hero.subtitle": "SOULCHAIN est la couche de rétention pour les fondateurs, figures publiques et créateurs éducatifs dont l'audience paye pour apprendre d'eux. Vous apportez la marque et l'audience. Nous apportons le stack de rétention.",
     "builders.hero.cta.primary": "Postuler pour rejoindre",
     "builders.hero.cta.secondary": "Comment fonctionne le partenariat",
 
@@ -250,22 +250,22 @@ export const translations = {
 
     "builders.bring.eyebrow": "CE QUE NOUS APPORTONS",
     "builders.bring.title": "D'un flux de contenu à un système d'apprentissage.",
-    "builders.bring.imageAlt": "Deux écrans de l'application EpiMinded : Brain Booster et Communautés",
+    "builders.bring.imageAlt": "Deux écrans de l'application SOULCHAIN : Brain Booster et Communautés",
     "builders.bring.card1.title": "Des insights quotidiens pour vos membres, vos thèmes",
     "builders.bring.card1.body": "Vos membres reçoivent un Brain Booster de 5 minutes chaque jour, calibré sur les thèmes que vous définissez en tant que community owner. Les thèmes sont les vôtres — votre secteur, votre méthode, votre point de vue.",
     "builders.bring.card2.title": "Un système entre pairs qui scale le 1-à-1",
     "builders.bring.card2.body": "Conversation quotidienne entre vos membres. Matching cognitif qui les associe sur leur façon de penser. Le type de relations qui exigeait votre temps personnel — désormais, dans toute votre communauté, chaque jour.",
     "builders.bring.card3.title": "Une feature Community que vous possédez vraiment",
-    "builders.bring.card3.body": "EpiMinded vous donne la fonctionnalité Community — un espace privé déployé sous votre marque, où vos membres reçoivent un Brain Booster quotidien que vous avez choisi, en discutent ensemble et se connectent un-à-un grâce au même matching cognitif qui anime le reste d'EpiMinded. Vous contrôlez le booster, la fréquence, la voix. Nous fournissons l'infrastructure.",
+    "builders.bring.card3.body": "SOULCHAIN vous donne la fonctionnalité Community — un espace privé déployé sous votre marque, où vos membres reçoivent un Brain Booster quotidien que vous avez choisi, en discutent ensemble et se connectent un-à-un grâce au même matching cognitif qui anime le reste de SOULCHAIN. Vous contrôlez le booster, la fréquence, la voix. Nous fournissons l'infrastructure.",
 
     "builders.partnership.eyebrow": "COMMENT LE PARTENARIAT FONCTIONNE",
     "builders.partnership.title": "Un partenariat simple en trois étapes.",
     "builders.partnership.step1.title": "Parler à notre équipe",
-    "builders.partnership.step1.body": "Tout commence par une conversation. Nous cherchons des community builders dont l'audience valorise vraiment l'apprentissage et dont la pratique s'aligne avec l'approche EpiMinded. La conversation est honnête des deux côtés — nous vous disons d'emblée si le partenariat a du sens.",
+    "builders.partnership.step1.body": "Tout commence par une conversation. Nous cherchons des community builders dont l'audience valorise vraiment l'apprentissage et dont la pratique s'aligne avec l'approche SOULCHAIN. La conversation est honnête des deux côtés — nous vous disons d'emblée si le partenariat a du sens.",
     "builders.partnership.step2.title": "Co-brander",
     "builders.partnership.step2.body": "Votre espace communautaire est déployé sous votre identité, gratuitement tant que le partenariat est actif. Votre marque, vos thèmes, votre voix. Nous sommes invisibles pour vos membres.",
     "builders.partnership.step3.title": "Cumuler ensemble",
-    "builders.partnership.step3.body": "Vos membres reçoivent l'expérience EpiMinded complète. Vous gagnez la rétention. Nous partageons le succès du partenariat.",
+    "builders.partnership.step3.body": "Vos membres reçoivent l'expérience SOULCHAIN complète. Vous gagnez la rétention. Nous partageons le succès du partenariat.",
 
     "builders.fit.eyebrow": "EST-CE FAIT POUR VOUS ?",
     "builders.fit.title": "Honnêtes sur à qui cela convient.",
@@ -287,7 +287,7 @@ export const translations = {
 
     "enterprise.hero.eyebrow": "POUR LES ORGANISATIONS",
     "enterprise.hero.title": "Infrastructure cognitive pour toute votre organisation.",
-    "enterprise.hero.subtitle": "Apportez EpiMinded à qui vous choisissez d'inclure — du C-level aux opérationnels, d'un département à toute l'entreprise. Des insights quotidiens qu'ils utilisent vraiment. Un réseau de pairs auquel ils font vraiment confiance.",
+    "enterprise.hero.subtitle": "Apportez SOULCHAIN à qui vous choisissez d'inclure — du C-level aux opérationnels, d'un département à toute l'entreprise. Des insights quotidiens qu'ils utilisent vraiment. Un réseau de pairs auquel ils font vraiment confiance.",
     "enterprise.hero.cta.primary": "Postuler pour rejoindre",
     "enterprise.hero.cta.secondary": "Voir ce que chaque membre reçoit",
 
@@ -296,12 +296,12 @@ export const translations = {
     "enterprise.completion.imageAlt": "Réunion professionnelle autour d'une table de conférence",
     "enterprise.completion.body": "Vous avez licencié les meilleures bibliothèques de contenu, déployé les bons outils, fait passer des pulse surveys. Toujours la même poignée d'employés qui engage. Tous les autres disparaissent après l'onboarding. Votre CEO demande le ROI. Votre CHRO demande la culture. Votre CFO demande pourquoi cette ligne budgétaire grossit. Vous savez que l'apprentissage compte. Vous ne pouvez pas toujours prouver qu'il se produit.\n\nLes programmes en cohorte fonctionnent — quand vous pouvez les financer. Les cours en autonomie scalent — quand quelqu'un les termine. Vous n'avez pas besoin d'une bibliothèque de plus. Vous avez besoin de quelque chose que les gens utilisent vraiment.",
 
-    "enterprise.bring.eyebrow": "CE QU'EPIMINDED APPORTE À VOTRE ORGANISATION",
+    "enterprise.bring.eyebrow": "CE QUE SOULCHAIN APPORTE À VOTRE ORGANISATION",
     "enterprise.bring.title": "Une infrastructure cognitive. Pas un catalogue de cours de plus.",
-    "enterprise.bring.imageAlt": "Deux écrans de l'application EpiMinded : Brain Booster et Communautés",
+    "enterprise.bring.imageAlt": "Deux écrans de l'application SOULCHAIN : Brain Booster et Communautés",
     "enterprise.bring.card1.title": "De la profondeur quotidienne, à l'échelle que vous choisissez",
     "enterprise.bring.card1.subtitle": "Cinq minutes de pensée structurée par personne, par jour.",
-    "enterprise.bring.card1.body": "EpiMinded délivre un Brain Booster quotidien sur les thèmes que vous définissez — stratégie, culture IA, régulation, comportement client, leadership, ce qui compte pour votre business. Une pratique quotidienne qui s'accumule, pas un catalogue à mettre en favori.",
+    "enterprise.bring.card1.body": "SOULCHAIN délivre un Brain Booster quotidien sur les thèmes que vous définissez — stratégie, culture IA, régulation, comportement client, leadership, ce qui compte pour votre business. Une pratique quotidienne qui s'accumule, pas un catalogue à mettre en favori.",
     "enterprise.bring.card2.title": "Vous décidez qui, vous décidez quoi",
     "enterprise.bring.card2.subtitle": "Votre équipe. Vos thèmes. Votre choix.",
     "enterprise.bring.card2.body": "Incluez uniquement les dirigeants, un département, ou chaque personne de l'organisation. Les thèmes sont les vôtres à définir et à ajuster par trimestre, par priorité, selon ce que votre business affronte. Chaque membre garde aussi ses thèmes personnels.",
@@ -316,7 +316,7 @@ export const translations = {
     "enterprise.sticks.stat2": "3–15%",
     "enterprise.sticks.stat2.label": "Taux d'achèvement avec l'apprentissage classique en autonomie",
     "enterprise.sticks.attribution": "Référence sectorielle — recherche sur l'apprentissage en cohorte, 2024.",
-    "enterprise.sticks.body": "EpiMinded est construit sur le stack de rétention — micro-stimulation quotidienne, redevabilité entre pairs, conversation appliquée. C'est pour ça que ce que votre équipe apprend le premier jour se retrouve encore dans ses décisions au quatre-vingt-dixième.",
+    "enterprise.sticks.body": "SOULCHAIN est construit sur le stack de rétention — micro-stimulation quotidienne, redevabilité entre pairs, conversation appliquée. C'est pour ça que ce que votre équipe apprend le premier jour se retrouve encore dans ses décisions au quatre-vingt-dixième.",
 
     "enterprise.member.eyebrow": "CE QUE CHAQUE MEMBRE REÇOIT",
     "enterprise.member.title": "Le même produit. Configuré pour votre équipe.",
@@ -333,7 +333,7 @@ export const translations = {
     "enterprise.how.title": "Trois étapes, puis ça tourne.",
     "enterprise.how.step1.caption": "Embarquement",
     "enterprise.how.step1.title": "Embarquez vos équipes",
-    "enterprise.how.step1.body": "Nous vous aidons à intégrer vos équipes — les rôles et personnes que vous choisissez, à la portée que vous voulez. Chaque membre crée son profil et choisit ses thèmes de départ.",
+    "enterprise.how.step1.body": "Nous vous aidons à intégrer vos équipes sur SOULCHAIN — les rôles et personnes que vous choisissez, à la portée que vous voulez. Chaque membre crée son profil et choisit ses thèmes de départ.",
     "enterprise.how.step2.caption": "Thématiques",
     "enterprise.how.step2.title": "Choisissez ce qui compte",
     "enterprise.how.step2.body": "Vous définissez les thèmes qui correspondent à vos priorités — culture IA, évolutions réglementaires, dynamiques de marché, modèles de leadership, sujets sectoriels. Chaque membre garde aussi ses thèmes personnels.",
@@ -342,11 +342,11 @@ export const translations = {
     "enterprise.how.step3.body": "Brain Boosters quotidiens, échanges entre pairs, réflexion appliquée. L'effet composé se voit dans la préparation des boards, les décisions de recrutement et les arbitrages que vos équipes prennent sous pression.",
 
     "enterprise.trust.eyebrow": "PARTENAIRES ENTREPRISE FONDATEURS",
-    "enterprise.trust.body": "Nous ouvrons EpiMinded à une petite cohorte de partenaires entreprise fondateurs. Si vous voulez que votre équipe en fasse partie, la conversation commence par un appel.",
+    "enterprise.trust.body": "Nous ouvrons SOULCHAIN à une petite cohorte de partenaires entreprise fondateurs. Si vous voulez que votre équipe en fasse partie, la conversation commence par un appel.",
     "enterprise.trust.cta": "Démarrer la conversation",
 
     "enterprise.finalCta.title": "La conversation vous coûte trente minutes.",
-    "enterprise.finalCta.subtitle": "Nous ouvrons EpiMinded à une petite cohorte de partenaires entreprise fondateurs. Si vous voulez que votre équipe en fasse partie, la conversation commence par un appel au cours duquel nous vous montrons l'expérience membre, nous parcourons les thèmes qui correspondent à votre équipe, et nous voyons s'il y a un match — pas de slide, pas de script.",
+    "enterprise.finalCta.subtitle": "Nous ouvrons SOULCHAIN à une petite cohorte de partenaires entreprise fondateurs. Si vous voulez que votre équipe en fasse partie, la conversation commence par un appel au cours duquel nous vous montrons l'expérience membre, nous parcourons les thèmes qui correspondent à votre équipe, et nous voyons s'il y a un match — pas de slide, pas de script.",
     "enterprise.finalCta.cta": "Réserver un appel de découverte"
   },
   en: {
@@ -365,13 +365,13 @@ export const translations = {
     "home.hero.eyebrow": "PEER LEARNING FOR PEOPLE WHO REFUSE TO FALL BEHIND",
     "home.hero.title.lead": "Be curious. Have purpose. Stay ahead.",
     "home.hero.title.accent": "Together.",
-    "home.hero.subtitle": "EpiMinded pairs a daily insight tuned to where you are with a peer network matched on how you think. Built around what AI cannot give you: human connection, lived experience, and the people who've been where you're going.",
+    "home.hero.subtitle": "SOULCHAIN pairs a daily insight tuned to where you are with a peer network matched on how you think. Built around what AI cannot give you: human connection, lived experience, and the people who've been where you're going.",
     "home.hero.cta.primary": "Apply to join",
     "home.hero.cta.secondary": "See how it works",
 
     "home.doors.eyebrow": "THREE DOORS · ONE PLATFORM",
     "home.doors.title": "One product. Three ways in.",
-    "home.doors.subtitle": "We've built EpiMinded around three audiences. The product is one. The doors are three.",
+    "home.doors.subtitle": "We've built SOULCHAIN around three audiences. The product is one. The doors are three.",
     "home.doors.founders.eyebrow": "FOR FOUNDERS",
     "home.doors.founders.title": "Built for founders, first.",
     "home.doors.founders.body": "A daily habit and a cohort of operators learning alongside you. For founders running real companies who refuse to learn alone.",
@@ -385,20 +385,20 @@ export const translations = {
     "home.doors.enterprise.body": "Cognitive infrastructure for the people you choose to include. From execs to operators. From one department to the whole company.",
     "home.doors.enterprise.link": "Learn more →",
 
-    "home.pillars.eyebrow": "WHAT EPIMINDED ACTUALLY IS",
+    "home.pillars.eyebrow": "WHAT SOULCHAIN ACTUALLY IS",
     "home.pillars.title": "Built around what AI cannot replicate.",
-    "home.pillars.subtitle": "EpiMinded is not a learning app. It's a peer-learning platform organised around four pillars.",
+    "home.pillars.subtitle": "SOULCHAIN is not a learning app. It's a peer-learning platform organised around four pillars.",
     "home.pillars.p1.title": "Daily habit",
     "home.pillars.p1.body": "Five minutes a day. A personalised insight tuned to where you are, in the format that fits your moment: text, audio, or podcast. The rhythm AI subscriptions don't structure.",
     "home.pillars.p1.bodyLine1": "Five minutes a day. A personalised insight tuned to where you are,",
     "home.pillars.p1.bodyLine2": "in the format that fits your moment: text, audio, or podcast.",
     "home.pillars.p1.bodyLine3": "The rhythm AI subscriptions don't structure.",
     "home.pillars.p2.title": "Cognitive matching",
-    "home.pillars.p2.body": "An algorithm that pairs you with people who think the way you do. The more you use EpiMinded, the better the matches get. This is the part competitors cannot replicate by adding features.",
+    "home.pillars.p2.body": "An algorithm that pairs you with people who think the way you do. The more you use SOULCHAIN, the better the matches get. This is the part competitors cannot replicate by adding features.",
     "home.pillars.p3.title": "Peer presence",
     "home.pillars.p3.body": "Real people in real conversations. Operators who've made the call you're facing this week. What ChatGPT, Claude, and Perplexity fundamentally cannot replace, no matter how good the model gets.",
     "home.pillars.p4.title": "Lived experience",
-    "home.pillars.p4.body": "A community is more than a contact list. EpiMinded gives you the structure to turn insight into conversation, conversation into relationship, and relationship into the kind of thinking you can't do alone.",
+    "home.pillars.p4.body": "A community is more than a contact list. SOULCHAIN gives you the structure to turn insight into conversation, conversation into relationship, and relationship into the kind of thinking you can't do alone.",
 
     "home.whynow.eyebrow": "Why now",
     "home.whynow.title": "Three conditions just opened the window.",
@@ -423,7 +423,7 @@ export const translations = {
     "home.proof.stat2.range": "3–15",
     "home.proof.stat2.label": "Completion rate with traditional self-paced learning",
     "home.proof.citation": "Industry benchmark — cohort-based learning research, 2024.",
-    "home.proof.bodyLead": "EpiMinded is built on the retention stack: ",
+    "home.proof.bodyLead": "SOULCHAIN is built on the retention stack: ",
     "home.proof.bodyStrong": "daily micro-stimulation, peer accountability, applied conversation.",
     "home.proof.bodyTail": " What you engage with on day one shows up in your decisions on day ninety.",
 
@@ -432,7 +432,7 @@ export const translations = {
 
     "home.about.eyebrow": "ABOUT EPINEON",
     "home.about.title": "A vertical of Epineon.",
-    "home.about.body": "EpiMinded is built by Epineon, a venture working on what we think AI cannot replicate: cognitive matching, daily habit, peer presence, identity. EpiMinded is the first application of that thesis. More to come.",
+    "home.about.body": "SOULCHAIN is built by Epineon, a venture working on what we think AI cannot replicate: cognitive matching, daily habit, peer presence, identity. SOULCHAIN is the first application of that thesis. More to come.",
     "home.about.link": "Visit Epineon →",
 
     "home.cta.title": "We're rolling out in waves. Join the next one.",
@@ -453,7 +453,7 @@ export const translations = {
     "footer.legal.privacy": "Privacy",
     "footer.legal.cookies": "Cookies",
     "footer.legal.contact": "Contact",
-    "footer.copyright": "© 2026 Epineon · EpiMinded. Casablanca · Built for decision-makers worldwide.",
+    "footer.copyright": "© 2026 Epineon · SOULCHAIN. Casablanca · Built for decision-makers worldwide.",
 
     "hero.eyebrow": "FOR FOUNDERS",
     "hero.title.lead": "AI gives you answers.",
@@ -477,9 +477,9 @@ export const translations = {
     "bring.card1.title": "Personalised Brain Booster",
     "bring.card1.body": "Five minutes a day, in the format that fits your moment. Text, audio, or podcast. Tuned to your sector, your stage, your themes. The themes you start with (Pro, Health, Sport, Family, Hobbies) are suggestions; you add your own. Each booster ends with a quick quiz that verifies the insight actually landed.",
     "bring.card2.title": "Near By",
-    "bring.card2.body": "Wherever you are, EpiMinded surfaces members of your community who are nearby — people you've already connected with, now within reach. Send a quick message. Organise a coffee. The platform turns peer matching into real-world presence.",
+    "bring.card2.body": "Wherever you are, SOULCHAIN surfaces members of your community who are nearby — people you've already connected with, now within reach. Send a quick message. Organise a coffee. The platform turns peer matching into real-world presence.",
     "bring.card3.title": "Daily Groups",
-    "bring.card3.body": "Each day, EpiMinded groups you with other members whose booster overlaps with yours. One topic. One conversation. When the day ends, the discussion moves on. No dead chats. No infinite scroll.",
+    "bring.card3.body": "Each day, SOULCHAIN groups you with other members whose booster overlaps with yours. One topic. One conversation. When the day ends, the discussion moves on. No dead chats. No infinite scroll.",
     "bring.card4.title": "Peers",
     "bring.card4.body": "A list of people in your community who think the way you do. Connect with anyone on the list directly. The kind of one-to-one relationships you'd take a flight for — surfaced by an algorithm trained on cognitive affinity.",
 
@@ -498,7 +498,7 @@ export const translations = {
     "whyFounders.eyebrow": "WHY FOUNDERS FIRST",
     "whyFounders.title": "A focus, not a filter.",
     "whyFounders.highlight": "Karim's twenty years of operator experience",
-    "whyFounders.body": "EpiMinded is built for anyone who refuses to learn alone. But we built the first version for founders because that's where our network is sharpest — where Karim's twenty years of operator experience and the people in his circle line up. The founder lens shapes the messaging, the tone, and the early cohort. The product itself works for whoever joins.\n\nIf you're a founder, the door is direct. If you're not, the door is the same — the conversations just bring a different angle.",
+    "whyFounders.body": "SOULCHAIN is built for anyone who refuses to learn alone. But we built the first version for founders because that's where our network is sharpest — where Karim's twenty years of operator experience and the people in his circle line up. The founder lens shapes the messaging, the tone, and the early cohort. The product itself works for whoever joins.\n\nIf you're a founder, the door is direct. If you're not, the door is the same — the conversations just bring a different angle.",
 
     "whynow.eyebrow": "WHY NOW",
     "whynow.title": "Three conditions just opened the window.",
@@ -514,17 +514,17 @@ export const translations = {
 
     "cohort.eyebrow": "THE FOUNDERS' COHORT",
     "cohort.title": "Chosen, not contacted.",
-    "cohort.body": "EpiMinded is a peer network with a door. We screen every application. We're looking for founders and CEOs who run companies between $1M and $50M in revenue, who've outgrown their first network, and who are willing to show up for the daily ritual. The selection is what makes the room worth being in. The cohort is what the platform is for.",
+    "cohort.body": "SOULCHAIN is a peer network with a door. We screen every application. We're looking for founders and CEOs who run companies between $1M and $50M in revenue, who've outgrown their first network, and who are willing to show up for the daily ritual. The selection is what makes the room worth being in. The cohort is what the platform is for.",
     "cohort.cta": "Apply to join the cohort",
 
     "bridge.eyebrow": "NOT A FOUNDER?",
     "bridge.card1.label": "For community builders",
-    "bridge.card1.title": "Bring EpiMinded to your audience.",
-    "bridge.card1.body": "Founders, public figures, and education-driven creators use EpiMinded as the retention layer for their paid community. We give you the infrastructure; you keep the brand.",
+    "bridge.card1.title": "Bring SOULCHAIN to your audience.",
+    "bridge.card1.body": "Founders, public figures, and education-driven creators use SOULCHAIN as the retention layer for their paid community. We give you the infrastructure; you keep the brand.",
     "bridge.card1.cta": "Learn more →",
     "bridge.card2.label": "For organisations",
-    "bridge.card2.title": "Bring EpiMinded to your team.",
-    "bridge.card2.body": "L&D leaders use EpiMinded to solve the LMS completion problem. Daily ritual + peer matching, deployed across the people you choose to include.",
+    "bridge.card2.title": "Bring SOULCHAIN to your team.",
+    "bridge.card2.body": "L&D leaders use SOULCHAIN to solve the LMS completion problem. Daily ritual + peer matching, deployed across the people you choose to include.",
     "bridge.card2.cta": "Learn more →",
 
     "finalCta.title": "We're rolling out the founder cohort in waves. Join the next one.",
@@ -532,7 +532,7 @@ export const translations = {
     "finalCta.cta.primary": "Join the beta",
     "finalCta.cta.secondary": "Talk to our team",
 
-    "apply.title": "Join the EpiMinded beta",
+    "apply.title": "Join the SOULCHAIN beta",
     "apply.subhead": "Two minutes. We'll respond within 48 hours.",
     "apply.submit": "Join the beta",
     "apply.confirm.title": "Check your inbox.",
@@ -589,7 +589,7 @@ export const translations = {
 
     "builders.hero.eyebrow": "FOR COMMUNITY BUILDERS",
     "builders.hero.title": "Your community deserves more than another content stream.",
-    "builders.hero.subtitle": "EpiMinded is the retention layer for founders, public figures, and education-driven creators whose audience pays to learn from them. You bring the brand and the audience. We bring the retention stack.",
+    "builders.hero.subtitle": "SOULCHAIN is the retention layer for founders, public figures, and education-driven creators whose audience pays to learn from them. You bring the brand and the audience. We bring the retention stack.",
     "builders.hero.cta.primary": "Apply to join",
     "builders.hero.cta.secondary": "How partnership works",
 
@@ -600,22 +600,22 @@ export const translations = {
 
     "builders.bring.eyebrow": "WHAT WE BRING",
     "builders.bring.title": "From content stream to learning system.",
-    "builders.bring.imageAlt": "Two EpiMinded app screens showing Brain Booster and Communities",
+    "builders.bring.imageAlt": "Two SOULCHAIN app screens showing Brain Booster and Communities",
     "builders.bring.card1.title": "Daily insights for your members, your themes",
     "builders.bring.card1.body": "Your members receive a 5-minute Brain Booster every day, tuned to the themes you set as their community owner. The themes are yours - your sector, your method, your point of view.",
     "builders.bring.card2.title": "A peer system that scales the 1-on-1 feel",
     "builders.bring.card2.body": "Daily peer conversation among your members. Cognitive matching that pairs them on how they think. The kind of relationships that used to require your personal time - now happening across your community, every day.",
     "builders.bring.card3.title": "A Community feature you actually own",
-    "builders.bring.card3.body": "EpiMinded gives you the Community feature — a private space deployed under your brand, where your members receive a daily Brain Booster you've curated, discuss it together, and connect one to one through the same cognitive matching that powers the rest of EpiMinded. You control the booster, the frequency, the voice. We provide the infrastructure.",
+    "builders.bring.card3.body": "SOULCHAIN gives you the Community feature — a private space deployed under your brand, where your members receive a daily Brain Booster you've curated, discuss it together, and connect one to one through the same cognitive matching that powers the rest of SOULCHAIN. You control the booster, the frequency, the voice. We provide the infrastructure.",
 
     "builders.partnership.eyebrow": "HOW PARTNERSHIP WORKS",
     "builders.partnership.title": "A simple three-step partnership.",
     "builders.partnership.step1.title": "Talk to our team",
-    "builders.partnership.step1.body": "We start with a conversation. We're looking for community builders whose audience genuinely values learning and whose practice aligns with the EpiMinded approach. The conversation is honest both ways — we tell you upfront if the partnership makes sense.",
+    "builders.partnership.step1.body": "We start with a conversation. We're looking for community builders whose audience genuinely values learning and whose practice aligns with the SOULCHAIN approach. The conversation is honest both ways — we tell you upfront if the partnership makes sense.",
     "builders.partnership.step2.title": "Co-brand",
     "builders.partnership.step2.body": "Your community space is deployed under your identity, free as long as the partnership is active. Your branding, your themes, your voice. We're invisible to your members.",
     "builders.partnership.step3.title": "Compound together",
-    "builders.partnership.step3.body": "Your members get the full EpiMinded experience. You get the retention. We share in the success of the partnership.",
+    "builders.partnership.step3.body": "Your members get the full SOULCHAIN experience. You get the retention. We share in the success of the partnership.",
 
     "builders.fit.eyebrow": "IS THIS FOR YOU?",
     "builders.fit.title": "Honest about who this fits.",
@@ -637,7 +637,7 @@ export const translations = {
 
     "enterprise.hero.eyebrow": "FOR ORGANISATIONS",
     "enterprise.hero.title": "Cognitive infrastructure for your whole organisation.",
-    "enterprise.hero.subtitle": "Bring EpiMinded to anyone you choose to include - from execs to operators, from one department to the whole company. Daily insights they actually use. A peer network they actually trust.",
+    "enterprise.hero.subtitle": "Bring SOULCHAIN to anyone you choose to include - from execs to operators, from one department to the whole company. Daily insights they actually use. A peer network they actually trust.",
     "enterprise.hero.cta.primary": "Apply to join",
     "enterprise.hero.cta.secondary": "See what each member gets",
 
@@ -646,12 +646,12 @@ export const translations = {
     "enterprise.completion.imageAlt": "Professional meeting around a conference table",
     "enterprise.completion.body": "You've licensed the best content libraries, deployed the right tools, run pulse surveys. The same handful of employees engage. Everyone else disappears after onboarding. Your CEO asks about ROI. Your CHRO asks about culture. Your CFO asks why the line item keeps growing. You know learning matters. You can't always prove it's happening. Cohort programmes work - when you can afford them. Self-paced courses scale - when anyone finishes them. You don't need another content library. You need something people actually use.",
 
-    "enterprise.bring.eyebrow": "WHAT EPIMINDED BRINGS TO YOUR ORGANISATION",
+    "enterprise.bring.eyebrow": "WHAT SOULCHAIN BRINGS TO YOUR ORGANISATION",
     "enterprise.bring.title": "Cognitive infrastructure. Not another course catalogue.",
-    "enterprise.bring.imageAlt": "Two EpiMinded app screens showing Brain Booster and Communities",
+    "enterprise.bring.imageAlt": "Two SOULCHAIN app screens showing Brain Booster and Communities",
     "enterprise.bring.card1.title": "Daily depth, at any scale you choose",
     "enterprise.bring.card1.subtitle": "Five minutes of structured thinking per person, per day.",
-    "enterprise.bring.card1.body": "EpiMinded delivers a daily Brain Booster on the themes you define — strategy, AI culture, regulation, customer behaviour, leadership, whatever matters to your business. A daily practice that compounds, not a catalogue to bookmark.",
+    "enterprise.bring.card1.body": "SOULCHAIN delivers a daily Brain Booster on the themes you define — strategy, AI culture, regulation, customer behaviour, leadership, whatever matters to your business. A daily practice that compounds, not a catalogue to bookmark.",
     "enterprise.bring.card2.title": "You decide who, you decide what",
     "enterprise.bring.card2.subtitle": "Your team. Your themes. Your call.",
     "enterprise.bring.card2.body": "Include only leaders, one department, or everyone in the organisation. You define and adjust themes by quarter, by priority, based on what your business is facing. Each member keeps personal themes too.",
@@ -666,7 +666,7 @@ export const translations = {
     "enterprise.sticks.stat2": "3-15%",
     "enterprise.sticks.stat2.label": "Completion rate with traditional self-paced learning",
     "enterprise.sticks.attribution": "Industry benchmark - cohort-based learning research, 2024.",
-    "enterprise.sticks.body": "EpiMinded is built on the retention stack - daily micro-stimulation, peer accountability, applied conversation. That's why what your team learns on day one is still showing up in their decisions on day ninety.",
+    "enterprise.sticks.body": "SOULCHAIN is built on the retention stack - daily micro-stimulation, peer accountability, applied conversation. That's why what your team learns on day one is still showing up in their decisions on day ninety.",
 
     "enterprise.member.eyebrow": "WHAT EACH MEMBER RECEIVES",
     "enterprise.member.title": "The same product. Curated for your team.",
@@ -683,7 +683,7 @@ export const translations = {
     "enterprise.how.title": "Three steps, then it runs.",
     "enterprise.how.step1.caption": "Onboarding",
     "enterprise.how.step1.title": "Onboard your people",
-    "enterprise.how.step1.body": "We help you bring your people onto EpiMinded - the roles and individuals you choose, at the scope you want. Each member sets up their profile and picks their starting themes.",
+    "enterprise.how.step1.body": "We help you bring your people onto SOULCHAIN - the roles and individuals you choose, at the scope you want. Each member sets up their profile and picks their starting themes.",
     "enterprise.how.step2.caption": "Curation",
     "enterprise.how.step2.title": "Curate what matters",
     "enterprise.how.step2.body": "You set the themes that align with your business priorities - AI literacy, regulatory shifts, market dynamics, leadership models, sector-specific topics. Each member also keeps their personal themes.",
@@ -692,11 +692,11 @@ export const translations = {
     "enterprise.how.step3.body": "Daily Brain Boosters, peer exchange, applied reflection. The compounding shows up in board prep, hiring decisions, and the calls your people make under pressure.",
 
     "enterprise.trust.eyebrow": "FOUNDING ENTERPRISE PARTNERS",
-    "enterprise.trust.body": "We're opening EpiMinded to a small cohort of founding enterprise partners. If you want your team in that cohort, the conversation starts with a call.",
+    "enterprise.trust.body": "We're opening SOULCHAIN to a small cohort of founding enterprise partners. If you want your team in that cohort, the conversation starts with a call.",
     "enterprise.trust.cta": "Start the conversation",
 
     "enterprise.finalCta.title": "The conversation costs you thirty minutes.",
-    "enterprise.finalCta.subtitle": "We're opening EpiMinded to a small cohort of founding enterprise partners. If you want your team in that cohort, the conversation starts with a call where we'll show you the member experience, discuss the themes that fit your team, and see if there's a match — no deck, no script.",
+    "enterprise.finalCta.subtitle": "We're opening SOULCHAIN to a small cohort of founding enterprise partners. If you want your team in that cohort, the conversation starts with a call where we'll show you the member experience, discuss the themes that fit your team, and see if there's a match — no deck, no script.",
     "enterprise.finalCta.cta": "Book a discovery call"
   }
 };

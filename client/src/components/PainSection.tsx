@@ -6,8 +6,11 @@ export default function PainSection() {
 
   return (
     <section className="pain-section section-padding">
-      <div className="pain-section__bg" aria-hidden="true" />
-      <div className="pain-section__overlay" aria-hidden="true" />
+      <div className="pain-section__bg" aria-hidden="true">
+        <span className="pain-section__glow pain-section__glow--a" />
+        <span className="pain-section__glow pain-section__glow--b" />
+      </div>
+      <div className="pain-section__grain" aria-hidden="true" />
 
       <div className="container relative z-10 flex justify-center">
         <Reveal variant="fade">

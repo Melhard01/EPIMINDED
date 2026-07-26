@@ -218,14 +218,17 @@ export default function PartnershipSection() {
 
       <motion.section
         id="partnership"
-        className="partnership-section relative overflow-hidden px-6 py-20 md:py-28"
+        className="partnership-section atmosphere-why-now relative overflow-hidden px-6 py-20 md:py-28"
         initial={reduceMotion ? false : "hidden"}
         whileInView={reduceMotion ? undefined : "visible"}
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
       >
-        <div className="partnership-section__bg" aria-hidden="true" />
-        <div className="partnership-section__overlay" aria-hidden="true" />
+        <div className="atmosphere-why-now__bg" aria-hidden="true">
+          <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
+          <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
+        </div>
+        <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
         <div className="relative z-10 mx-auto w-full max-w-[1180px]">
           <div className="flex flex-col items-center text-center">
