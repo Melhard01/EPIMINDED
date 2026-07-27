@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "ai.epineon.new",
+      "sha256_cert_fingerprints": [
+        "05:1D:2A:94:07:0C:E5:10:17:BB:AD:2B:2A:C3:25:27:F1:DD:49:7C:36:E6:96:96:43:85:26:4C:69:DE:91:D5"
+      ]
+    }
+  }
+]

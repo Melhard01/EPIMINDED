@@ -311,17 +311,43 @@
     background:
       linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.28) 0%,
-        rgba(0, 0, 0, 0.06) 40%,
-        rgba(0, 0, 0, 0.18) 72%,
-        rgba(0, 0, 0, 0.58) 100%
+        rgba(0, 0, 0, 0.34) 0%,
+        rgba(0, 0, 0, 0.12) 38%,
+        rgba(0, 0, 0, 0.22) 72%,
+        rgba(0, 0, 0, 0.62) 100%
       ),
       radial-gradient(
-        ellipse 70% 60% at 50% 45%,
-        rgba(0, 0, 0, 0.08) 0%,
-        rgba(0, 0, 0, 0.04) 52%,
-        transparent 72%
+        ellipse 72% 58% at 50% 42%,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.06) 48%,
+        transparent 74%
       );
+  }
+
+  .home-hero__gold-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse 58% 48% at 50% 38%,
+        rgba(198, 161, 91, 0.14) 0%,
+        rgba(198, 161, 91, 0.06) 38%,
+        transparent 68%
+      ),
+      radial-gradient(
+        ellipse 42% 36% at 18% 72%,
+        rgba(156, 124, 60, 0.08) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 38% 32% at 82% 28%,
+        rgba(232, 206, 146, 0.07) 0%,
+        transparent 68%
+      );
+    mix-blend-mode: screen;
+    opacity: 0.85;
   }
 
   @media (max-width: 639px) {
@@ -329,16 +355,32 @@
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.32) 0%,
-          rgba(0, 0, 0, 0.1) 45%,
-          rgba(0, 0, 0, 0.28) 72%,
-          rgba(0, 0, 0, 0.62) 100%
+          rgba(0, 0, 0, 0.38) 0%,
+          rgba(0, 0, 0, 0.14) 42%,
+          rgba(0, 0, 0, 0.32) 72%,
+          rgba(0, 0, 0, 0.66) 100%
         ),
         radial-gradient(
-          ellipse 100% 72% at 50% 42%,
-          rgba(0, 0, 0, 0.12) 0%,
-          rgba(0, 0, 0, 0.06) 55%,
+          ellipse 100% 70% at 50% 40%,
+          rgba(0, 0, 0, 0.14) 0%,
+          rgba(0, 0, 0, 0.08) 55%,
           transparent 78%
+        );
+    }
+
+    .home-hero__gold-glow {
+      opacity: 0.7;
+      background:
+        radial-gradient(
+          ellipse 78% 52% at 50% 36%,
+          rgba(198, 161, 91, 0.12) 0%,
+          rgba(198, 161, 91, 0.05) 42%,
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 50% 40% at 20% 78%,
+          rgba(156, 124, 60, 0.07) 0%,
+          transparent 72%
         );
     }
   }

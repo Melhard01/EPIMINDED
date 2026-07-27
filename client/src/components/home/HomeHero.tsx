@@ -9,7 +9,7 @@ const LiquidEther = lazy(() => import("@/components/effects/LiquidEther"));
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const LIQUID_COLORS = ["#eee063", "#C4A044", "#8B7355"];
+const LIQUID_COLORS = ["#e8ce92", "#c6a15b", "#9c7c3c"];
 
 export default function HomeHero() {
   const { t } = useLanguage();
@@ -34,8 +34,8 @@ export default function HomeHero() {
         <Suspense fallback={null}>
           <LiquidEther
             colors={LIQUID_COLORS}
-            mouseForce={17}
-            cursorSize={70}
+            mouseForce={14}
+            cursorSize={78}
             isViscous={false}
             viscous={30}
             iterationsViscous={32}
@@ -43,16 +43,17 @@ export default function HomeHero() {
             resolution={0.45}
             isBounce={false}
             autoDemo={true}
-            autoSpeed={0.5}
-            autoIntensity={2.2}
+            autoSpeed={0.4}
+            autoIntensity={1.65}
             takeoverDuration={0.25}
             autoResumeDelay={3000}
-            autoRampDuration={0.6}
+            autoRampDuration={0.7}
             style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
           />
         </Suspense>
       </div>
       <div className="home-hero__overlay" aria-hidden="true" />
+      <div className="home-hero__gold-glow" aria-hidden="true" />
 
       <div className="relative z-10 flex flex-1 items-center w-full pt-6 md:pt-10">
         <div className="container px-4 sm:px-6 w-full">
