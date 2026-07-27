@@ -7,7 +7,7 @@ import { smoothScrollToId } from "@/lib/smoothScroll";
 
 const ColorBends = lazy(() => import("@/components/effects/ColorBends"));
 
-const COLOR_BENDS_COLORS = ["#e8ce92", "#c6a15b", "#a4923b", "#9c7c3c"];
+const COLOR_BENDS_COLORS = ["#6b5c0a", "#3f3505", "#524608", "#2a2403"];
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -35,7 +35,7 @@ export default function Hero() {
             noise={0.15}
             parallax={0}
             iterations={1}
-            intensity={1.1}
+            intensity={1.35}
             bandWidth={6.5}
             transparent
             style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,6 +10,10 @@ import PartnerSection from "@/components/PartnerSection";
 import PartnershipSection from "@/components/PartnershipSection";
 import BringAccordionItem from "@/components/shared/BringAccordionItem";
 import { smoothScrollToId } from "@/lib/smoothScroll";
+
+const Aurora = lazy(() => import("@/components/effects/Aurora"));
+
+const AURORA_COLOR_STOPS = ["#8b7632", "#c6a15b", "#ffffff"] as const;
 
 const BRING_TEXT_CARDS = ["card1", "card2", "card3"] as const;
 const WORKS_ITEMS = ["item1", "item2", "item3", "item4"] as const;
@@ -30,7 +35,16 @@ export default function CommunityBuilders() {
           id="for-community-builders"
           className="builders-hero relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16"
         >
-          <div className="builders-hero__bg" aria-hidden="true" />
+          <div className="builders-hero__bg" aria-hidden="true">
+            <Suspense fallback={null}>
+              <Aurora
+                colorStops={[...AURORA_COLOR_STOPS]}
+                blend={0.61}
+                amplitude={1.0}
+                speed={1.2}
+              />
+            </Suspense>
+          </div>
           <div className="builders-hero__overlay" aria-hidden="true" />
           <div className="container relative z-10 px-4 sm:px-6">
             <div className="hero-content max-w-4xl mx-auto text-center">

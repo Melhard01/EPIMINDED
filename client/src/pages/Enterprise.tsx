@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CALENDLY_ENTERPRISE } from "@/lib/urls";
 import { smoothScrollToId } from "@/lib/smoothScroll";
+
+const Grainient = lazy(() => import("@/components/effects/Grainient"));
 
 const BRING_CARDS = ["card1", "card2", "card3"] as const;
 const LEFT_MEMBER_CARDS = ["card2", "card4"] as const;
@@ -50,7 +53,34 @@ export default function Enterprise() {
           id="for-organisations"
           className="enterprise-hero relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16"
         >
-          <div className="enterprise-hero__bg" aria-hidden="true" />
+          <div className="enterprise-hero__bg" aria-hidden="true">
+            <Suspense fallback={null}>
+              <Grainient
+                color1="#ecc374"
+                color2="#000000"
+                color3="#cfc497"
+                timeSpeed={0.25}
+                colorBalance={0.0}
+                warpStrength={1.0}
+                warpFrequency={5.0}
+                warpSpeed={2.0}
+                warpAmplitude={50.0}
+                blendAngle={0.0}
+                blendSoftness={0.05}
+                rotationAmount={500.0}
+                noiseScale={2.0}
+                grainAmount={0.1}
+                grainScale={2.0}
+                grainAnimated={false}
+                contrast={1.5}
+                gamma={1.0}
+                saturation={1.0}
+                centerX={0.0}
+                centerY={0.0}
+                zoom={0.9}
+              />
+            </Suspense>
+          </div>
           <div className="enterprise-hero__overlay" aria-hidden="true" />
 
           <div className="container relative z-10 px-4 sm:px-6">
