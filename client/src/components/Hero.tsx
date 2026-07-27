@@ -1,9 +1,13 @@
+import { lazy, Suspense } from "react";
 import { useLocation } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import HeroAuroraBackground from "@/components/HeroAuroraBackground";
 import Reveal from "@/components/ui/reveal";
 import { smoothScrollToId } from "@/lib/smoothScroll";
+
+const ColorBends = lazy(() => import("@/components/effects/ColorBends"));
+
+const COLOR_BENDS_COLORS = ["#e8ce92", "#c6a15b", "#a4923b", "#9c7c3c"];
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -18,7 +22,28 @@ export default function Hero() {
       id="for-founders"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-aurora hero-aurora--founders"
     >
-      <HeroAuroraBackground variant="founders" />
+      <div className="founders-hero__bg" aria-hidden="true">
+        <Suspense fallback={null}>
+          <ColorBends
+            colors={COLOR_BENDS_COLORS}
+            rotation={-77}
+            speed={0.2}
+            scale={1}
+            frequency={1}
+            warpStrength={1}
+            mouseInfluence={1}
+            noise={0.15}
+            parallax={0}
+            iterations={1}
+            intensity={1.1}
+            bandWidth={6.5}
+            transparent
+            style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
+          />
+        </Suspense>
+      </div>
+      <div className="founders-hero__overlay" aria-hidden="true" />
+
       <div className="container relative z-10 px-4 sm:px-6">
         <div className="hero-content max-w-4xl mx-auto text-center">
           <Reveal immediate>
