@@ -1,0 +1,168 @@
+.stack {
+  --card-radius: 1rem;
+  --back-offset-x: 14px;
+  --back-offset-y: 16px;
+  --back-rotate: -2.5deg;
+  --gold-glow: rgba(198, 161, 91, 0.14);
+  --gold-border: rgba(198, 161, 91, 0.22);
+
+  position: relative;
+  perspective: 1400px;
+  padding: 0 0 1.35rem 1.35rem;
+}
+
+.stackCompact {
+  --back-offset-x: 10px;
+  --back-offset-y: 12px;
+  --back-rotate: -2deg;
+  padding: 0 0 0.85rem 0.85rem;
+}
+
+.backCard {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--card-radius);
+  pointer-events: none;
+  background:
+    linear-gradient(145deg, rgba(198, 161, 91, 0.1) 0%, rgba(10, 10, 11, 0.92) 42%, rgba(0, 0, 0, 0.98) 100%);
+  border: 1px solid var(--gold-border);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.55),
+    0 0 48px var(--gold-glow),
+    inset 0 1px 0 rgba(198, 161, 91, 0.12);
+  transform: translate3d(var(--back-offset-x), var(--back-offset-y), -1px) rotate(var(--back-rotate));
+  transform-origin: 42% 38%;
+  animation: backCardSettle 1.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  will-change: transform;
+}
+
+.stack:hover .backCard {
+  --back-offset-x: 10px;
+  --back-offset-y: 12px;
+  --back-rotate: -1.25deg;
+  transition:
+    transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.58),
+    0 0 56px rgba(198, 161, 91, 0.18),
+    inset 0 1px 0 rgba(198, 161, 91, 0.16);
+}
+
+.frontCard {
+  position: relative;
+  z-index: 1;
+  border-radius: var(--card-radius);
+  border: 1px solid #303030;
+  background-color: #000000;
+  padding: 1.5rem;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+  transform: translateZ(0);
+  transition:
+    transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.stack:hover .frontCard {
+  transform: translate3d(0, -2px, 0);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(198, 161, 91, 0.1),
+    0 0 32px rgba(198, 161, 91, 0.06);
+}
+
+.frontCardWide {
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .frontCardWide {
+    padding: 2.5rem 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .frontCardWide {
+    padding: 3rem;
+  }
+}
+
+.frontCardCompact {
+  padding: 1.25rem;
+}
+
+.header {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.headerTitle {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.headerSubhead {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.authBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.authIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.authTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.authSubhead {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+@keyframes backCardSettle {
+  0% {
+    opacity: 0.35;
+    transform: translate3d(34px, 38px, -1px) rotate(-7deg) scale(0.985);
+    box-shadow:
+      0 12px 30px rgba(0, 0, 0, 0.35),
+      0 0 20px rgba(198, 161, 91, 0.05);
+  }
+
+  55% {
+    opacity: 0.92;
+    transform: translate3d(18px, 22px, -1px) rotate(-4deg) scale(0.995);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(var(--back-offset-x), var(--back-offset-y), -1px) rotate(var(--back-rotate)) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backCard {
+    animation: none;
+    transform: translate3d(var(--back-offset-x), var(--back-offset-y), -1px) rotate(var(--back-rotate));
+  }
+
+  .stack:hover .backCard,
+  .stack:hover .frontCard,
+  .frontCard {
+    transition: none;
+    transform: none;
+  }
+}

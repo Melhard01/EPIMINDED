@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import ApplicationForm from "@/components/ApplicationForm";
+import RequestCommunityForm from "@/components/RequestCommunityForm";
 import Reveal from "@/components/ui/reveal";
 
 export default function ApplicationSection() {
@@ -19,9 +19,7 @@ export default function ApplicationSection() {
         </Reveal>
 
         <Reveal variant="scale" delay={120}>
-          <div className="founder-cohort-form p-6 sm:p-10 md:p-12">
-            <ApplicationForm wide showHeader />
-          </div>
+          <RequestCommunityForm wide showHeader />
         </Reveal>
       </div>
     </section>

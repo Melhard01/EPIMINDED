@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "@/funnel/lib/navigation";
 import { BrandHeader } from "@/funnel/components/ui/BrandHeader";
 import { useFunnel } from "@/funnel/lib/funnel/store";
+import { extractAccessToken, setAuthAccessToken } from "@/lib/authToken";
 
 type AuthApiPayload = {
   code?: string;
@@ -155,6 +156,8 @@ export function OTPPageClient() {
           "";
         const normalizedMessage = normalizeAuthMessage(payload);
         if (normalizedMessage.includes("already verified")) {
+          const token = extractAccessToken(payload);
+          if (token) setAuthAccessToken(token);
           setCustomerName(pendingSignup.firstName, pendingSignup.lastName);
           setEmail(pendingSignup.email);
           setRegisteredAuth(pendingSignup.registeredUserId ?? null);
@@ -182,6 +185,8 @@ export function OTPPageClient() {
       setCustomerName(pendingSignup.firstName, pendingSignup.lastName);
       setEmail(pendingSignup.email);
       setRegisteredAuth(pendingSignup.registeredUserId ?? null);
+      const token = extractAccessToken(payload);
+      if (token) setAuthAccessToken(token);
       window.location.assign(buildCheckoutUrl);
     } catch (error) {
       const message = error instanceof Error && error.message.trim() ? error.message : "";

@@ -21,6 +21,13 @@ const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+function getLoginUrl() {
+  const explicit = process.env.AUTH_LOGIN_URL?.trim();
+  if (explicit) return explicit;
+  const base = process.env.AUTH_API_BASE_URL?.trim() || DEFAULT_AUTH_BASE_URL;
+  return `${base}/api/auth/login`;
+}
+
 function getRegisterUrl() {
   const explicit = process.env.AUTH_REGISTER_URL?.trim();
   if (explicit) return explicit;
@@ -51,6 +58,12 @@ function getJoinCommunityUrl() {
   const explicit = process.env.AUTH_JOIN_COMMUNITY_BY_CODE_URL?.trim();
   if (explicit) return explicit;
   return `${DEFAULT_JOIN_COMMUNITY_BASE}/join-community-by-code`;
+}
+
+function getCommunityRequestUrl() {
+  const explicit = process.env.COMMUNITIES_REQUEST_URL?.trim();
+  if (explicit) return explicit;
+  return `${DEFAULT_JOIN_COMMUNITY_BASE}/communities/request/web`;
 }
 
 async function proxyJson(res: Response, upstream: globalThis.Response) {
@@ -105,6 +118,57 @@ router.get("/api/entitlement/verify", async (req, res) => {
     return res
       .status(401)
       .json({ valid: false, error: (err as Error).message });
+  }
+});
+
+router.post("/api/auth/login", async (req, res) => {
+  const payload = req.body ?? {};
+  const email =
+    typeof payload.email === "string" ? payload.email.trim().toLowerCase() : "";
+  const password = typeof payload.password === "string" ? payload.password : "";
+
+  if (!email || !password) {
+    return res.status(400).json({
+      code: "INVALID_PAYLOAD",
+      message: "email and password are required.",
+    });
+  }
+
+  try {
+    const response = await fetch(getLoginUrl(), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        password,
+        deviceType: "web",
+      }),
+    });
+
+    const contentType = response.headers.get("content-type") || "";
+    const payloadFromAuth = contentType.includes("application/json")
+      ? await response.json()
+      : { message: await response.text() };
+
+    if (
+      payloadFromAuth &&
+      typeof payloadFromAuth === "object" &&
+      !Array.isArray(payloadFromAuth) &&
+      typeof (payloadFromAuth as { detail?: unknown }).detail === "string" &&
+      !(payloadFromAuth as { message?: unknown }).message
+    ) {
+      return res.status(response.status).json({
+        ...(payloadFromAuth as Record<string, unknown>),
+        message: (payloadFromAuth as { detail: string }).detail,
+      });
+    }
+
+    return res.status(response.status).json(payloadFromAuth);
+  } catch {
+    return res.status(502).json({
+      code: "AUTH_SERVICE_UNAVAILABLE",
+      message: "Authentication service is temporarily unavailable.",
+    });
   }
 });
 
@@ -253,6 +317,60 @@ router.post("/api/auth/join-community-by-code", async (req, res) => {
   } catch {
     return res.status(502).json({
       code: "AUTH_SERVICE_UNAVAILABLE",
+      message: "Community service is temporarily unavailable.",
+    });
+  }
+});
+
+router.post("/api/communities/request", async (req, res) => {
+  const authHeader =
+    typeof req.headers.authorization === "string" ? req.headers.authorization.trim() : "";
+
+  const payload = req.body ?? {};
+  const requesterType =
+    typeof payload.requester_type === "string" ? payload.requester_type.trim() : "";
+  const name = typeof payload.name === "string" ? payload.name.trim() : "";
+  const communityName =
+    typeof payload.community_name === "string" ? payload.community_name.trim() : "";
+  const description =
+    typeof payload.description === "string" ? payload.description.trim() : "";
+  const socialHandle =
+    typeof payload.social_handle === "string" ? payload.social_handle.trim() : "";
+
+  const allowedTypes = new Set(["organization", "influencer", "other"]);
+  if (!allowedTypes.has(requesterType) || !name || name.length > 200) {
+    return res.status(400).json({
+      code: "INVALID_PAYLOAD",
+      message:
+        "requester_type must be organization|influencer|other and name is required (1–200 chars).",
+    });
+  }
+
+  const body: Record<string, string> = {
+    requester_type: requesterType,
+    name,
+    community_name: communityName,
+    description,
+    social_handle: socialHandle,
+  };
+
+  try {
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (authHeader.toLowerCase().startsWith("bearer ") && authHeader.length >= 16) {
+      headers.Authorization = authHeader;
+    }
+
+    const response = await fetch(getCommunityRequestUrl(), {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+    });
+    return proxyJson(res, response);
+  } catch {
+    return res.status(502).json({
+      code: "COMMUNITY_SERVICE_UNAVAILABLE",
       message: "Community service is temporarily unavailable.",
     });
   }
