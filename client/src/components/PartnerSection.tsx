@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import PartnerForm from "@/components/PartnerForm";
+import RequestCommunityForm from "@/components/RequestCommunityForm";
 import Reveal from "@/components/ui/reveal";
 
 export default function PartnerSection() {
@@ -14,18 +14,13 @@ export default function PartnerSection() {
       <div className="atmosphere-why-now__grain" aria-hidden="true" />
 
       <div className="container relative z-10 max-w-4xl mx-auto">
-        <Reveal variant="up">
-          <div className="text-center mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl leading-tight mb-3">
-              {t("partner.title")}
-            </h2>
-            <p className="text-muted-foreground text-sm md:text-base">{t("partner.subhead")}</p>
-          </div>
-        </Reveal>
         <Reveal variant="scale" delay={150}>
-          <div className="partner-section-form p-6 sm:p-10 md:p-12">
-            <PartnerForm wide />
-          </div>
+          <RequestCommunityForm
+            wide
+            showHeader
+            headerTitle={t("partner.title")}
+            headerSubhead={t("partner.subhead")}
+          />
         </Reveal>
       </div>
     </section>

@@ -111,28 +111,6 @@
   color: hsl(var(--muted-foreground));
 }
 
-.authBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.authIntro {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.authTitle {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.authSubhead {
-  font-size: 0.875rem;
-  color: hsl(var(--muted-foreground));
-}
-
 @keyframes backCardSettle {
   0% {
     opacity: 0.35;

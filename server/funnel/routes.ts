@@ -63,7 +63,7 @@ function getJoinCommunityUrl() {
 function getCommunityRequestUrl() {
   const explicit = process.env.COMMUNITIES_REQUEST_URL?.trim();
   if (explicit) return explicit;
-  return `${DEFAULT_JOIN_COMMUNITY_BASE}/communities/request/web`;
+  return `${DEFAULT_JOIN_COMMUNITY_BASE}/communities/request/lead`;
 }
 
 async function proxyJson(res: Response, upstream: globalThis.Response) {
@@ -323,48 +323,40 @@ router.post("/api/auth/join-community-by-code", async (req, res) => {
 });
 
 router.post("/api/communities/request", async (req, res) => {
-  const authHeader =
-    typeof req.headers.authorization === "string" ? req.headers.authorization.trim() : "";
-
   const payload = req.body ?? {};
-  const requesterType =
-    typeof payload.requester_type === "string" ? payload.requester_type.trim() : "";
   const name = typeof payload.name === "string" ? payload.name.trim() : "";
-  const communityName =
-    typeof payload.community_name === "string" ? payload.community_name.trim() : "";
-  const description =
-    typeof payload.description === "string" ? payload.description.trim() : "";
-  const socialHandle =
-    typeof payload.social_handle === "string" ? payload.social_handle.trim() : "";
+  const communityType =
+    typeof payload.community_type === "string" ? payload.community_type.trim() : "";
+  const phone = typeof payload.phone === "string" ? payload.phone.trim() : "";
+  const email =
+    typeof payload.email === "string" ? payload.email.trim().toLowerCase() : "";
 
-  const allowedTypes = new Set(["organization", "influencer", "other"]);
-  if (!allowedTypes.has(requesterType) || !name || name.length > 200) {
+  const allowedTypes = new Set(["founders", "community_builders", "organisations"]);
+  if (!name || name.length > 200 || !allowedTypes.has(communityType) || !phone || !email) {
     return res.status(400).json({
       code: "INVALID_PAYLOAD",
       message:
-        "requester_type must be organization|influencer|other and name is required (1–200 chars).",
+        "name, community_type (founders|community_builders|organisations), phone and email are required.",
+    });
+  }
+  if (!EMAIL_RE.test(email)) {
+    return res.status(400).json({
+      code: "INVALID_PAYLOAD",
+      message: "email must be a valid email address.",
     });
   }
 
-  const body: Record<string, string> = {
-    requester_type: requesterType,
+  const body = {
     name,
-    community_name: communityName,
-    description,
-    social_handle: socialHandle,
+    community_type: communityType,
+    phone,
+    email,
   };
 
   try {
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    };
-    if (authHeader.toLowerCase().startsWith("bearer ") && authHeader.length >= 16) {
-      headers.Authorization = authHeader;
-    }
-
     const response = await fetch(getCommunityRequestUrl(), {
       method: "POST",
-      headers,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
     return proxyJson(res, response);

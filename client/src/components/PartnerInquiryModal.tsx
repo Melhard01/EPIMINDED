@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import PartnerForm from "@/components/PartnerForm";
+import RequestCommunityForm from "@/components/RequestCommunityForm";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PartnerInquiryModalProps {
@@ -31,7 +31,12 @@ export default function PartnerInquiryModal({ open, onOpenChange }: PartnerInqui
             {t("partner.subhead")}
           </DialogDescription>
         </DialogHeader>
-        <PartnerForm className="mt-4" onClose={() => onOpenChange(false)} />
+        <RequestCommunityForm
+          className="mt-4"
+          onSuccess={() => {
+            /* keep modal open to show confirmation */
+          }}
+        />
       </DialogContent>
     </Dialog>
   );

@@ -8,8 +8,8 @@ import EnterpriseCompletionSection from "@/components/EnterpriseCompletionSectio
 import EnterpriseHowSection from "@/components/EnterpriseHowSection";
 import Reveal from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
+import RequestCommunityForm from "@/components/RequestCommunityForm";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { CALENDLY_ENTERPRISE } from "@/lib/urls";
 import { smoothScrollToId } from "@/lib/smoothScroll";
 
 const Grainient = lazy(() => import("@/components/effects/Grainient"));
@@ -194,20 +194,22 @@ export default function Enterprise() {
 
         <EnterpriseHowSection />
 
-        <section className="enterprise-final-cta-section atmosphere-why-now section-padding relative overflow-hidden">
-          <div className="atmosphere-why-now__bg" aria-hidden="true">
-            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--a" />
-            <span className="atmosphere-why-now__glow atmosphere-why-now__glow--b" />
-          </div>
-          <div className="atmosphere-why-now__grain" aria-hidden="true" />
+        <section id="apply" className="founder-cohort-section section-padding">
+          <div className="founder-cohort-section__bg" aria-hidden="true" />
+          <div className="founder-cohort-section__overlay" aria-hidden="true" />
 
-          <div className="container relative z-10 max-w-3xl text-center">
-            <Reveal variant="scale">
-              <h2 className="font-serif text-3xl md:text-5xl mb-6">{t("enterprise.finalCta.title")}</h2>
-              <p className="text-lg text-muted-foreground mb-10">{t("enterprise.finalCta.subtitle")}</p>
-              <Button onClick={() => window.open(CALENDLY_ENTERPRISE, "_blank")} className="bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full px-10 h-14 border-0">
-                {t("enterprise.finalCta.cta")}
-              </Button>
+          <div className="container relative z-10 max-w-4xl mx-auto">
+            <Reveal variant="up" className="mx-auto max-w-3xl text-center mb-10">
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-tight text-balance max-w-[720px] mx-auto mb-6">
+                {t("finalCta.title")}
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+                {t("finalCta.subtitle")}
+              </p>
+            </Reveal>
+
+            <Reveal variant="scale" delay={120}>
+              <RequestCommunityForm wide showHeader />
             </Reveal>
           </div>
         </section>
