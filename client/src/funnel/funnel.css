@@ -78,6 +78,7 @@
   font-size: 1rem;
   line-height: 1.375;
   color: var(--color-body);
+  -webkit-backdrop-filter: blur(40px);
   backdrop-filter: blur(40px);
   background: linear-gradient(
     160deg,
