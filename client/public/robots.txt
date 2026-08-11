@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.epiminded.com/sitemap.xml
+# Transactional and user-specific funnel steps: no standalone search value.
+Disallow: /quiz
+Disallow: /report
+Disallow: /paywall
+Disallow: /pre-checkout
+Disallow: /success
+
+# Server routes, not pages.
+Disallow: /api/
+Disallow: /checkout
+
+Sitemap: https://soulchain.net/sitemap.xml
