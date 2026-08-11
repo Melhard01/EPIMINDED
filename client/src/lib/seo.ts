@@ -23,24 +23,24 @@ export interface RouteSeo {
 /** Paths are normalised (no trailing slash, no query/hash) before lookup. */
 export const SEO_BY_PATH: Record<string, RouteSeo> = {
   "/": {
-    title: "SOULCHAIN — Peer Learning for Founders, Builders and Teams",
+    title: "Peer Learning Platform for Founders & Leaders | SOULCHAIN",
     description:
-      "SOULCHAIN pairs a daily insight tuned to where you are with a peer network matched on how you think. Built around what AI cannot give you.",
+      "SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.",
   },
   "/founders": {
-    title: "For Founders — Daily Insight and a Peer Cohort | SOULCHAIN",
+    title: "Founder Peer Group & Daily Insights | SOULCHAIN",
     description:
-      "Five-minute daily insights tuned to where you are, plus daily peer conversations with operators at your level. Rebuild the circle founders lose.",
+      "A peer group for founders: five-minute daily insights and conversations with operators at your level. Cognitive matching rebuilds the circle founders lose.",
   },
   "/community-builders": {
-    title: "For Community Builders — The Retention Layer | SOULCHAIN",
+    title: "Community Retention Platform for Creators | SOULCHAIN",
     description:
-      "The retention layer for creators and public figures whose audience pays to learn from them. You bring the brand and audience; we bring the stack.",
+      "A member retention platform for creators, founders and public figures whose audience pays to learn from them. You bring the audience; we bring the stack.",
   },
   "/enterprise": {
-    title: "For Organisations — Cognitive Infrastructure | SOULCHAIN",
+    title: "Peer Learning for Teams & Organisations | SOULCHAIN",
     description:
-      "Bring SOULCHAIN to anyone you choose to include, from execs to operators. Daily insights they actually use and a peer network they actually trust.",
+      "Peer learning and cognitive infrastructure for organisations, from execs to operators. Daily insights teams actually use and a peer network they trust.",
   },
   "/legal/terms": {
     title: "Terms and Conditions | SOULCHAIN",
