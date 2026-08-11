@@ -23,16 +23,17 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\+?[\d\s().-]{7,20}$/;
 
 /**
- * Defaults to the same-origin BFF route, which requires the Express server to
- * be running (`pnpm dev` / `pnpm start`).
+ * Posts straight to the community service, bypassing the /api BFF route, so the
+ * form works without the Express server running.
  *
- * Set VITE_COMMUNITY_REQUEST_URL to call the community service directly and
- * skip the BFF — useful with `pnpm dev:web`. Only viable over http://, since
- * the upstream has no TLS and browsers block http calls from an https page.
+ * The upstream is HTTP-only (it serves no TLS on :5044), so this works from an
+ * http:// origin such as localhost but is blocked as mixed content on an
+ * https:// site. Set VITE_COMMUNITY_REQUEST_URL to "/api/communities/request"
+ * to go back through the BFF, which can reach the upstream server-side.
  */
 const REQUEST_ENDPOINT =
   import.meta.env.VITE_COMMUNITY_REQUEST_URL?.trim() ||
-  "/api/communities/request";
+  "http://40.89.185.79:5044/communities/request/lead";
 
 const ROLE_OPTIONS: { value: Role; labelKey: string }[] = [
   { value: "founders", labelKey: "communityRequest.role.founders" },
