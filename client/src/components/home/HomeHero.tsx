@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import EffectBoundary from "@/components/effects/EffectBoundary";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -31,26 +32,28 @@ export default function HomeHero() {
       className="home-hero relative overflow-hidden pt-28 pb-20 md:pt-40 min-h-[min(100svh,56rem)] flex flex-col"
     >
       <div className="home-hero__bg" aria-hidden="true">
-        <Suspense fallback={null}>
-          <LiquidEther
-            colors={LIQUID_COLORS}
-            mouseForce={14}
-            cursorSize={78}
-            isViscous={false}
-            viscous={30}
-            iterationsViscous={32}
-            iterationsPoisson={18}
-            resolution={0.45}
-            isBounce={false}
-            autoDemo={true}
-            autoSpeed={0.4}
-            autoIntensity={1.65}
-            takeoverDuration={0.25}
-            autoResumeDelay={3000}
-            autoRampDuration={0.7}
-            style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
-          />
-        </Suspense>
+        <EffectBoundary>
+          <Suspense fallback={null}>
+            <LiquidEther
+              colors={LIQUID_COLORS}
+              mouseForce={14}
+              cursorSize={78}
+              isViscous={false}
+              viscous={30}
+              iterationsViscous={32}
+              iterationsPoisson={18}
+              resolution={0.45}
+              isBounce={false}
+              autoDemo={true}
+              autoSpeed={0.4}
+              autoIntensity={1.65}
+              takeoverDuration={0.25}
+              autoResumeDelay={3000}
+              autoRampDuration={0.7}
+              style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
+            />
+          </Suspense>
+        </EffectBoundary>
       </div>
       <div className="home-hero__overlay" aria-hidden="true" />
       <div className="home-hero__gold-glow" aria-hidden="true" />

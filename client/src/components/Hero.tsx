@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import EffectBoundary from "@/components/effects/EffectBoundary";
 import { useLocation } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -23,24 +24,26 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 hero-aurora hero-aurora--founders"
     >
       <div className="founders-hero__bg" aria-hidden="true">
-        <Suspense fallback={null}>
-          <ColorBends
-            colors={COLOR_BENDS_COLORS}
-            rotation={-77}
-            speed={0.2}
-            scale={1}
-            frequency={1}
-            warpStrength={1}
-            mouseInfluence={1}
-            noise={0.15}
-            parallax={0}
-            iterations={1}
-            intensity={1.35}
-            bandWidth={6.5}
-            transparent
-            style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
-          />
-        </Suspense>
+        <EffectBoundary>
+          <Suspense fallback={null}>
+            <ColorBends
+              colors={COLOR_BENDS_COLORS}
+              rotation={-77}
+              speed={0.2}
+              scale={1}
+              frequency={1}
+              warpStrength={1}
+              mouseInfluence={1}
+              noise={0.15}
+              parallax={0}
+              iterations={1}
+              intensity={1.35}
+              bandWidth={6.5}
+              transparent
+              style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
+            />
+          </Suspense>
+        </EffectBoundary>
       </div>
       <div className="founders-hero__overlay" aria-hidden="true" />
 

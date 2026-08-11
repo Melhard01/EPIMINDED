@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import EffectBoundary from "@/components/effects/EffectBoundary";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -36,14 +37,16 @@ export default function CommunityBuilders() {
           className="builders-hero relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16"
         >
           <div className="builders-hero__bg" aria-hidden="true">
-            <Suspense fallback={null}>
-              <Aurora
-                colorStops={[...AURORA_COLOR_STOPS]}
-                blend={0.61}
-                amplitude={1.0}
-                speed={1.2}
-              />
-            </Suspense>
+            <EffectBoundary>
+              <Suspense fallback={null}>
+                <Aurora
+                  colorStops={[...AURORA_COLOR_STOPS]}
+                  blend={0.61}
+                  amplitude={1.0}
+                  speed={1.2}
+                />
+              </Suspense>
+            </EffectBoundary>
           </div>
           <div className="builders-hero__overlay" aria-hidden="true" />
           <div className="container relative z-10 px-4 sm:px-6">
