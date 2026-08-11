@@ -1,4 +1,10 @@
-import { useState, type FormHTMLAttributes, type ReactNode } from "react";
+import {
+  useCallback,
+  useId,
+  useState,
+  type FormHTMLAttributes,
+  type ReactNode,
+} from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +21,18 @@ const fieldClassName =
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\+?[\d\s().-]{7,20}$/;
+
+/**
+ * Defaults to the same-origin BFF route, which requires the Express server to
+ * be running (`pnpm dev` / `pnpm start`).
+ *
+ * Set VITE_COMMUNITY_REQUEST_URL to call the community service directly and
+ * skip the BFF — useful with `pnpm dev:web`. Only viable over http://, since
+ * the upstream has no TLS and browsers block http calls from an https page.
+ */
+const REQUEST_ENDPOINT =
+  import.meta.env.VITE_COMMUNITY_REQUEST_URL?.trim() ||
+  "/api/communities/request";
 
 const ROLE_OPTIONS: { value: Role; labelKey: string }[] = [
   { value: "founders", labelKey: "communityRequest.role.founders" },
@@ -52,6 +70,21 @@ export default function RequestCommunityForm({
 
   const spanFull = wide ? "md:col-span-2" : undefined;
 
+  // Several instances of this form can share a page (inline section + modal),
+  // so field ids have to be unique per instance.
+  const uid = useId();
+  const fieldId = (name: string) => `${uid}-${name}`;
+  const errorId = (name: string) => `${uid}-${name}-error`;
+
+  const clearError = useCallback((name: string) => {
+    setErrors((prev) => {
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (submitting) return;
@@ -88,23 +121,39 @@ export default function RequestCommunityForm({
     };
 
     try {
-      const response = await fetch("/api/communities/request", {
+      const response = await fetch(REQUEST_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      const data = (await response.json().catch(() => null)) as {
-        message?: string;
-        error?: string;
-        detail?: string;
-      } | null;
+      // A 2xx that isn't JSON means the request never reached the API (e.g. a
+      // static host answering the SPA rewrite). Treat it as a failure rather
+      // than confirming a lead nobody received.
+      const isJson = (response.headers.get("content-type") || "").includes(
+        "application/json",
+      );
+      const data = isJson
+        ? ((await response.json().catch(() => null)) as {
+            message?: string;
+            error?: string;
+            // A string via the BFF, but FastAPI returns an array of field
+            // errors when the community service is called directly.
+            detail?: string | { msg?: string }[];
+          } | null)
+        : null;
 
-      if (!response.ok) {
+      if (!response.ok || !isJson) {
+        const detail = Array.isArray(data?.detail)
+          ? data.detail
+              .map(d => d?.msg)
+              .filter(Boolean)
+              .join(" ")
+          : data?.detail;
         const message =
           (typeof data?.message === "string" && data.message.trim()) ||
           (typeof data?.error === "string" && data.error.trim()) ||
-          (typeof data?.detail === "string" && data.detail.trim()) ||
+          (typeof detail === "string" && detail.trim()) ||
           t("communityRequest.errors.submitFailed");
         setFormError(message);
         return;
@@ -161,36 +210,54 @@ export default function RequestCommunityForm({
       )}
 
       <Field
+        htmlFor={fieldId("firstName")}
         label={t("communityRequest.fields.firstName")}
         error={errors.firstName}
+        errorId={errorId("firstName")}
         required
       >
         <Input
+          id={fieldId("firstName")}
           name="firstName"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => {
+            setFirstName(e.target.value);
+            clearError("firstName");
+          }}
+          aria-invalid={Boolean(errors.firstName)}
+          aria-describedby={errors.firstName ? errorId("firstName") : undefined}
           autoComplete="given-name"
           className={fieldClassName}
         />
       </Field>
 
       <Field
+        htmlFor={fieldId("lastName")}
         label={t("communityRequest.fields.lastName")}
         error={errors.lastName}
+        errorId={errorId("lastName")}
         required
       >
         <Input
+          id={fieldId("lastName")}
           name="lastName"
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={(e) => {
+            setLastName(e.target.value);
+            clearError("lastName");
+          }}
+          aria-invalid={Boolean(errors.lastName)}
+          aria-describedby={errors.lastName ? errorId("lastName") : undefined}
           autoComplete="family-name"
           className={fieldClassName}
         />
       </Field>
 
       <Field
+        labelId={fieldId("role-label")}
         label={t("communityRequest.fields.role")}
         error={errors.role}
+        errorId={errorId("role")}
         required
         className={spanFull}
       >
@@ -198,14 +265,13 @@ export default function RequestCommunityForm({
           value={role}
           onValueChange={(value) => {
             setRole(value as Role);
-            setErrors((prev) => {
-              const next = { ...prev };
-              delete next.role;
-              return next;
-            });
+            clearError("role");
           }}
           className="grid gap-2"
           aria-required
+          aria-labelledby={fieldId("role-label")}
+          aria-invalid={Boolean(errors.role)}
+          aria-describedby={errors.role ? errorId("role") : undefined}
         >
           {ROLE_OPTIONS.map(({ value, labelKey }) => (
             <label
@@ -225,32 +291,48 @@ export default function RequestCommunityForm({
       </Field>
 
       <Field
+        htmlFor={fieldId("email")}
         label={t("communityRequest.fields.email")}
         error={errors.email}
+        errorId={errorId("email")}
         required
         className={spanFull}
       >
         <Input
+          id={fieldId("email")}
           name="email"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            clearError("email");
+          }}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? errorId("email") : undefined}
           autoComplete="email"
           className={fieldClassName}
         />
       </Field>
 
       <Field
+        htmlFor={fieldId("phone")}
         label={t("communityRequest.fields.phone")}
         error={errors.phone}
+        errorId={errorId("phone")}
         required
         className={spanFull}
       >
         <Input
+          id={fieldId("phone")}
           name="phone"
           type="tel"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => {
+            setPhone(e.target.value);
+            clearError("phone");
+          }}
+          aria-invalid={Boolean(errors.phone)}
+          aria-describedby={errors.phone ? errorId("phone") : undefined}
           autoComplete="tel"
           placeholder={t("communityRequest.fields.phonePlaceholder")}
           className={fieldClassName}
@@ -354,21 +436,33 @@ function Field({
   error,
   required,
   className,
+  htmlFor,
+  labelId,
+  errorId,
 }: {
   label: string;
   children: React.ReactNode;
   error?: string;
   required?: boolean;
   className?: string;
+  /** Id of the input this labels. Omitted for grouped controls (radios). */
+  htmlFor?: string;
+  /** Set instead of `htmlFor` so a group can point at the label. */
+  labelId?: string;
+  errorId?: string;
 }) {
   return (
     <div className={cn("space-y-1.5", className)}>
-      <Label className="text-sm text-foreground">
+      <Label id={labelId} htmlFor={htmlFor} className="text-sm text-foreground">
         {label}
         {required && <span className="text-gold ml-1">*</span>}
       </Label>
       {children}
-      {error && <p className="text-xs text-destructive">{error}</p>}
+      {error && (
+        <p id={errorId} className="text-xs text-destructive">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

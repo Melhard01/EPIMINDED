@@ -73,8 +73,8 @@ export function CommunityPageClient() {
               COMMUNITY ID
             </span>
             <p className="mb-2 text-sm leading-[1.5] text-ash">
-              Enter the Community ID that was provided to you. This links your account to the
-              correct community before you use the app.
+                Enter the Community ID that was provided to you. This links your account to the
+                correct community before you use the app.
             </p>
             <input
               type="text"

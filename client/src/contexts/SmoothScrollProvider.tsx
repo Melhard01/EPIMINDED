@@ -18,8 +18,17 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
     setLenis(lenis);
 
+    // Lenis listens to window "scroll". Re-dispatching that event from Lenis's
+    // own scroll callback re-enters onNativeScroll and blows the call stack.
+    let emittingNativeScrollBridge = false;
     const onLenisScroll = () => {
-      window.dispatchEvent(new Event("scroll"));
+      if (emittingNativeScrollBridge) return;
+      emittingNativeScrollBridge = true;
+      try {
+        window.dispatchEvent(new Event("scroll"));
+      } finally {
+        emittingNativeScrollBridge = false;
+      }
     };
 
     const unsubscribe = lenis.on("scroll", onLenisScroll);
