@@ -9,7 +9,7 @@ import { polarProductIdFor, type BillingInterval } from "./lib/config";
 
 const router = Router();
 
-const DEFAULT_AUTH_BASE_URL = "http://40.89.185.79:4006";
+const DEFAULT_AUTH_BASE_URL = "https://40.89.185.79:4406";
 const DEFAULT_JOIN_COMMUNITY_BASE = "https://40.89.185.79:5444";
 
 type PolarServer = "sandbox" | "production";
