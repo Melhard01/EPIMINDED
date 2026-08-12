@@ -26,14 +26,15 @@ const PHONE_RE = /^\+?[\d\s().-]{7,20}$/;
  * Posts straight to the community service, bypassing the /api BFF route, so the
  * form works without the Express server running.
  *
- * The upstream is HTTP-only (it serves no TLS on :5044), so this works from an
- * http:// origin such as localhost but is blocked as mixed content on an
- * https:// site. Set VITE_COMMUNITY_REQUEST_URL to "/api/communities/request"
- * to go back through the BFF, which can reach the upstream server-side.
+ * The upstream serves TLS on :5444, so this is not blocked as mixed content on
+ * an https:// site. The certificate is issued for an IP, so a browser that
+ * rejects it fails the request before it reaches the API — set
+ * VITE_COMMUNITY_REQUEST_URL to "/api/communities/request" to go back through
+ * the BFF, which can reach the upstream server-side.
  */
 const REQUEST_ENDPOINT =
   import.meta.env.VITE_COMMUNITY_REQUEST_URL?.trim() ||
-  "http://40.89.185.79:5044/communities/request/lead";
+  "https://40.89.185.79:5444/communities/request/lead";
 
 const ROLE_OPTIONS: { value: Role; labelKey: string }[] = [
   { value: "founders", labelKey: "communityRequest.role.founders" },
