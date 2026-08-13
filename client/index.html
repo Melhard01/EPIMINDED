@@ -77,6 +77,26 @@
   </head>
 
   <body>
+    <!--
+      Prerendered markup ships with framer-motion's initial style (opacity:0)
+      and Reveal's pre-animation classes, both of which are cleared on
+      hydration. Without JS nothing clears them, so the text would be present
+      but invisible. This reveals it for that case only — same content, same
+      markup, no bot-specific branch.
+    -->
+    <noscript>
+      <style>
+        #root [style*="opacity:0"] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        #root .reveal-motion {
+          opacity: 1 !important;
+          filter: none !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script

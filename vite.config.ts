@@ -53,10 +53,17 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginStorageProxy()];
+// Both of these are Manus scaffold tooling and are dev-only on purpose:
+//   jsxLocPlugin      stamps a data-loc="file:line" on every element (~16kB/page)
+//   vitePluginManusRuntime  inlines a ~366kB <script> into the document head
+// Harmless while they only affected a runtime-rendered SPA, but the markup now
+// ships in the HTML, and 366kB of inline script ahead of the content is the
+// single biggest thing standing between a crawler and the page text.
+const devOnlyPlugins = () => [jsxLocPlugin(), vitePluginManusRuntime()];
+const plugins = [react(), tailwindcss(), vitePluginStorageProxy()];
 
-export default defineConfig({
-  plugins,
+export default defineConfig(({ command }) => ({
+  plugins: command === "serve" ? [...plugins, ...devOnlyPlugins()] : plugins,
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -98,4 +105,4 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
-});
+}));

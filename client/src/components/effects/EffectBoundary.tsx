@@ -6,6 +6,7 @@ interface Props {
 
 interface State {
   failed: boolean;
+  mounted: boolean;
 }
 
 /**
@@ -19,12 +20,24 @@ interface State {
  * Suspense does not help here — it catches loading, not errors — so the effect
  * needs its own boundary. On failure this renders nothing, so the background
  * quietly disappears and the rest of the page keeps working.
+ *
+ * It is also the client-only gate for these effects. The children are
+ * `lazy()` imports of WebGL code that cannot run during the build-time render;
+ * left ungated, their Suspense boundary never resolves on the server and React
+ * throws #419 on hydration and re-renders the subtree. Rendering nothing until
+ * mount keeps the server output and the first client render identical. The
+ * backgrounds are decorative and `aria-hidden`, so arriving a tick later costs
+ * nothing.
  */
 export default class EffectBoundary extends Component<Props, State> {
-  state: State = { failed: false };
+  state: State = { failed: false, mounted: false };
 
-  static getDerivedStateFromError(): State {
+  static getDerivedStateFromError(): Partial<State> {
     return { failed: true };
+  }
+
+  componentDidMount() {
+    this.setState({ mounted: true });
   }
 
   componentDidCatch(error: unknown) {
@@ -32,7 +45,7 @@ export default class EffectBoundary extends Component<Props, State> {
   }
 
   render() {
-    if (this.state.failed) return null;
+    if (this.state.failed || !this.state.mounted) return null;
     return this.props.children;
   }
 }

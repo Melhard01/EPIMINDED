@@ -1,16 +1,24 @@
 /**
  * Emits a per-route index.html so each public page serves its own canonical,
- * title, description and Open Graph tags in the initial HTML.
+ * title, description and Open Graph tags — and its real rendered markup — in
+ * the initial HTML.
  *
- * Without this, an SPA serves one index.html for every route, so /founders was
- * served with `canonical -> https://soulchain.net/`. That tells Google the page
- * is a duplicate of the home page. RouteSeo corrects it after hydration, but
- * only for crawlers that execute JS — and it cannot help social scrapers, which
- * never run any.
+ * Two problems this solves:
  *
- * Each generated file is the untouched app shell with only <head> values
- * swapped, so the same bundle boots and renders the same route as before. No
- * markup, styling or behaviour changes.
+ * 1. An SPA serves one index.html for every route, so /founders was served with
+ *    `canonical -> https://soulchain.net/`. That tells Google the page is a
+ *    duplicate of the home page. RouteSeo corrects it after hydration, but only
+ *    for crawlers that execute JS — and it cannot help social scrapers, which
+ *    never run any.
+ *
+ * 2. The shipped body was `<div id="root"></div>`, so a crawler that does not
+ *    execute JS saw no content at all. Retrieval-oriented crawlers (OAI-SearchBot,
+ *    PerplexityBot and friends) largely do not render, so the pages were
+ *    effectively empty to them.
+ *
+ * Each generated file is the built app shell with <head> values swapped and the
+ * route's markup rendered into #root by client/src/entry-server.tsx. The same
+ * bundle boots on top of it and hydrates, so behaviour is unchanged.
  *
  * Metadata comes from client/src/lib/seo.ts, which stays the single source of
  * truth shared with the runtime.
@@ -45,13 +53,18 @@ function replaceOne(html: string, pattern: RegExp, replacement: string): string 
   return html.replace(pattern, replacement);
 }
 
-function buildPage(shell: string, path: string): string {
+function buildPage(shell: string, path: string, body: string): string {
   const { title, description } = SEO_BY_PATH[path];
   const canonical = `${SITE_ORIGIN}${path === "/" ? "/" : path}`;
   const t = esc(title);
   const d = esc(description);
 
   let html = shell;
+  html = replaceOne(
+    html,
+    /<div id="root"><\/div>/,
+    `<div id="root">${body}</div>`
+  );
   html = replaceOne(html, /<title>[\s\S]*?<\/title>/, `<title>${t}</title>`);
   html = replaceOne(
     html,
@@ -102,10 +115,22 @@ function buildPage(shell: string, path: string): string {
 }
 
 const shell = readFileSync(shellPath, "utf8");
+
+// Built by `vite build --ssr` immediately before this script runs.
+const { render } = (await import(
+  join(root, "dist", "server", "entry-server.js")
+)) as { render: (path: string) => string };
+
 let written = 0;
 
 for (const path of Object.keys(SEO_BY_PATH)) {
-  const html = buildPage(shell, path);
+  const body = render(path);
+  if (!body.includes("<h1")) {
+    throw new Error(
+      `prerender-seo: ${path} rendered without an <h1> — refusing to ship an empty page`
+    );
+  }
+  const html = buildPage(shell, path, body);
 
   if (path === "/") {
     writeFileSync(shellPath, html, "utf8");
@@ -129,5 +154,25 @@ for (const path of Object.keys(SEO_BY_PATH)) {
     console.log(`  ${path.padEnd(21)} -> ${target.replace(outDir, "dist/public")}`);
   }
 }
+
+/**
+ * The SPA fallback for everything that is not prerendered: funnel steps and
+ * unknown paths. It keeps an empty #root (so the client mounts fresh rather
+ * than trying to hydrate someone else's markup) and claims neither a canonical
+ * nor an index directive, because it is served under many different URLs.
+ *
+ * server/index.ts and vercel.json both point their catch-all here. Serving
+ * index.html instead would hand every funnel URL a copy of the home page.
+ */
+let fallback = shell;
+fallback = replaceOne(
+  fallback,
+  /<meta name="robots" content="[^"]*">/,
+  `<meta name="robots" content="noindex, nofollow">`
+);
+fallback = replaceOne(fallback, /\s*<link rel="canonical" href="[^"]*" \/>/, "");
+writeFileSync(join(outDir, "app-shell.html"), fallback, "utf8");
+written += 1;
+console.log(`  ${"(spa fallback)".padEnd(21)} -> dist/public/app-shell.html`);
 
 console.log(`prerender-seo: wrote ${written} pages`);

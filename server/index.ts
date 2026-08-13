@@ -28,9 +28,16 @@ async function startServer() {
       : path.resolve(__dirname, "..", "dist", "public");
 
   if (process.env.NODE_ENV === "production") {
-    app.use(express.static(staticPath));
+    // `extensions` makes /founders resolve to founders.html, the prerendered
+    // page carrying that route's own markup and canonical. Without it every
+    // clean URL would fall through to the catch-all and be served the home
+    // page's HTML.
+    app.use(express.static(staticPath, { extensions: ["html"] }));
+    // Funnel steps and unknown paths get the bare shell, not index.html —
+    // index.html now carries the prerendered home page, which would otherwise
+    // be served under every funnel URL.
     app.get("*", (_req, res) => {
-      res.sendFile(path.join(staticPath, "index.html"));
+      res.sendFile(path.join(staticPath, "app-shell.html"));
     });
   }
 
