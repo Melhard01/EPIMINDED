@@ -10,7 +10,7 @@ export default function Cookies() {
         <p className="text-sm mb-8">Dernière mise à jour : 08 Décembre 2025</p>
         
         <p>
-          Cette politique relative aux cookies explique comment SOULCHAIN ("Société", "nous", "notre" et "nos") utilise les cookies et des technologies similaires pour vous reconnaître lorsque vous visitez notre site web à l'adresse https://www.epiminded.com ("Site web"). Elle explique ce que sont ces technologies et pourquoi nous les utilisons, ainsi que vos droits pour contrôler notre utilisation de celles-ci.
+          Cette politique relative aux cookies explique comment SOULCHAIN ("Société", "nous", "notre" et "nos") utilise les cookies et des technologies similaires pour vous reconnaître lorsque vous visitez notre site web à l'adresse https://soulchain.net ("Site web"). Elle explique ce que sont ces technologies et pourquoi nous les utilisons, ainsi que vos droits pour contrôler notre utilisation de celles-ci.
         </p>
 
         <h2>Que sont les cookies ?</h2>
@@ -52,7 +52,7 @@ export default function Cookies() {
       <p className="text-sm mb-8">Last updated December 08, 2025</p>
       
       <p>
-        This Cookie Policy explains how SOULCHAIN ("Company," "we," "us," and "our") uses cookies and similar technologies to recognize you when you visit our website at https://www.epiminded.com ("Website"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
+        This Cookie Policy explains how SOULCHAIN ("Company," "we," "us," and "our") uses cookies and similar technologies to recognize you when you visit our website at https://soulchain.net ("Website"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
       </p>
 
       <h2>What are cookies?</h2>

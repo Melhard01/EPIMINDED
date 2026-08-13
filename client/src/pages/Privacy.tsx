@@ -14,7 +14,7 @@ export default function Privacy() {
         </p>
         <ul>
           <li>Téléchargez et utilisez notre application mobile (SOULCHAIN), ou toute autre application de notre part qui renvoie à cette politique de confidentialité</li>
-          <li>Visitez notre site web à l'adresse https://www.epiminded.com</li>
+          <li>Visitez notre site web à l'adresse https://soulchain.net</li>
           <li>Utilisez SOULCHAIN. *SOULCHAIN* est un système de diffusion de contenu ultra-personnalisé qui adapte les boosters aux intérêts uniques de chaque utilisateur, fournissant des mises à jour quotidiennes sur les sujets qui leur tiennent à cœur.</li>
         </ul>
 
@@ -85,7 +85,7 @@ export default function Privacy() {
       </p>
       <ul>
         <li>Download and use our mobile application (SOULCHAIN), or any other application of ours that links to this Privacy Notice</li>
-        <li>Visit our website at https://www.epiminded.com</li>
+        <li>Visit our website at https://soulchain.net</li>
         <li>Use SOULCHAIN. *SOULCHAIN* is an ultra-personalized content delivery system that tailors boosters to each user's unique interests, providing daily updates on topics they care about.</li>
       </ul>
 
