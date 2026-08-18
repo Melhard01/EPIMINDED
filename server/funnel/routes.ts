@@ -404,7 +404,7 @@ router.post("/api/webhook/polar", async (req, res) => {
 
   const paymentStatusUrl = (userId: string) => {
     const base =
-      process.env.SUBSCRIPTION_API_BASE_URL?.trim() || "http://40.89.185.79:5029";
+      process.env.SUBSCRIPTION_API_BASE_URL?.trim() || "https://40.89.185.79:5229";
     return `${base}/users/payment-status/${encodeURIComponent(userId)}`;
   };
 
