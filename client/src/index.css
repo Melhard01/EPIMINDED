@@ -4563,3 +4563,20 @@
 html {
   scroll-behavior: auto;
 }
+
+/* Background effects mount one frame after the page (see EffectBoundary), so
+   they fade in rather than appearing abruptly. */
+.effect-fade-in {
+  position: absolute;
+  inset: 0;
+  animation: effect-fade-in 480ms ease-out both;
+}
+
+@keyframes effect-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .effect-fade-in { animation: none; }
+}

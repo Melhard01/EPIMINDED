@@ -41,7 +41,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
           <Reveal variant="up" className={`space-y-4 ${FOOTER_COL}`}>
             <div className="mb-4 min-h-16 flex items-center justify-center sm:justify-start w-full">
-              <img src="/assets/footer-logo.webp" alt="SOULCHAIN" className="h-16 w-auto" />
+              <img src="/assets/footer-logo.webp" alt="SOULCHAIN" width={567} height={160} className="h-16 w-auto" />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto sm:mx-0">
               {t("footer.tagline")}

@@ -188,6 +188,8 @@ export default function Navbar() {
           <img
             src="/assets/navbar-logo.webp"
             alt="SOULCHAIN"
+            width={567}
+            height={160}
             className="h-8 w-auto cursor-pointer lg:h-12 lg:max-h-12 lg:object-contain"
           />
         </Link>

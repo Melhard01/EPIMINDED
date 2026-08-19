@@ -46,6 +46,8 @@ export default class EffectBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.failed || !this.state.mounted) return null;
-    return this.props.children;
+    // Gating on mount means the background appears a frame after the page.
+    // Fading it in stops that from reading as a flash.
+    return <div className="effect-fade-in">{this.props.children}</div>;
   }
 }

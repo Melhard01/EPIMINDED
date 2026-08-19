@@ -11,8 +11,13 @@ interface RevealProps {
   variant?: RevealVariant;
   /** Skip animation — use for above-the-fold hero content */
   immediate?: boolean;
-  /** Animate only the first time the element enters the viewport */
-  once?: boolean;
+  /**
+   * Re-run the animation every time the element re-enters the viewport.
+   * Off by default: re-animating on every scroll pass reads as flickering,
+   * and an element resting near the observer threshold toggles repeatedly
+   * while Lenis eases the scroll to a stop.
+   */
+  repeat?: boolean;
 }
 
 const variantClasses: Record<RevealVariant, { hidden: string; visible: string }> = {
@@ -53,7 +58,7 @@ function Reveal({
   duration = 800,
   variant = "up",
   immediate = false,
-  once = false,
+  repeat = false,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(immediate);
@@ -73,17 +78,19 @@ function Reveal({
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          if (once) observer.disconnect();
-        } else if (!once) {
+          if (!repeat) observer.disconnect();
+        } else if (repeat) {
           setVisible(false);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+      // Several thresholds so the callback does not hinge on crossing one
+      // exact ratio, which is what makes a boundary-parked element stutter.
+      { threshold: [0, 0.08, 0.16], rootMargin: "0px 0px -6% 0px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [immediate, once]);
+  }, [immediate, repeat]);
 
   const motion = variantClasses[variant];
 
