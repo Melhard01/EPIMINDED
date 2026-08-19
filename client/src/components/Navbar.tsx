@@ -127,11 +127,25 @@ export default function Navbar() {
   }, [measureNav, language, location, ctaLabel]);
 
   useEffect(() => {
-    const handleScroll = () => syncScrolled();
-    handleScroll();
+    // SmoothScrollProvider re-emits a native "scroll" event on every Lenis
+    // frame, and syncScrolled measures the hero with getBoundingClientRect.
+    // Running that per frame forces a synchronous layout on every frame of
+    // every scroll. Coalescing into one rAF keeps the same behaviour at one
+    // measurement per painted frame at most.
+    let frame = 0;
+    const handleScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        syncScrolled();
+      });
+    };
+
+    syncScrolled();
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     return () => {
+      if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };

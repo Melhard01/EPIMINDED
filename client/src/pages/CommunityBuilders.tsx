@@ -29,7 +29,7 @@ export default function CommunityBuilders() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden text-foreground">
+    <div className="min-h-screen overflow-x-clip text-foreground">
       <Navbar />
       <main>
         <section

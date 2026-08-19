@@ -9,7 +9,7 @@ import ApplicationSection from "@/components/ApplicationSection";
 
 export default function Founders() {
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden font-sans selection:bg-gold/20">
+    <div className="min-h-screen flex flex-col overflow-x-clip font-sans selection:bg-gold/20">
       <Navbar />
       <main className="flex-grow">
         <Hero />

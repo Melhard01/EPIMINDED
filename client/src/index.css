@@ -132,8 +132,21 @@
     @apply border-border outline-ring/50;
   }
 
+  /*
+   * `overflow-x: clip`, not `hidden`.
+   *
+   * Per the CSS overflow spec, when one axis is `hidden` and the other is
+   * `visible`, the visible axis computes to `auto`. `overflow-x: hidden` here
+   * therefore turned html AND body into scroll containers, so the document had
+   * three nested scrollable boxes competing with the Lenis-driven window
+   * scroll. That is what made the page jump and re-settle mid-scroll, and it
+   * also re-parented every `position: sticky` element to the wrong scroller.
+   *
+   * `clip` suppresses horizontal overflow identically but creates no scroll
+   * container, so the window stays the only thing that scrolls.
+   */
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -148,7 +161,7 @@
   body {
     @apply text-foreground font-sans antialiased;
     background: #080808;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -4592,4 +4605,29 @@ section[id],
 div[id],
 [data-scroll-anchor] {
   scroll-margin-top: 5rem;
+}
+
+/*
+ * Safari below 16 has no `overflow: clip`. Fall back to the old behaviour
+ * there rather than letting the page scroll sideways.
+ */
+@supports not (overflow: clip) {
+  html,
+  body,
+  .overflow-x-clip {
+    overflow-x: hidden;
+  }
+}
+
+/*
+ * `min-h-screen` resolves to 100vh, which on mobile counts the area behind the
+ * collapsing URL bar. As that bar hides and shows, 100vh changes, every
+ * element sized by it resizes, and the document height moves underneath the
+ * user mid-scroll — the page appears to jump. `svh` is the viewport at its
+ * smallest, so it never changes during a scroll.
+ */
+@supports (min-height: 100svh) {
+  .min-h-screen {
+    min-height: 100svh;
+  }
 }

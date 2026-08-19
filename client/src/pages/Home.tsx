@@ -10,7 +10,7 @@ import HomeCTA from "@/components/home/HomeCTA";
 
 export default function Home() {
   return (
-    <div className="dark min-h-screen flex flex-col bg-background font-sans selection:bg-gold/20 overflow-x-hidden">
+    <div className="dark min-h-screen flex flex-col bg-background font-sans selection:bg-gold/20 overflow-x-clip">
       <Navbar />
       <main className="flex-grow">
         <HomeHero />
