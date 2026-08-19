@@ -76,7 +76,7 @@ export default function EnterpriseCompletionSection() {
           <figure className={cn(styles.figure, revealClass(visible, Boolean(reduceMotion), styles.delay260))}>
             <div className={styles.mediaFrame}>
               <img
-                src="/assets/enterprise-completion-meeting.png"
+                src="/assets/enterprise-completion-meeting.webp"
                 alt={t("enterprise.completion.imageAlt")}
                 width={1183}
                 height={460}

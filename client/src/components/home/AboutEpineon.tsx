@@ -80,7 +80,7 @@ export default function AboutEpineon() {
 
           <AboutEpineonImageMotion className="about-epineon__visual overflow-visible">
             <img
-              src="/assets/karim-amor-quote-card.png"
+              src="/assets/karim-amor-quote-card.webp"
               alt={t("home.quote.attribution")}
               width={1563}
               height={1563}

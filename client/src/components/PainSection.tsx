@@ -38,7 +38,7 @@ export default function PainSection() {
         <Reveal variant="up" delay={160}>
           <div className="pain-section__image-wrap">
             <img
-              src="/assets/where-it-gets-hard.png"
+              src="/assets/where-it-gets-hard.webp"
               alt={t("pain.imageAlt")}
               width={1563}
               height={1563}

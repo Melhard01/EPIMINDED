@@ -186,7 +186,7 @@ export default function Navbar() {
       <div className="container relative flex items-center gap-3 min-h-9 lg:min-h-12">
         <Link href="/" className="flex h-8 shrink-0 items-center lg:h-12 lg:-ml-2 xl:-ml-4">
           <img
-            src="/assets/navbar-logo.png"
+            src="/assets/navbar-logo.webp"
             alt="SOULCHAIN"
             className="h-8 w-auto cursor-pointer lg:h-12 lg:max-h-12 lg:object-contain"
           />

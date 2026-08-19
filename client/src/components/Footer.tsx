@@ -41,7 +41,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
           <Reveal variant="up" className={`space-y-4 ${FOOTER_COL}`}>
             <div className="mb-4 min-h-16 flex items-center justify-center sm:justify-start w-full">
-              <img src="/assets/footer-logo.png" alt="SOULCHAIN" className="h-16 w-auto" />
+              <img src="/assets/footer-logo.webp" alt="SOULCHAIN" className="h-16 w-auto" />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto sm:mx-0">
               {t("footer.tagline")}
@@ -54,7 +54,7 @@ export default function Footer() {
                 className="opacity-90 hover:opacity-100 transition-opacity"
               >
                 <img
-                  src="/assets/footer-instagram.png"
+                  src="/assets/footer-instagram.webp"
                   alt="Instagram"
                   className="w-11 h-11"
                   width={1024}
@@ -68,7 +68,7 @@ export default function Footer() {
                 className="opacity-90 hover:opacity-100 transition-opacity"
               >
                 <img
-                  src="/assets/footer-linkedin.png"
+                  src="/assets/footer-linkedin.webp"
                   alt="LinkedIn"
                   className="w-11 h-11"
                   width={1024}
@@ -138,7 +138,7 @@ export default function Footer() {
               >
                 <span className="footer-app-store-badge">
                   <img
-                    src="/assets/app-store-badge.png"
+                    src="/assets/app-store-badge.webp"
                     alt="Download on the App Store"
                     width={800}
                     height={800}
@@ -153,7 +153,7 @@ export default function Footer() {
               >
                 <span className="footer-google-play-badge">
                   <img
-                    src="/assets/google-play-badge.png"
+                    src="/assets/google-play-badge.webp"
                     alt="Get it on Google Play"
                     width={1563}
                     height={1563}

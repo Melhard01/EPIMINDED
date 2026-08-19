@@ -7,7 +7,7 @@ export function Wordmark({ className }: { className?: string }) {
   return (
     <Link href="/" className="inline-flex h-8 shrink-0 items-center lg:h-12" aria-label="SOULCHAIN">
       <img
-        src="/assets/navbar-logo.png"
+        src="/assets/navbar-logo.webp"
         alt="SOULCHAIN"
         className={clsx("h-8 w-auto object-contain lg:h-12 lg:max-h-12", className)}
       />

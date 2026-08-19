@@ -20,7 +20,7 @@ export function SiteFooter() {
           <div>
             <div className="mb-4 min-h-16 flex items-center">
               <img
-                src="/assets/footer-logo.png"
+                src="/assets/footer-logo.webp"
                 alt="SOULCHAIN"
                 className="h-16 w-auto object-contain"
               />

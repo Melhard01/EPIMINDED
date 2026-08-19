@@ -153,7 +153,7 @@ export default function Enterprise() {
               <Reveal variant="up" delay={80} className="builders-bring__media">
                 <div className="builders-bring__image-wrap">
                   <img
-                    src="/assets/builders-bring-phones.png"
+                    src="/assets/builders-bring-phones.webp"
                     alt={t("enterprise.bring.imageAlt")}
                     width={1563}
                     height={1563}

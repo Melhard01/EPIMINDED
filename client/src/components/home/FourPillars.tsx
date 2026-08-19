@@ -114,7 +114,7 @@ function HabitDuoFeature() {
         <div className="four-pillars-habit-duo__phone-col">
           <FourPillarsImageMotion motion="rise" delay={80}>
             <img
-              src="/assets/brain-booster-mockup.png"
+              src="/assets/brain-booster-mockup.webp"
               alt="SOULCHAIN Brain Booster Preview"
               width={517}
               height={1113}
@@ -166,7 +166,7 @@ export default function FourPillars() {
               <FourPillarsImageMotion motion="rise" delay={160} className="shrink-0 self-center">
                 <div className="four-pillars-feature__visual four-pillars-feature__visual--peer" aria-hidden="true">
                   <img
-                    src="/assets/peer-presence-phone.png"
+                    src="/assets/peer-presence-phone.webp"
                     alt=""
                     className="four-pillars-feature__image"
                     width={352}
