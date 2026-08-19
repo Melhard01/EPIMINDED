@@ -9,10 +9,22 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     }
 
     const lenis = new Lenis({
-      lerp: 0.1,
+      // Lenis damps by elapsed time, so this is frame-rate independent.
+      // 0.1 trails the wheel noticeably; 0.12 stays smooth but keeps the page
+      // feeling attached to the input.
+      lerp: 0.12,
       smoothWheel: true,
-      wheelMultiplier: 0.8,
-      anchors: true,
+      // Was 0.8, which moved the page less than the wheel asked for and read
+      // as lag. 1 matches the input.
+      wheelMultiplier: 1,
+      // Lenis handles in-page #hash clicks itself. Give it the same easing and
+      // navbar clearance the scroll helpers use, so both routes to a section
+      // behave identically.
+      // Navbar clearance comes from scroll-margin-top, which Lenis honours.
+      anchors: {
+        duration: 1.15,
+        easing: (t: number) => 1 - Math.pow(1 - t, 4),
+      },
       autoRaf: true,
     });
 

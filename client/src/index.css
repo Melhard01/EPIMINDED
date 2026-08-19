@@ -4580,3 +4580,16 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .effect-fade-in { animation: none; }
 }
+
+/* Native-scroll fallback (reduced motion, or before Lenis mounts): keep an
+   anchored section clear of the fixed navbar. Lenis paths apply their own
+   measured offset — see smoothScrollToElement. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: smooth; }
+}
+
+section[id],
+div[id],
+[data-scroll-anchor] {
+  scroll-margin-top: 5rem;
+}
