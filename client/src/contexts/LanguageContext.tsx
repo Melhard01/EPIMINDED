@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useLayoutEffect, useState, ReactNode } from 'react';
 import { translations } from '@/i18n/translations';
 
 export { translations };
@@ -16,15 +16,24 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const STORAGE_KEY = 'epiminded_language';
 const DEFAULT_LANGUAGE: Language = 'en';
 
+/**
+ * Layout effects run after the DOM is committed but *before* the browser
+ * paints, so switching language here is invisible. A plain useEffect runs
+ * after paint, which makes a French visitor see a frame of English first.
+ * React warns if useLayoutEffect is called during the build-time render, so
+ * fall back to useEffect there — it never runs on the server anyway.
+ */
+const useBeforePaint =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // Always starts at the default so the prerendered HTML and the first client
-  // render agree. Reading localStorage here instead would (a) crash the
-  // build-time render, where there is no localStorage, and (b) produce a
-  // hydration mismatch for anyone whose stored language is 'fr'. The stored
-  // preference is applied in the effect below, one paint later.
+  // render agree. Reading localStorage in the initializer instead would (a)
+  // crash the build-time render, where there is no localStorage, and (b)
+  // produce a hydration mismatch for anyone whose stored language is 'fr'.
   const [language, setLanguageState] = useState<Language>(DEFAULT_LANGUAGE);
 
-  useEffect(() => {
+  useBeforePaint(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === 'fr' || saved === 'en') setLanguageState(saved);
   }, []);
