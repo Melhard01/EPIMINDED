@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { clsx } from "@/funnel/lib/clsx";
 import { CheckIcon } from "@/funnel/components/ui/icons";
+import { track } from "@/lib/analytics";
 import { useFunnel } from "@/funnel/lib/funnel/store";
 import {
   SHARED_FEATURES,
@@ -60,8 +61,30 @@ export function PricingPlans({
   );
   const activeId = hoveredId ?? defaultHighlightId;
 
+  const changeInterval = (next: BillingInterval) => {
+    if (next === interval) return;
+    setInterval(next);
+    track("billing_cycle_selected", { billing_cycle: next, previous_billing_cycle: interval });
+  };
+
   const choose = (offer: PlanOffer) => {
     selectOffer({ offerId: offer.id, interval, addon: false });
+    const priceCents = interval === "year" ? offer.annualCents : offer.monthlyCents;
+    track("plan_selected", {
+      plan: offer.id,
+      plan_name: offer.name,
+      billing_cycle: interval,
+      price_cents: priceCents,
+      recommended: Boolean(offer.recommended),
+    });
+    // The CTA is an <a> to /pre-checkout/community, so selecting a plan is
+    // also the moment checkout begins.
+    track("checkout_started", {
+      plan: offer.id,
+      billing_cycle: interval,
+      price_cents: priceCents,
+      product_id: productIds[productKey(offer.id, interval)],
+    });
   };
 
   const unit = interval === "year" ? "/ year" : "/user-mo";
@@ -138,10 +161,10 @@ export function PricingPlans({
     <div className="animate-rise">
       <div className="mb-10 flex justify-center">
         <div className="inline-flex rounded-full border border-white/15 bg-transparent p-1">
-          <ToggleBtn active={interval === "month"} onClick={() => setInterval("month")}>
+          <ToggleBtn active={interval === "month"} onClick={() => changeInterval("month")}>
             Monthly
           </ToggleBtn>
-          <ToggleBtn active={interval === "year"} onClick={() => setInterval("year")}>
+          <ToggleBtn active={interval === "year"} onClick={() => changeInterval("year")}>
             Annual{" "}
             <span className={interval === "year" ? "text-[#15110A]/70" : "text-gold"}>
               · save ~17%

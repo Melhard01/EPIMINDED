@@ -6,6 +6,7 @@ import { BrandHeader } from "@/funnel/components/ui/BrandHeader";
 import { MultiRailHandoff } from "@/funnel/components/handoff/MultiRailHandoff";
 import { useFunnel } from "@/funnel/lib/funnel/store";
 import type { ProvisionResult } from "@/funnel/lib/provision";
+import { track } from "@/lib/analytics";
 
 function SuccessInner() {
   const searchParams = useSearchParams();
@@ -45,6 +46,19 @@ function SuccessInner() {
         if (!cancelled) {
           setResult(data as ProvisionResult);
           markPaid(checkoutId);
+          track("checkout_completed", {
+            route: "/success",
+            checkout_id: checkoutId,
+            plan: selected.offerId,
+            billing_cycle: selected.interval,
+            addon: selected.addon,
+            user_id: registeredUserId ?? undefined,
+          });
+          track("onboarding_completed", {
+            route: "/success",
+            checkout_id: checkoutId,
+            plan: selected.offerId,
+          });
         }
       })
       .catch((e: unknown) => {
@@ -52,6 +66,14 @@ function SuccessInner() {
           const message =
             e instanceof Error ? e.message : "Could not activate your access yet.";
           setError(message);
+          track("checkout_failed", {
+            route: "/success",
+            reason: "provisioning_failed",
+            checkout_id: checkoutId,
+            plan: selected.offerId,
+            billing_cycle: selected.interval,
+            message,
+          });
         }
       })
       .finally(() => {

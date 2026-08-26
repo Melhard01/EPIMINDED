@@ -13,6 +13,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 const REVENUE_KEYS = ["under-1m", "1-5m", "5-25m", "25-50m", "over-50m"] as const;
 const COUNTRY_KEYS = ["ma", "fr", "us", "gb", "ae", "ca", "de", "es", "be", "ch", "sn", "ci", "other"] as const;
@@ -72,6 +73,7 @@ export default function ApplicationForm({
 
     if (Object.keys(nextErrors).length) {
       setErrors(nextErrors);
+      track("form_error", { form: "application", route: window.location.pathname, source: "validation", fields: Object.keys(nextErrors) });
       return;
     }
 
@@ -101,6 +103,8 @@ export default function ApplicationForm({
     }
 
     setSubmitted(true);
+    track("form_submitted", { form: "application", route: window.location.pathname });
+    track("form_completed", { form: "application", route: window.location.pathname });
     onSuccess?.();
   };
 

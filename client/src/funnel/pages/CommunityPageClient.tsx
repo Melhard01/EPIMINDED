@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "@/funnel/lib/navigation";
 import { BrandHeader } from "@/funnel/components/ui/BrandHeader";
+import { track } from "@/lib/analytics";
 
 const COMMUNITY_ID_STORAGE_KEY = "epiminded.communityId.v1";
 
@@ -47,7 +48,21 @@ export function CommunityPageClient() {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
-    if (!communityId.trim()) return;
+    if (!communityId.trim()) {
+      track("form_error", {
+        form: "community_link",
+        route: "/pre-checkout/community",
+        source: "validation",
+        fields: ["communityId"],
+      });
+      return;
+    }
+    track("onboarding_step_completed", {
+      onboarding_step: "link_community",
+      route: "/pre-checkout/community",
+      community_id: communityId.trim(),
+    });
+    track("form_submitted", { form: "community_link", route: "/pre-checkout/community", success: true });
     continueToForm(communityId);
   };
 

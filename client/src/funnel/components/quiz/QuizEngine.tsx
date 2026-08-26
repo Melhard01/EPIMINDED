@@ -9,6 +9,7 @@ import Orb from "@/funnel/components/ui/Orb";
 import { useFunnel } from "@/funnel/lib/funnel/store";
 import { QUIZ } from "@/funnel/lib/quiz/config";
 import type { QuizOption } from "@/funnel/lib/quiz/types";
+import { track } from "@/lib/analytics";
 
 const LOADER_LINES = [
   "Reading your answers",
@@ -60,10 +61,20 @@ export function QuizEngine() {
   const select = useCallback(
     (key: string) => {
       setAnswer(question.id, key);
+      // The answer key is the option id, not free text — safe to record.
+      track("onboarding_step_completed", {
+        onboarding_step: `quiz_q${index + 1}`,
+        question_id: question.id,
+        answer: key,
+        step_index: index + 1,
+        step_total: total,
+        route: "/quiz",
+      });
       window.setTimeout(() => {
         if (index < total - 1) {
           setIndex((i) => i + 1);
         } else {
+          track("quiz_completed", { route: "/quiz", step_total: total });
           setPhase("loading");
         }
       }, 200);
@@ -76,7 +87,15 @@ export function QuizEngine() {
     else setPhase("intro");
   };
 
-  if (phase === "intro") return <Intro onBegin={() => setPhase("quiz")} />;
+  if (phase === "intro")
+    return (
+      <Intro
+        onBegin={() => {
+          track("onboarding_started", { route: "/quiz", step_total: total });
+          setPhase("quiz");
+        }}
+      />
+    );
   if (phase === "loading") return <Loader onDone={() => router.push("/report")} />;
 
   const stepNum = `0${index + 1}`.slice(-2);

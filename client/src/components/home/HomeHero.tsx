@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { smoothScrollToId } from "@/lib/smoothScroll";
+import { track } from "@/lib/analytics";
 
 const LiquidEther = lazy(() => import("@/components/effects/LiquidEther"));
 
@@ -17,6 +18,7 @@ export default function HomeHero() {
   const [, setLocation] = useLocation();
 
   const scrollToPillars = () => {
+    track("cta_clicked", { cta: "hero_how_it_works", route: "/", destination: "#four-pillars" });
     smoothScrollToId("four-pillars");
   };
 
@@ -90,7 +92,10 @@ export default function HomeHero() {
               <div className="hero-cta home-hero__cta">
                 <Button
                   type="button"
-                  onClick={() => setLocation("/quiz")}
+                  onClick={() => {
+                    track("cta_clicked", { cta: "hero_apply", route: "/", destination: "/quiz" });
+                    setLocation("/quiz");
+                  }}
                   className="hero-cta-btn home-hero__cta-btn bg-gold text-[#0E0E0E] hover:bg-gold/90 rounded-full border-0"
                 >
                   {t("home.hero.cta.primary")}

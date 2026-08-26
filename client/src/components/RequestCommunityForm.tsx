@@ -1,6 +1,7 @@
 import {
   useCallback,
   useId,
+  useRef,
   useState,
   type FormHTMLAttributes,
   type ReactNode,
@@ -12,6 +13,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 import styles from "./RequestCommunityForm.module.css";
 
 type Role = "founders" | "community_builders" | "organisations";
@@ -78,6 +80,17 @@ export default function RequestCommunityForm({
   const fieldId = (name: string) => `${uid}-${name}`;
   const errorId = (name: string) => `${uid}-${name}-error`;
 
+  // form_started fires once, on the first field the visitor touches.
+  const startedRef = useRef(false);
+  const markStarted = useCallback(
+    (field: string) => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+      track("form_started", { form: "request_community", route: window.location.pathname, first_field: field });
+    },
+    [],
+  );
+
   const clearError = useCallback((name: string) => {
     setErrors((prev) => {
       if (!prev[name]) return prev;
@@ -108,12 +121,24 @@ export default function RequestCommunityForm({
     if (Object.keys(nextErrors).length) {
       setErrors(nextErrors);
       setFormError(null);
+      // Field names only — never the values the visitor typed.
+      track("form_error", {
+        form: "request_community",
+        route: window.location.pathname,
+        source: "validation",
+        fields: Object.keys(nextErrors),
+      });
       return;
     }
 
     setErrors({});
     setFormError(null);
     setSubmitting(true);
+    track("form_submitted", {
+      form: "request_community",
+      route: window.location.pathname,
+      community_type: role,
+    });
 
     const payload = {
       name: `${first} ${last}`.trim(),
@@ -158,13 +183,32 @@ export default function RequestCommunityForm({
           (typeof detail === "string" && detail.trim()) ||
           t("communityRequest.errors.submitFailed");
         setFormError(message);
+        track("form_error", {
+          form: "request_community",
+          route: window.location.pathname,
+          source: "server",
+          status: response.status,
+        });
         return;
       }
 
       setSubmitted(true);
+      track("form_completed", {
+        form: "request_community",
+        route: window.location.pathname,
+        community_type: role,
+      });
+      track("community_requested", {
+        route: window.location.pathname,
+        community_type: role,
+      });
       onSuccess?.();
     } catch {
       setFormError(t("communityRequest.errors.submitFailed"));
+      track("error_occurred", {
+        scope: "request_community_submit",
+        route: window.location.pathname,
+      });
     } finally {
       setSubmitting(false);
     }
@@ -224,6 +268,7 @@ export default function RequestCommunityForm({
           value={firstName}
           onChange={(e) => {
             setFirstName(e.target.value);
+            markStarted("firstName");
             clearError("firstName");
           }}
           aria-invalid={Boolean(errors.firstName)}
@@ -246,6 +291,7 @@ export default function RequestCommunityForm({
           value={lastName}
           onChange={(e) => {
             setLastName(e.target.value);
+            markStarted("lastName");
             clearError("lastName");
           }}
           aria-invalid={Boolean(errors.lastName)}
@@ -267,6 +313,8 @@ export default function RequestCommunityForm({
           value={role}
           onValueChange={(value) => {
             setRole(value as Role);
+            markStarted("role");
+            track("field_interacted", { form: "request_community", field: "role", value });
             clearError("role");
           }}
           className="grid gap-2"
@@ -307,6 +355,7 @@ export default function RequestCommunityForm({
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
+            markStarted("email");
             clearError("email");
           }}
           aria-invalid={Boolean(errors.email)}
@@ -331,6 +380,7 @@ export default function RequestCommunityForm({
           value={phone}
           onChange={(e) => {
             setPhone(e.target.value);
+            markStarted("phone");
             clearError("phone");
           }}
           aria-invalid={Boolean(errors.phone)}

@@ -13,6 +13,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 const SIZE_KEYS = ["500-1000", "1000-5000", "5000+"] as const;
 
@@ -51,6 +52,7 @@ export default function PartnerForm({ onSuccess, onClose, className, wide = fals
 
     if (Object.keys(nextErrors).length) {
       setErrors(nextErrors);
+      track("form_error", { form: "partner", route: window.location.pathname, source: "validation", fields: Object.keys(nextErrors) });
       return;
     }
 
@@ -76,6 +78,8 @@ export default function PartnerForm({ onSuccess, onClose, className, wide = fals
     }
 
     setSubmitted(true);
+    track("form_submitted", { form: "partner", route: window.location.pathname });
+    track("form_completed", { form: "partner", route: window.location.pathname });
     onSuccess?.();
   };
 

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "@/funnel/lib/navigation";
 import { BrandHeader } from "@/funnel/components/ui/BrandHeader";
 import { useFunnel } from "@/funnel/lib/funnel/store";
 import { extractAccessToken, setAuthAccessToken } from "@/lib/authToken";
+import { identifyUser, track } from "@/lib/analytics";
 
 type AuthApiPayload = {
   code?: string;
@@ -161,6 +162,16 @@ export function OTPPageClient() {
           setCustomerName(pendingSignup.firstName, pendingSignup.lastName);
           setEmail(pendingSignup.email);
           setRegisteredAuth(pendingSignup.registeredUserId ?? null);
+          track("otp_verified", {
+            route: "/pre-checkout/otp",
+            already_verified: true,
+            user_id: pendingSignup.registeredUserId ?? undefined,
+          });
+          track("checkout_initiated", {
+            route: "/pre-checkout/otp",
+            plan: offerId || undefined,
+            billing_cycle: interval || undefined,
+          });
           window.location.assign(buildCheckoutUrl);
           return;
         }
@@ -173,6 +184,13 @@ export function OTPPageClient() {
         ) {
           setBackendErrors({
             otp: backendMessage || "Invalid or expired verification code. Request a new OTP and try again.",
+          });
+          track("form_error", {
+            form: "otp",
+            route: "/pre-checkout/otp",
+            source: "server",
+            code: payload?.code,
+            status: response.status,
           });
           return;
         }
@@ -187,8 +205,31 @@ export function OTPPageClient() {
       setRegisteredAuth(pendingSignup.registeredUserId ?? null);
       const token = extractAccessToken(payload);
       if (token) setAuthAccessToken(token);
+      if (pendingSignup.registeredUserId) {
+        identifyUser(pendingSignup.registeredUserId, { email: pendingSignup.email });
+      }
+      // The OTP value and the access token are deliberately not sent.
+      track("otp_verified", {
+        route: "/pre-checkout/otp",
+        already_verified: false,
+        user_id: pendingSignup.registeredUserId ?? undefined,
+      });
+      track("onboarding_step_completed", {
+        onboarding_step: "verify_email",
+        route: "/pre-checkout/otp",
+      });
+      track("checkout_initiated", {
+        route: "/pre-checkout/otp",
+        plan: offerId || undefined,
+        billing_cycle: interval || undefined,
+      });
       window.location.assign(buildCheckoutUrl);
     } catch (error) {
+      track("error_occurred", {
+        scope: "otp_verify",
+        route: "/pre-checkout/otp",
+        message: error instanceof Error ? error.message : "unknown",
+      });
       const message = error instanceof Error && error.message.trim() ? error.message : "";
       if (message) {
         setBackendErrors({ general: message });
@@ -202,6 +243,7 @@ export function OTPPageClient() {
     if (isSubmitting || !pendingSignup) return;
     setIsSubmitting(true);
     setBackendErrors({});
+    track("otp_resend_requested", { route: "/pre-checkout/otp" });
 
     try {
       const response = await fetch("/api/auth/resend-verification", {

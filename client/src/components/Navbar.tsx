@@ -15,6 +15,7 @@ import { CALENDLY_ENTERPRISE } from "@/lib/urls";
 import { computeNavScrolled } from "@/lib/navScroll";
 import { smoothScrollToId } from "@/lib/smoothScroll";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 const ABOUT_SECTION_ID = "about-epineon";
 
@@ -162,6 +163,7 @@ export default function Navbar() {
   const toggleLanguage = () => setLanguage(language === "fr" ? "en" : "fr");
 
   const handleCta = () => {
+    track("cta_clicked", { cta: "navbar_primary", label: ctaLabel, route: location });
     if (location === "/community-builders") {
       openPartner();
     } else if (isEnterpriseRoute) {

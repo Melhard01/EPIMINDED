@@ -1,7 +1,11 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App";
+import { initAnalytics } from "./lib/analytics";
 import "lenis/dist/lenis.css";
 import "./index.css";
+
+// Before render so the first page_viewed from RouteAnalytics is captured.
+initAnalytics();
 
 const container = document.getElementById("root")!;
 

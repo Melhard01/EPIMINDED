@@ -4,6 +4,7 @@ import PartnerInquiryModal from "@/components/PartnerInquiryModal";
 import { scrollToApply } from "@/lib/scrollToApply";
 import { scrollToPartner } from "@/lib/scrollToPartner";
 import { getLenis } from "@/lib/smoothScroll";
+import { track } from "@/lib/analytics";
 
 interface ModalContextType {
   openApplication: () => void;
@@ -30,10 +31,20 @@ export function ApplicationModalProvider({ children }: { children: ReactNode }) 
     <ModalContext.Provider
       value={{
         openApplication: () => {
+          track("cta_clicked", {
+            cta: "apply",
+            route: window.location.pathname,
+            destination: "application",
+          });
           if (scrollToApply()) return;
           setApplicationOpen(true);
         },
         openPartner: () => {
+          track("cta_clicked", {
+            cta: "partner",
+            route: window.location.pathname,
+            destination: "partner",
+          });
           const onCommunityBuildersPage = window.location.pathname === "/community-builders";
           if (onCommunityBuildersPage && scrollToPartner()) return;
           setPartnerOpen(true);

@@ -12,6 +12,7 @@ import {
   validateLastName,
   validatePassword,
 } from "@/funnel/lib/validation/signup";
+import { identifyUser, track } from "@/lib/analytics";
 
 const COMMUNITY_ID_STORAGE_KEY = "epiminded.communityId.v1";
 
@@ -213,7 +214,17 @@ export function PreCheckoutPageClient() {
     const payload = await parseAuthPayload(response);
 
     if (!response.ok) {
-      setBackendFieldErrors((prev) => ({ ...prev, ...mapRegisterErrorToField(payload) }));
+      const fieldErrors = mapRegisterErrorToField(payload);
+      setBackendFieldErrors((prev) => ({ ...prev, ...fieldErrors }));
+      // Error code and field only — never the submitted credentials.
+      track("form_error", {
+        form: "registration",
+        route: "/pre-checkout",
+        source: "server",
+        status: response.status,
+        code: payload?.code,
+        fields: Object.keys(fieldErrors),
+      });
       return false;
     }
 
@@ -221,6 +232,20 @@ export function PreCheckoutPageClient() {
     setEmail(emailClean);
     const registeredUserId = typeof payload?.id_user === "string" ? payload.id_user : null;
     setRegisteredAuth(registeredUserId);
+
+    // Tie the anonymous visitor to the application user id. Email is a normal
+    // PostHog person property; the password is never touched.
+    if (registeredUserId) {
+      identifyUser(registeredUserId, { email: emailClean });
+    }
+    track("account_registered", {
+      route: "/pre-checkout",
+      user_id: registeredUserId,
+      plan: selected?.offerId,
+      billing_cycle: selected?.interval,
+      has_community_id: Boolean(communityIdClean),
+    });
+    track("form_submitted", { form: "registration", route: "/pre-checkout", success: true });
 
     if (communityIdClean && registeredUserId) {
       try {
@@ -235,10 +260,24 @@ export function PreCheckoutPageClient() {
           }),
         });
 
+        if (joinCommunityResponse.ok) {
+          track("community_joined", {
+            route: "/pre-checkout",
+            community_id: communityIdClean,
+            user_id: registeredUserId,
+          });
+        }
+
         if (!joinCommunityResponse.ok) {
           const joinCommunityPayload = (await joinCommunityResponse.json().catch(() => null)) as
             | AuthApiPayload
             | null;
+          track("error_occurred", {
+            scope: "community_join",
+            route: "/pre-checkout",
+            status: joinCommunityResponse.status,
+            community_id: communityIdClean,
+          });
           console.error("[Community Join] Request failed", {
             status: joinCommunityResponse.status,
             userId: registeredUserId,
@@ -281,12 +320,25 @@ export function PreCheckoutPageClient() {
     if (isSubmitting) return;
     setSubmitted(true);
     setBackendFieldErrors({});
-    if (!formValid) return;
+    if (!formValid) {
+      // Client-side validation blocked the submit.
+      track("form_error", {
+        form: "registration",
+        route: "/pre-checkout",
+        source: "validation",
+      });
+      return;
+    }
     setIsSubmitting(true);
 
     try {
       await handleRegisterAndSendOtp();
     } catch (error) {
+      track("error_occurred", {
+        scope: "registration",
+        route: "/pre-checkout",
+        message: error instanceof Error ? error.message : "unknown",
+      });
       const message =
         error instanceof Error && error.message.trim()
           ? error.message

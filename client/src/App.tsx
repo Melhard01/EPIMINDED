@@ -18,6 +18,7 @@ import { SmoothScrollProvider } from "./contexts/SmoothScrollProvider";
 import CookieBanner from "./components/CookieBanner";
 import ScrollToHash from "./components/ScrollToHash";
 import RouteSeo from "./components/RouteSeo";
+import RouteAnalytics from "./components/RouteAnalytics";
 import PageBackground from "./components/PageBackground";
 import FunnelShell from "@/funnel/FunnelShell";
 import QuizPage from "@/funnel/pages/QuizPage";
@@ -129,6 +130,7 @@ function App() {
                   <div className="relative z-[1]">
                     <Toaster />
                     <RouteSeo />
+                    <RouteAnalytics />
                     <ScrollToHash />
                     <Router />
                     {!funnel && <CookieBanner />}

@@ -1,9 +1,20 @@
 
 
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "@/funnel/lib/navigation";
+import { track } from "@/lib/analytics";
 
 export function PaywallCanceledBanner() {
   const canceled = useSearchParams().get("canceled");
+  // Returning from Polar without paying is the only signal the client gets
+  // that a checkout was abandoned. Fire once per mount.
+  const reported = useRef(false);
+
+  useEffect(() => {
+    if (!canceled || reported.current) return;
+    reported.current = true;
+    track("checkout_failed", { route: "/paywall", reason: "canceled_by_user" });
+  }, [canceled]);
 
   if (!canceled) return null;
 
