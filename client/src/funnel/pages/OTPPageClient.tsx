@@ -189,7 +189,8 @@ export function OTPPageClient() {
             form: "otp",
             route: "/pre-checkout/otp",
             source: "server",
-            code: payload?.code,
+            // Rejection reason (INVALID_OTP / OTP_EXPIRED) — never the code itself.
+            error_code: payload?.code,
             status: response.status,
           });
           return;
@@ -206,7 +207,7 @@ export function OTPPageClient() {
       const token = extractAccessToken(payload);
       if (token) setAuthAccessToken(token);
       if (pendingSignup.registeredUserId) {
-        identifyUser(pendingSignup.registeredUserId, { email: pendingSignup.email });
+        identifyUser(pendingSignup.registeredUserId);
       }
       // The OTP value and the access token are deliberately not sent.
       track("otp_verified", {

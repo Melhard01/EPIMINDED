@@ -57,7 +57,7 @@ export function MultiRailHandoff({ result }: { result: ProvisionResult }) {
         </h1>
         <p className="mt-4 break-words text-[15px] leading-[1.55] text-ash">
           Your membership is active. Install the app and sign in with{" "}
-          <span className="break-all text-white">{email}</span> — you won’t be charged again.
+          <span data-ph-mask className="break-all text-white">{email}</span> — you won’t be charged again.
         </p>
         <p className="mt-4 inline-block max-w-full break-words rounded-full border border-line bg-card px-3 py-1.5 font-mono text-[11px] leading-[1.4] text-gold-hi sm:px-3.5 sm:text-[11.5px]">
           {plan} · {tier} · billed {interval === "year" ? "yearly" : "monthly"}
@@ -77,7 +77,7 @@ export function MultiRailHandoff({ result }: { result: ProvisionResult }) {
             n={2}
             title={
               <>
-                Sign in with <span className="break-all text-white">{email}</span>
+                Sign in with <span data-ph-mask className="break-all text-white">{email}</span>
               </>
             }
             body="Use the same email you checked out with."
@@ -95,9 +95,11 @@ export function MultiRailHandoff({ result }: { result: ProvisionResult }) {
       </section>
 
       <div className="text-center">
+        {/* href carries the signed entitlement token; ph-no-capture blanks
+            the element in replay so the credential is never recorded. */}
         <a
           href={links.deepLink}
-          className="text-sm text-gold-hi underline underline-offset-2"
+          className="ph-no-capture text-sm text-gold-hi underline underline-offset-2"
         >
           Already installed? Open the app directly
         </a>
@@ -166,7 +168,9 @@ function DeviceInstallPicker() {
               key={active.key}
               className="flex flex-col items-center gap-4 pt-8 animate-rise"
             >
-              <div className="rounded-[2px] bg-paper p-3 shadow-[0_12px_32px_rgba(0,0,0,0.35)]">
+              {/* The QR encodes the entitlement token and is machine-readable
+                  from a replay frame, so it is excluded from capture. */}
+              <div className="ph-no-capture rounded-[2px] bg-paper p-3 shadow-[0_12px_32px_rgba(0,0,0,0.35)]">
                 <QRCode value={active.url} size={168} />
               </div>
               <p className="m-0 font-mono text-[11px] uppercase tracking-label text-muted">
@@ -176,7 +180,7 @@ function DeviceInstallPicker() {
                 href={active.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex w-full max-w-[280px] items-center justify-center gap-2 whitespace-nowrap rounded-[6px] bg-gold-cta px-4 py-2.5 text-[14px] font-semibold text-[#15110A] transition hover:bg-gold-hi"
+                className="ph-no-capture flex w-full max-w-[280px] items-center justify-center gap-2 whitespace-nowrap rounded-[6px] bg-gold-cta px-4 py-2.5 text-[14px] font-semibold text-[#15110A] transition hover:bg-gold-hi"
               >
                 {active.cta} <Arrow />
               </a>

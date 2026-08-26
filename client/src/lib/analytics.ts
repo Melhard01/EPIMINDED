@@ -41,6 +41,29 @@ export function initAnalytics() {
       capture_pageleave: true,
       persistence: "localStorage+cookie",
       autocapture: false,
+
+      /**
+       * Session replay stays on for the whole site — clicks, scrolls,
+       * navigation and form interaction are all recorded. What is suppressed
+       * is the *content* of anything sensitive:
+       *
+       * - maskAllInputs masks the value of every <input>/<textarea>. Masking
+       *   by input type would not be enough here: the signup form renders its
+       *   password fields as `type={showPassword ? "text" : "password"}`, so
+       *   the moment a visitor clicks the reveal toggle a type-based rule
+       *   would start recording the password in clear.
+       * - maskTextSelector covers sensitive values rendered as *text* rather
+       *   than typed into a field, which input masking never sees — the email
+       *   echoed back on the success screen, for instance.
+       *
+       * Elements carrying `ph-no-capture` are blanked entirely. That is used
+       * for the entitlement-token links and their QR code, which cannot be
+       * text-masked because a QR image is machine-readable.
+       */
+      session_recording: {
+        maskAllInputs: true,
+        maskTextSelector: "[data-ph-mask]",
+      },
       // Never let a blocked or slow analytics host affect the page.
       request_batching: true,
     });

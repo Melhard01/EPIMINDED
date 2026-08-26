@@ -222,7 +222,8 @@ export function PreCheckoutPageClient() {
         route: "/pre-checkout",
         source: "server",
         status: response.status,
-        code: payload?.code,
+        // Server error code (e.g. EMAIL_ALREADY_USED) — never a credential.
+        error_code: payload?.code,
         fields: Object.keys(fieldErrors),
       });
       return false;
@@ -233,10 +234,11 @@ export function PreCheckoutPageClient() {
     const registeredUserId = typeof payload?.id_user === "string" ? payload.id_user : null;
     setRegisteredAuth(registeredUserId);
 
-    // Tie the anonymous visitor to the application user id. Email is a normal
-    // PostHog person property; the password is never touched.
+    // Tie the anonymous visitor to the application user id and nothing else.
+    // The email is deliberately not sent as a person property: it is personal
+    // data PostHog does not need to attribute the session.
     if (registeredUserId) {
-      identifyUser(registeredUserId, { email: emailClean });
+      identifyUser(registeredUserId);
     }
     track("account_registered", {
       route: "/pre-checkout",
