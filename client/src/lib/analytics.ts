@@ -60,6 +60,9 @@ export function initAnalytics() {
        * for the entitlement-token links and their QR code, which cannot be
        * text-masked because a QR image is machine-readable.
        */
+      // Stated explicitly rather than left to the default, so replay cannot be
+      // switched off by a change of defaults in a future posthog-js release.
+      disable_session_recording: false,
       session_recording: {
         maskAllInputs: true,
         maskTextSelector: "[data-ph-mask]",
