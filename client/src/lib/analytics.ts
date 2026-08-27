@@ -34,10 +34,24 @@ export function initAnalytics() {
   try {
     posthog.init(KEY, {
       api_host: HOST,
-      // Route changes are captured explicitly in RouteAnalytics: this is a SPA,
-      // so PostHog's own pageview detection would miss client-side navigation
-      // and double-count the first load.
-      capture_pageview: false,
+      /**
+       * "history_change" captures $pageview on first load *and* on every
+       * History API change, which is exactly how wouter navigates — so SPA
+       * route changes are covered without double-counting the initial load.
+       *
+       * This has to be $pageview specifically. PostHog's Web Analytics
+       * dashboard and its Installation Health checks look for that event by
+       * name; the semantic `page_viewed` event emitted in RouteAnalytics is
+       * for our own funnels and does not satisfy them.
+       *
+       * It also restores scroll depth. PostHog measures scroll internally and
+       * reports it as $prev_pageview_max_scroll / _percentage attached to the
+       * following $pageview and to $pageleave. With pageview capture off,
+       * those properties were never emitted, which is why the dashboard
+       * reported scroll depth as missing. capture_pageleave must stay on for
+       * the same reason — it carries the final scroll figure for a page.
+       */
+      capture_pageview: "history_change",
       capture_pageleave: true,
       persistence: "localStorage+cookie",
       autocapture: false,
