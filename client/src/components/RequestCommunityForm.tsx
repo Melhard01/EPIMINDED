@@ -25,18 +25,25 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\+?[\d\s().-]{7,20}$/;
 
 /**
- * Posts straight to the community service, bypassing the /api BFF route, so the
- * form works without the Express server running.
+ * Same-origin by default.
  *
- * The upstream is HTTP-only, so this works from an http:// origin such as
- * localhost but a browser BLOCKS it as mixed content on an https:// site —
- * which soulchain.net is. Set VITE_COMMUNITY_REQUEST_URL to
- * "/api/communities/request" to route through the BFF instead, which reaches
- * the upstream server-side where mixed content does not apply.
+ * The community service is HTTP-only, and a browser blocks a plain-HTTP
+ * request issued from an https:// page — so posting to it directly, as this
+ * form used to, fails for every visitor on soulchain.net while still working
+ * on localhost. Going through our own origin avoids that entirely: the
+ * browser makes an HTTPS request to us, and the edge makes the HTTP call
+ * upstream, where mixed content does not apply.
+ *
+ * This path is served by three things, all of which validate identically:
+ * the Cloudflare worker (worker/index.ts), the Express BFF
+ * (server/funnel/routes.ts) and the Vite dev proxy to that BFF.
+ *
+ * VITE_COMMUNITY_REQUEST_URL still overrides, so the upstream can be called
+ * directly when debugging from an http:// origin.
  */
 const REQUEST_ENDPOINT =
   import.meta.env.VITE_COMMUNITY_REQUEST_URL?.trim() ||
-  "http://40.89.185.79:5044/communities/request/lead";
+  "/api/communities/request";
 
 const ROLE_OPTIONS: { value: Role; labelKey: string }[] = [
   { value: "founders", labelKey: "communityRequest.role.founders" },
