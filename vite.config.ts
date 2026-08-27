@@ -82,6 +82,18 @@ export default defineConfig(({ command }) => ({
     strictPort: false, // Will find next available port if 3000 is busy
     host: true,
     proxy: {
+      // Mirrors the production rewrites so api_host: "/ingest" resolves in dev
+      // too. Without this, analytics would silently stop working locally.
+      "/ingest/static": {
+        target: "https://us-assets.i.posthog.com",
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace(/^\/ingest/, ""),
+      },
+      "/ingest": {
+        target: "https://us.i.posthog.com",
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace(/^\/ingest/, ""),
+      },
       "/api": {
         target: "http://localhost:3001",
         changeOrigin: true,

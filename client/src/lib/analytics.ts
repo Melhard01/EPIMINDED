@@ -21,8 +21,25 @@ import posthog from "posthog-js";
 const KEY =
   import.meta.env.VITE_POSTHOG_TOKEN?.trim() ||
   import.meta.env.VITE_POSTHOG_KEY?.trim();
-const HOST =
-  import.meta.env.VITE_POSTHOG_HOST?.trim() || "https://us.i.posthog.com";
+/**
+ * Telemetry goes through a first-party reverse proxy on this origin, so the
+ * requests are same-origin and the common blocklists (which match
+ * *.posthog.com) do not drop them. The rewrites that back this path live in
+ * vercel.json, worker/index.ts and server/index.ts; the Vite dev server
+ * proxies it too. Keep all four in step with this value.
+ *
+ * Set VITE_POSTHOG_HOST=https://us.i.posthog.com to bypass the proxy — useful
+ * to confirm whether a delivery problem is the proxy or PostHog itself.
+ */
+const HOST = import.meta.env.VITE_POSTHOG_HOST?.trim() || "/ingest";
+
+/**
+ * Where the PostHog app itself lives. api_host no longer points at PostHog, so
+ * without this the toolbar and the "view recording" links built by
+ * get_session_replay_url() would be generated against our own domain.
+ */
+const UI_HOST =
+  import.meta.env.VITE_POSTHOG_UI_HOST?.trim() || "https://us.posthog.com";
 
 let ready = false;
 
@@ -34,6 +51,7 @@ export function initAnalytics() {
   try {
     posthog.init(KEY, {
       api_host: HOST,
+      ui_host: UI_HOST,
       /**
        * "history_change" captures $pageview on first load *and* on every
        * History API change, which is exactly how wouter navigates — so SPA

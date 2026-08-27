@@ -1,6 +1,12 @@
 name = "epiminded-website"
 compatibility_date = "2024-01-01"
 
+# The worker fronts the static assets so /ingest/* can be reverse-proxied to
+# PostHog from our own origin. Everything else falls through to env.ASSETS,
+# which keeps the existing static-first + SPA-fallback behaviour.
+main = "worker/index.ts"
+
 [assets]
 directory = "./dist/public"
 not_found_handling = "single-page-application"
+binding = "ASSETS"
