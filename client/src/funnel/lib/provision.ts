@@ -23,7 +23,7 @@ interface Account {
 
 const accounts = new Map<string, Account>();
 const SUBSCRIPTION_PLAN_ID = "6a550f2df323ab2ee82e5210";
-const DEFAULT_SUBSCRIPTION_API_BASE = "https://40.89.185.79:5229";
+const DEFAULT_SUBSCRIPTION_API_BASE = "http://40.89.185.79:5029";
 
 export interface ProvisionResult {
   accountId: string;

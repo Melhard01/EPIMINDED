@@ -9,8 +9,8 @@ import { polarProductIdFor, type BillingInterval } from "./lib/config";
 
 const router = Router();
 
-const DEFAULT_AUTH_BASE_URL = "https://40.89.185.79:4406";
-const DEFAULT_JOIN_COMMUNITY_BASE = "https://40.89.185.79:5444";
+const DEFAULT_AUTH_BASE_URL = "http://40.89.185.79:4006";
+const DEFAULT_JOIN_COMMUNITY_BASE = "http://40.89.185.79:5044";
 
 type PolarServer = "sandbox" | "production";
 type PolarMetadataValue = string | number | boolean;
@@ -404,7 +404,7 @@ router.post("/api/webhook/polar", async (req, res) => {
 
   const paymentStatusUrl = (userId: string) => {
     const base =
-      process.env.SUBSCRIPTION_API_BASE_URL?.trim() || "https://40.89.185.79:5229";
+      process.env.SUBSCRIPTION_API_BASE_URL?.trim() || "http://40.89.185.79:5029";
     return `${base}/users/payment-status/${encodeURIComponent(userId)}`;
   };
 

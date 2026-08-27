@@ -76,7 +76,7 @@ Two invariants that are easy to break:
 
 `server/index.ts` mounts [server/funnel/routes.ts](server/funnel/routes.ts) — everything under `/api/*` plus `GET /checkout`. It is a thin **proxy/adapter over external services**, not a data owner:
 
-- `/api/auth/{login,register,verify-otp,resend-verification,join-community-by-code}` → forwards to `AUTH_API_BASE_URL` (default `https://40.89.185.79:4406`) / the community service on `:5444`, normalising field names (`firstName` → `first_name`, `otp` → `verificationCode`) and collapsing upstream `detail` into `message`. `verify-otp` falls back to a legacy upstream path on 404.
+- `/api/auth/{login,register,verify-otp,resend-verification,join-community-by-code}` → forwards to `AUTH_API_BASE_URL` (default `http://40.89.185.79:4006`) / the community service on `:5044`, normalising field names (`firstName` → `first_name`, `otp` → `verificationCode`) and collapsing upstream `detail` into `message`. `verify-otp` falls back to a legacy upstream path on 404.
 - `/api/communities/request` → lead capture, `community_type` restricted to `founders|community_builders|organisations`.
 - `GET /checkout` → creates a Polar checkout and 302s to it; product IDs come from `POLAR_PRODUCT_<OFFER>_<INTERVAL>` env vars via `polarProductIdFor()`. Rejects emails whose domain has no MX record.
 - `/api/webhook/polar` → verifies the signature against the raw body (captured by the `express.json` `verify` hook in `server/index.ts` — don't remove it) and PUTs `payment_status` to `SUBSCRIPTION_API_BASE_URL`.

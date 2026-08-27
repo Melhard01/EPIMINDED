@@ -6,7 +6,7 @@ import {
   type WebPlansApiResponse,
 } from "./config";
 
-const DEFAULT_PLANS_API_BASE = "https://40.89.185.79:5229";
+const DEFAULT_PLANS_API_BASE = "http://40.89.185.79:5029";
 
 export type ResolvedWebPlans = {
   tiers: PlanOffer[];
