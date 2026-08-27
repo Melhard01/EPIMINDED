@@ -31,14 +31,24 @@ const ASSET_HOST = "us-assets.i.posthog.com";
  * enforce.
  */
 const COMMUNITY_REQUEST_PATH = "/api/communities/request";
-const COMMUNITY_UPSTREAM = "http://40.89.185.79:5044/communities/request/lead";
+
+/**
+ * Cloudflare refuses a Worker subrequest addressed to a bare IP and answers
+ * "error code: 1003" (Direct IP Access Not Allowed), so the default below
+ * cannot work from the edge — the same request succeeds from any ordinary
+ * host. Point COMMUNITY_UPSTREAM_URL at a hostname that resolves to the
+ * service (a DNS-only record, since 5044 is not a Cloudflare-proxied port)
+ * and lead capture starts working with no code change.
+ */
+const DEFAULT_COMMUNITY_UPSTREAM =
+  "http://40.89.185.79:5044/communities/request/lead";
 const ALLOWED_COMMUNITY_TYPES = new Set([
   "founders",
   "community_builders",
   "organisations",
 ]);
 
-async function handleCommunityRequest(request: Request): Promise<Response> {
+async function handleCommunityRequest(request: Request, env: Env): Promise<Response> {
   if (request.method !== "POST") {
     return Response.json({ message: "Method not allowed" }, { status: 405 });
   }
@@ -67,13 +77,26 @@ async function handleCommunityRequest(request: Request): Promise<Response> {
     );
   }
 
+  const upstreamUrl = env.COMMUNITY_UPSTREAM_URL?.trim() || DEFAULT_COMMUNITY_UPSTREAM;
+
   try {
-    const upstream = await fetch(COMMUNITY_UPSTREAM, {
+    const upstream = await fetch(upstreamUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, community_type: communityType, phone, email }),
     });
     const text = await upstream.text();
+
+    // A Cloudflare edge error is not an answer from the community service, and
+    // forwarding it verbatim surfaces a raw "error code: 1003" in the form.
+    // Report it as a gateway failure instead, so the cause is legible.
+    if (!text.trim().startsWith("{")) {
+      return Response.json(
+        { message: "Community service is temporarily unavailable." },
+        { status: 502 },
+      );
+    }
+
     return new Response(text, {
       status: upstream.status,
       headers: { "Content-Type": "application/json" },
@@ -88,6 +111,8 @@ async function handleCommunityRequest(request: Request): Promise<Response> {
 
 export interface Env {
   ASSETS: { fetch: (request: Request) => Promise<Response> };
+  /** Set as a wrangler var; see DEFAULT_COMMUNITY_UPSTREAM. */
+  COMMUNITY_UPSTREAM_URL?: string;
 }
 
 async function proxyToPostHog(request: Request, url: URL): Promise<Response> {
@@ -136,7 +161,7 @@ export default {
     }
 
     if (url.pathname === COMMUNITY_REQUEST_PATH) {
-      return handleCommunityRequest(request);
+      return handleCommunityRequest(request, env);
     }
 
     // Everything else is the prerendered site. not_found_handling in
