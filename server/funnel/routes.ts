@@ -9,8 +9,16 @@ import { polarProductIdFor, type BillingInterval } from "./lib/config";
 
 const router = Router();
 
-const DEFAULT_AUTH_BASE_URL = "http://40.89.185.79:4006";
-const DEFAULT_JOIN_COMMUNITY_BASE = "http://40.89.185.79:5044";
+// The production gateway, which fronts every service over HTTPS on a publicly
+// trusted certificate. It strips the prefix it matched, so a base of
+// `…/auth` plus the service's own `/api/auth/login` resolves correctly; the
+// service ports behind it are 4006 and 5044 respectively.
+//
+// These replaced direct-by-IP defaults (`http://40.89.185.79:…`), which served
+// TLS with a self-signed certificate that Node's fetch rejects, and which
+// Cloudflare refuses outright from an edge runtime ("error code: 1003").
+const DEFAULT_AUTH_BASE_URL = "https://backend.soulchain.net/auth";
+const DEFAULT_JOIN_COMMUNITY_BASE = "https://backend.soulchain.net/communities";
 
 type PolarServer = "sandbox" | "production";
 type PolarMetadataValue = string | number | boolean;
@@ -404,7 +412,8 @@ router.post("/api/webhook/polar", async (req, res) => {
 
   const paymentStatusUrl = (userId: string) => {
     const base =
-      process.env.SUBSCRIPTION_API_BASE_URL?.trim() || "http://40.89.185.79:5029";
+      process.env.SUBSCRIPTION_API_BASE_URL?.trim() ||
+      "https://backend.soulchain.net/onboarding";
     return `${base}/users/payment-status/${encodeURIComponent(userId)}`;
   };
 

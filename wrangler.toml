@@ -11,10 +11,12 @@ directory = "./dist/public"
 not_found_handling = "single-page-application"
 binding = "ASSETS"
 
-# Lead capture upstream. Cloudflare refuses Worker subrequests to a bare IP
-# ("error code: 1003"), so this must be a hostname that resolves to the
-# community service. Create a DNS-only (grey-cloud) record for it — 5044 is
-# not a port Cloudflare proxies.
+# Lead capture upstream. Defaults to the production gateway in worker/index.ts,
+# so this only needs setting to target something else (a local backend, say).
+#
+# It must be a hostname, never a bare IP: Cloudflare refuses a Worker subrequest
+# addressed by IP and answers "error code: 1003" as HTML, which the worker then
+# reports as a 502. That is exactly how lead capture broke.
 #
 # [vars]
-# COMMUNITY_UPSTREAM_URL = "http://api.soulchain.net:5044/communities/request/lead"
+# COMMUNITY_UPSTREAM_URL = "http://127.0.0.1:5044/communities/request/lead"

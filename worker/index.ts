@@ -20,11 +20,11 @@ const ASSET_HOST = "us-assets.i.posthog.com";
 /**
  * Lead capture for the "Request a Community" form.
  *
- * The community service is HTTP-only, and a browser refuses a plain-HTTP
- * request made from an https:// page, so the form cannot call it directly on
- * soulchain.net. The call is made from the edge instead: the browser talks to
- * our own origin over HTTPS, and the worker talks to the upstream. Mixed
- * content does not apply server-side.
+ * The call is made from the edge rather than the browser: the form talks to our
+ * own origin, and the worker talks to the upstream. That originally worked
+ * around mixed content, because the community service was HTTP-only; the
+ * gateway now serves HTTPS, but routing through the edge is still what keeps
+ * the upstream out of the client bundle and enforces the validation below.
  *
  * Mirrors the validation in server/funnel/routes.ts so both paths behave the
  * same — notably the community_type allowlist, which the upstream does not
@@ -33,15 +33,27 @@ const ASSET_HOST = "us-assets.i.posthog.com";
 const COMMUNITY_REQUEST_PATH = "/api/communities/request";
 
 /**
- * Cloudflare refuses a Worker subrequest addressed to a bare IP and answers
- * "error code: 1003" (Direct IP Access Not Allowed), so the default below
- * cannot work from the edge — the same request succeeds from any ordinary
- * host. Point COMMUNITY_UPSTREAM_URL at a hostname that resolves to the
- * service (a DNS-only record, since 5044 is not a Cloudflare-proxied port)
- * and lead capture starts working with no code change.
+ * The production gateway, which fronts the community service over HTTPS on a
+ * publicly trusted certificate.
+ *
+ * The previous default addressed the service host directly by IP
+ * (`http://40.89.185.79:5044/...`). Cloudflare refuses a Worker subrequest to a
+ * bare IP and answers "error code: 1003" — an HTML page, not JSON — so every
+ * submission fell into the non-JSON branch below and the form reported
+ * "Community service is temporarily unavailable". Lead capture was silently
+ * dead from 2026-08-31 until this changed.
+ *
+ * The doubled `/communities` is deliberate, not a typo: the gateway matches
+ * `handle_path /communities/*` and strips that first segment, and the service's
+ * own route is `/communities/request/lead`. Strip one, one remains. Do not add a
+ * trailing slash — the gateway answers those with a 307 to a path that has lost
+ * the prefix.
+ *
+ * COMMUNITY_UPSTREAM_URL still overrides, so a local backend can be targeted
+ * without editing this file.
  */
 const DEFAULT_COMMUNITY_UPSTREAM =
-  "http://40.89.185.79:5044/communities/request/lead";
+  "https://backend.soulchain.net/communities/communities/request/lead";
 const ALLOWED_COMMUNITY_TYPES = new Set([
   "founders",
   "community_builders",
