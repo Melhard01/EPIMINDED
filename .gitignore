@@ -107,3 +107,9 @@ temp/
 .project-config.json
 .vercel
 .env*
+
+# This repo is pnpm (packageManager pin + a patched wouter that only pnpm
+# applies). A package-lock.json here is never installed from, drifts silently,
+# and makes CI pick npm — which then fails `npm ci` on a lockfile nobody
+# maintains.
+package-lock.json
