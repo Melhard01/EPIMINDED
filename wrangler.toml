@@ -1,6 +1,18 @@
 name = "epiminded-website"
 compatibility_date = "2024-01-01"
 
+# Never let a deploy delete what the dashboard holds.
+#
+# Without this, `wrangler deploy` treats this file as the complete definition of
+# the worker and replaces its bindings with exactly what is declared here. Since
+# only [assets] is declared, a routine deploy silently removed every variable and
+# secret set through the Cloudflare dashboard -- which is what happened on
+# 2026-09-04, 78 seconds after a push that had nothing to do with configuration.
+#
+# The onboarding wizard's wrangler.jsonc has carried this flag from the start,
+# which is why its bindings survived the same treatment.
+keep_vars = true
+
 # The worker fronts the static assets so /ingest/* can be reverse-proxied to
 # PostHog from our own origin. Everything else falls through to env.ASSETS,
 # which keeps the existing static-first + SPA-fallback behaviour.
