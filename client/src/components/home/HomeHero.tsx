@@ -1,13 +1,11 @@
-import { lazy, Suspense } from "react";
 import EffectBoundary from "@/components/effects/EffectBoundary";
+import LiquidFlow2D from "@/components/effects/LiquidFlow2D";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { smoothScrollToId } from "@/lib/smoothScroll";
 import { track } from "@/lib/analytics";
-
-const LiquidEther = lazy(() => import("@/components/effects/LiquidEther"));
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -35,26 +33,7 @@ export default function HomeHero() {
     >
       <div className="home-hero__bg" aria-hidden="true">
         <EffectBoundary>
-          <Suspense fallback={null}>
-            <LiquidEther
-              colors={LIQUID_COLORS}
-              mouseForce={14}
-              cursorSize={78}
-              isViscous={false}
-              viscous={30}
-              iterationsViscous={32}
-              iterationsPoisson={18}
-              resolution={0.45}
-              isBounce={false}
-              autoDemo={true}
-              autoSpeed={0.4}
-              autoIntensity={1.65}
-              takeoverDuration={0.25}
-              autoResumeDelay={3000}
-              autoRampDuration={0.7}
-              style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}
-            />
-          </Suspense>
+          <LiquidFlow2D colors={LIQUID_COLORS} mouseForce={0.09} />
         </EffectBoundary>
       </div>
       <div className="home-hero__overlay" aria-hidden="true" />
