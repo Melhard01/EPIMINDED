@@ -6,7 +6,7 @@ import {
   type WebPlansApiResponse,
 } from "@/funnel/lib/config";
 
-const DEFAULT_PLANS_API_BASE = "http://40.89.185.79:5029";
+const DEFAULT_PLANS_API_BASE = "https://backend.soulchain.net/onboarding";
 
 export type ResolvedWebPlans = {
   tiers: PlanOffer[];
