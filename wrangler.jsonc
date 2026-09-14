@@ -1,0 +1,59 @@
+{
+  // Cloudflare Worker config for the EpiMinded marketing site.
+  //
+  // Stack note: this repo is Vite + Express BFF + a Cloudflare Worker that
+  // serves static assets and proxies a few edge routes. It is NOT Next.js /
+  // OpenNext. Auth/checkout (`/api/auth/*`, Polar) run on the Express BFF in
+  // local/Node deploys — they are not handled by this Worker.
+  //
+  // Non-secret config from .env.local is committed here for production.
+  // Secrets stay in the Cloudflare dashboard / `wrangler secret` so
+  // `keep_vars` preserves them across deploys:
+  //   POLAR_ACCESS_TOKEN, POLAR_WEBHOOK_SECRET, ENTITLEMENT_TOKEN_SECRET
+  // Also set SUCCESS_URL in the dashboard to your production success URL
+  // (do not commit localhost).
+
+  "name": "epiminded-website",
+  "compatibility_date": "2024-01-01",
+
+  // Never let a deploy delete what the dashboard holds.
+  "keep_vars": true,
+
+  "main": "worker/index.ts",
+
+  "assets": {
+    "directory": "./dist/public",
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS"
+  },
+
+  "vars": {
+    "POLAR_SERVER": "sandbox",
+
+    "POLAR_PRODUCT_LITE_MONTH": "ed645dbc-b203-4918-a8d1-9ae31dc068df",
+    "POLAR_PRODUCT_LITE_YEAR": "e533fd93-72a2-41ec-9a8e-420ef2454481",
+    "POLAR_PRODUCT_STANDARD_MONTH": "4aa020b5-a785-43ec-b864-a87c92c2933c",
+    "POLAR_PRODUCT_STANDARD_YEAR": "144a19c9-17d4-40c4-96bd-3f3aa0efaea4",
+    "POLAR_PRODUCT_PRO_MONTH": "7f3523f0-19ec-4ffe-b60c-0250b73058d0",
+    "POLAR_PRODUCT_PRO_YEAR": "00d7d1fa-fc55-4731-91bb-db3bafdd05c8",
+
+    "AUTH_API_BASE_URL": "https://backend.soulchain.net/auth",
+    "AUTH_RESEND_VERIFICATION_URL": "https://backend.soulchain.net/auth/api/auth/resend-verification",
+
+    // Express BFF name; Worker lead-form override uses COMMUNITY_UPSTREAM_URL.
+    "COMMUNITIES_REQUEST_URL": "https://backend.soulchain.net/communities/communities/request/lead",
+    "COMMUNITY_UPSTREAM_URL": "https://backend.soulchain.net/communities/communities/request/lead",
+
+    "SUBSCRIPTION_API_BASE_URL": "https://backend.soulchain.net/onboarding",
+
+    "VITE_APP_DEEPLINK_SCHEME": "epiminded",
+    "VITE_APP_UNIVERSAL_LINK": "https://open.epiminded.app",
+    "NEXT_PUBLIC_APP_DEEPLINK_SCHEME": "epiminded",
+    "NEXT_PUBLIC_APP_UNIVERSAL_LINK": "https://open.epiminded.app",
+
+    // PostHog project token is publishable (shipped to the browser by posthog-js).
+    "VITE_POSTHOG_KEY": "phc_oapD477u256t56e6DqBFgfxW5Vhb875sfi37m4x5pKTi",
+    "VITE_POSTHOG_HOST": "/ingest",
+    "VITE_POSTHOG_UI_HOST": "https://us.posthog.com"
+  }
+}

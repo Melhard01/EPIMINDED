@@ -177,7 +177,7 @@ export default {
     }
 
     // Everything else is the prerendered site. not_found_handling in
-    // wrangler.toml keeps the SPA fallback behaviour for unknown routes.
+    // wrangler.jsonc keeps the SPA fallback behaviour for unknown routes.
     return env.ASSETS.fetch(request);
   },
 };

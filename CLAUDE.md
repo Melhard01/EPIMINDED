@@ -37,7 +37,7 @@ Marketing site + acquisition funnel in one Vite SPA, with a small Express BFF be
 
 `isFunnelPath()` in App.tsx must be kept in sync with the funnel `<Route>` list, otherwise a funnel page gets the marketing background and cookie banner.
 
-Routing is **wouter** (patched). Vercel rewrites everything to `index.html` (`vercel.json`), and `wrangler.toml` exists for a Cloudflare-assets deploy of the same static output.
+Routing is **wouter** (patched). Vercel rewrites everything to `index.html` (`vercel.json`), and `wrangler.jsonc` exists for a Cloudflare-assets deploy of the same static output.
 
 ### Static prerendering (SEO/GEO)
 
