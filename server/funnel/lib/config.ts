@@ -13,11 +13,15 @@
 
 import { formatUsd } from "./pricing";
 
+// Imported by the Cloudflare Worker, which has no `process` global.
+const processEnv: Record<string, string | undefined> =
+  typeof process === "undefined" ? {} : process.env;
+
 export const SITE_URL =
-  process.env.VITE_SITE_URL?.trim() ||
-  process.env.VITE_APP_URL?.trim() ||
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-  process.env.NEXT_PUBLIC_APP_URL?.trim() ||
+  processEnv.VITE_SITE_URL?.trim() ||
+  processEnv.VITE_APP_URL?.trim() ||
+  processEnv.NEXT_PUBLIC_SITE_URL?.trim() ||
+  processEnv.NEXT_PUBLIC_APP_URL?.trim() ||
   "http://localhost:3000";
 
 export const APP = {
@@ -261,16 +265,16 @@ export function polarProductIdFor(
 ): string | undefined {
   const key = `POLAR_PRODUCT_${offerId.toUpperCase()}_${interval.toUpperCase()}`;
   const viteKey = `VITE_${key}`;
-  const fromEnv = process.env[viteKey]?.trim() || process.env[key]?.trim();
+  const fromEnv = processEnv[viteKey]?.trim() || processEnv[key]?.trim();
   if (fromEnv) return fromEnv;
   return POLAR_PRODUCT_FALLBACKS[key];
 }
 
 export const DEEPLINK = {
-  scheme: process.env.VITE_APP_DEEPLINK_SCHEME || process.env.NEXT_PUBLIC_APP_DEEPLINK_SCHEME || "epiminded",
+  scheme: processEnv.VITE_APP_DEEPLINK_SCHEME || processEnv.NEXT_PUBLIC_APP_DEEPLINK_SCHEME || "epiminded",
   universalLink:
-    process.env.VITE_APP_UNIVERSAL_LINK ||
-    process.env.NEXT_PUBLIC_APP_UNIVERSAL_LINK ||
+    processEnv.VITE_APP_UNIVERSAL_LINK ||
+    processEnv.NEXT_PUBLIC_APP_UNIVERSAL_LINK ||
     "https://open.epiminded.app",
 } as const;
 

@@ -7,12 +7,16 @@
 
 export type PricingPlatform = "web" | "mobile";
 
+// Imported by the Cloudflare Worker, which has no `process` global.
+const processEnv: Record<string, string | undefined> =
+  typeof process === "undefined" ? {} : process.env;
+
 /**
  * Web discount applied to every plan.
  * Override with NEXT_PUBLIC_WEB_DISCOUNT_PERCENT in env (e.g. "30").
  */
 export const WEB_DISCOUNT_PERCENT = (() => {
-  const raw = process.env.VITE_WEB_DISCOUNT_PERCENT ?? process.env.NEXT_PUBLIC_WEB_DISCOUNT_PERCENT?.trim();
+  const raw = processEnv.VITE_WEB_DISCOUNT_PERCENT ?? processEnv.NEXT_PUBLIC_WEB_DISCOUNT_PERCENT?.trim();
   if (!raw) return 30;
   const parsed = Number(raw);
   if (!Number.isFinite(parsed) || parsed < 0 || parsed > 100) return 30;
