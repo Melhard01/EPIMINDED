@@ -9,7 +9,7 @@
   // Non-secret config from .env.local is committed here for production.
   // Secrets stay in the Cloudflare dashboard / `wrangler secret` so
   // `keep_vars` preserves them across deploys:
-  //   POLAR_ACCESS_TOKEN, POLAR_WEBHOOK_SECRET, ENTITLEMENT_TOKEN_SECRET
+  //   POLAR_WEBHOOK_SECRET, ENTITLEMENT_TOKEN_SECRET
   // Also set SUCCESS_URL in the dashboard to your production success URL
   // (do not commit localhost).
 
@@ -29,6 +29,8 @@
 
   "vars": {
     "POLAR_SERVER": "sandbox",
+    // Sandbox key, committed on purpose. For a live key use a dashboard secret instead.
+    "POLAR_ACCESS_TOKEN": "polar_oat_Bp4BGqrr5z5F8ggAtOH4lK7QQZJ1PUuC9kt0i2R5EE4",
 
     "POLAR_PRODUCT_LITE_MONTH": "ed645dbc-b203-4918-a8d1-9ae31dc068df",
     "POLAR_PRODUCT_LITE_YEAR": "e533fd93-72a2-41ec-9a8e-420ef2454481",
