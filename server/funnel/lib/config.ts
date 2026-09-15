@@ -130,6 +130,9 @@ const SUBSCRIPTION_PLANS_PAYLOAD = {
 
 export const PLAN_NAME = SUBSCRIPTION_PLANS_PAYLOAD.name;
 
+/** Backend catalog id of the individual plan these offers belong to. */
+export const SUBSCRIPTION_PLAN_ID = "6a550f2df323ab2ee82e5210";
+
 export interface PlanOffer {
   /** Stable id used across funnel state + entitlement token. */
   id: OfferId;

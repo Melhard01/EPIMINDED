@@ -5,8 +5,15 @@ import { QRCode } from "./QRCode";
 import { Arrow } from "@/funnel/components/ui/Button";
 import { AndroidIcon, AppleIcon, CheckIcon } from "@/funnel/components/ui/icons";
 import { clsx } from "@/funnel/lib/clsx";
-import { STORES } from "@/funnel/lib/config";
-import type { ProvisionResult } from "@/funnel/lib/provision";
+import { DEEPLINK, STORES } from "@/funnel/lib/config";
+
+/** A purchase the server has confirmed with Polar. */
+export interface VerifiedPurchase {
+  email: string;
+  plan: string;
+  tier: string;
+  interval: "month" | "year";
+}
 
 const CARD_SHELL =
   "rounded-[28px] border border-gold/70 bg-[linear-gradient(160deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.05)_45%,rgba(255,255,255,0.02)_100%)] backdrop-blur-2xl ring-1 ring-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-20px_40px_rgba(0,0,0,0.42),0_0_0_1px_rgba(212,175,55,0.16),0_14px_36px_rgba(0,0,0,0.5)]";
@@ -40,8 +47,8 @@ const PLATFORM_OPTIONS: {
  * Handoff — the end of the web path. One unified card with next steps +
  * device selection, then a platform-specific QR that updates on choice.
  */
-export function MultiRailHandoff({ result }: { result: ProvisionResult }) {
-  const { handoff: links, email, plan, tier, interval, addon } = result;
+export function MultiRailHandoff({ purchase }: { purchase: VerifiedPurchase }) {
+  const { email, plan, tier, interval } = purchase;
 
   return (
     <div className="flex flex-col gap-8 overflow-x-hidden animate-rise">
@@ -61,7 +68,6 @@ export function MultiRailHandoff({ result }: { result: ProvisionResult }) {
         </p>
         <p className="mt-4 inline-block max-w-full break-words rounded-full border border-line bg-card px-3 py-1.5 font-mono text-[11px] leading-[1.4] text-gold-hi sm:px-3.5 sm:text-[11.5px]">
           {plan} · {tier} · billed {interval === "year" ? "yearly" : "monthly"}
-          {addon ? " · + Custom Brain Booster" : ""}
         </p>
       </header>
 
@@ -95,11 +101,9 @@ export function MultiRailHandoff({ result }: { result: ProvisionResult }) {
       </section>
 
       <div className="text-center">
-        {/* href carries the signed entitlement token; ph-no-capture blanks
-            the element in replay so the credential is never recorded. */}
         <a
-          href={links.deepLink}
-          className="ph-no-capture text-sm text-gold-hi underline underline-offset-2"
+          href={`${DEEPLINK.scheme}://open`}
+          className="text-sm text-gold-hi underline underline-offset-2"
         >
           Already installed? Open the app directly
         </a>

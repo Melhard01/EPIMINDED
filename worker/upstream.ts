@@ -90,12 +90,20 @@ export function communityLeadUrl(env: WorkerEnv): string {
   );
 }
 
+function onboardingBase(env: WorkerEnv): string {
+  return trimEnv(env.SUBSCRIPTION_API_BASE_URL) || DEFAULT_ONBOARDING_BASE;
+}
+
 export function plansWebUrl(env: WorkerEnv): string {
-  const explicit = trimEnv(env.PLANS_WEB_URL);
-  if (explicit) return explicit;
-  const base =
-    trimEnv(env.SUBSCRIPTION_API_BASE_URL) || DEFAULT_ONBOARDING_BASE;
-  return `${base}/plans/web`;
+  return trimEnv(env.PLANS_WEB_URL) || `${onboardingBase(env)}/plans/web`;
+}
+
+export function userSubscriptionUrl(env: WorkerEnv, userId: string): string {
+  return `${onboardingBase(env)}/users/${encodeURIComponent(userId)}/subscription`;
+}
+
+export function userPaymentStatusUrl(env: WorkerEnv, userId: string): string {
+  return `${onboardingBase(env)}/users/payment-status/${encodeURIComponent(userId)}`;
 }
 
 export async function proxyUpstreamJson(

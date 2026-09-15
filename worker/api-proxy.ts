@@ -6,8 +6,11 @@
  */
 
 import {
+  PLAN_NAME,
   SHARED_FEATURES,
+  SUBSCRIPTION_PLAN_ID,
   TIERS,
+  findOffer,
   mapWebPlansPayload,
   type WebPlansApiResponse,
 } from "../server/funnel/lib/config";
@@ -21,6 +24,8 @@ import {
   joinCommunityUrl,
   plansWebUrl,
   proxyUpstreamJson,
+  userPaymentStatusUrl,
+  userSubscriptionUrl,
   type WorkerEnv,
 } from "./upstream";
 
@@ -609,6 +614,140 @@ export async function handleCheckout(
   }
 }
 
+type PolarCheckout = {
+  status?: string;
+  product_id?: string;
+  customer_email?: string | null;
+  metadata?: Record<string, unknown> | null;
+};
+
+const OFFER_IDS = ["lite", "standard", "pro"] as const;
+const INTERVALS = ["month", "year"] as const;
+
+function offerForProduct(env: WorkerEnv, productId: string) {
+  for (const offerId of OFFER_IDS) {
+    for (const interval of INTERVALS) {
+      if (productId && polarProductId(env, offerId, interval) === productId) {
+        return { offerId, interval };
+      }
+    }
+  }
+  return null;
+}
+
+async function putOnboarding(url: string, authorization: string, body: unknown): Promise<number> {
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", Authorization: authorization },
+      body: JSON.stringify(body),
+    });
+    return response.status;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * Confirms a Polar checkout server-side, then activates the buyer.
+ *
+ * The browser sends only the checkout id and its own login token. Status, plan,
+ * email and account id are all read back from Polar, so none can be forged; the
+ * account id is the one bound into the checkout when it was created. Activation
+ * uses the onboarding service's existing individual-plan endpoints, with the
+ * buyer's token, since every backend route requires one.
+ */
+export async function handlePolarPayment(request: Request, env: WorkerEnv): Promise<Response> {
+  if (request.method !== "POST") {
+    return Response.json({ status: "error", message: "Method not allowed" }, { status: 405 });
+  }
+  const checkoutId = decodeURIComponent(new URL(request.url).pathname.split("/").pop() ?? "");
+  if (!UUID_RE.test(checkoutId)) {
+    return Response.json({ status: "invalid", message: "Invalid checkout id." }, { status: 400 });
+  }
+
+  const accessToken = str(env.POLAR_ACCESS_TOKEN);
+  if (!accessToken) {
+    return Response.json(
+      { status: "error", message: "Payment verification is not configured." },
+      { status: 500 },
+    );
+  }
+  const polarHost =
+    str(env.POLAR_SERVER) === "production" ? "https://api.polar.sh" : "https://sandbox-api.polar.sh";
+
+  let checkout: PolarCheckout;
+  try {
+    const response = await fetch(`${polarHost}/v1/checkouts/${checkoutId}`, {
+      headers: { Authorization: `Bearer ${accessToken}`, Accept: "application/json" },
+    });
+    if (response.status === 404) {
+      return Response.json({ status: "not_found" }, { status: 404 });
+    }
+    if (!response.ok) {
+      return Response.json({ status: "unavailable" }, { status: 502 });
+    }
+    checkout = (await response.json()) as PolarCheckout;
+  } catch {
+    return Response.json({ status: "unavailable" }, { status: 502 });
+  }
+
+  const offer = offerForProduct(env, str(checkout.product_id));
+  if (!offer) {
+    return Response.json({ status: "not_found" }, { status: 404 });
+  }
+
+  // "confirmed" means the charge is still settling; only "succeeded" grants access.
+  const polarStatus = str(checkout.status).toLowerCase();
+  if (polarStatus === "confirmed") {
+    return Response.json({ status: "processing" }, { status: 202 });
+  }
+  if (polarStatus !== "succeeded") {
+    return Response.json({ status: "unpaid", polar_status: polarStatus || null }, { status: 402 });
+  }
+
+  const tier = findOffer(offer.offerId)?.name ?? offer.offerId;
+  const userId = str(checkout.metadata?.userId);
+  const authorization = str(request.headers.get("Authorization"));
+
+  let recorded = false;
+  let recordStatus: string | null = null;
+  if (!userId) {
+    recordStatus = "no_account";
+  } else if (!authorization) {
+    recordStatus = "no_session";
+  } else {
+    // Same two calls, in the same order, that provisionAccount has always made.
+    const saved = await putOnboarding(userSubscriptionUrl(env, userId), authorization, {
+      subscriptions: [
+        { plan_id: SUBSCRIPTION_PLAN_ID, subplan_name: tier, billing_cycle: offer.interval },
+      ],
+    });
+    const paid =
+      saved >= 200 && saved < 300
+        ? await putOnboarding(userPaymentStatusUrl(env, userId), authorization, {
+            payment_status: true,
+          })
+        : saved;
+    recorded = paid >= 200 && paid < 300;
+    if (!recorded) recordStatus = paid === 401 || paid === 403 ? "session_rejected" : "backend_error";
+  }
+
+  return Response.json({
+    status: "paid",
+    checkout_id: checkoutId,
+    offer_id: offer.offerId,
+    purchase: {
+      email: str(checkout.customer_email),
+      plan: PLAN_NAME,
+      tier,
+      interval: offer.interval,
+    },
+    recorded,
+    record_status: recordStatus,
+  });
+}
+
 /** Dispatch same-origin API routes. Returns null if the path is not an API route. */
 export function matchApiRoute(
   pathname: string,
@@ -621,6 +760,7 @@ export function matchApiRoute(
   | "auth-join"
   | "plans"
   | "checkout"
+  | "polar-payment"
   | null {
   if (pathname === "/api/communities/request") return "community-request";
   if (pathname === "/api/auth/login") return "auth-login";
@@ -630,6 +770,7 @@ export function matchApiRoute(
   if (pathname === "/api/auth/join-community-by-code") return "auth-join";
   if (pathname === "/api/plans") return "plans";
   if (pathname === "/checkout") return "checkout";
+  if (pathname.startsWith("/api/polar/payment/")) return "polar-payment";
   return null;
 }
 
@@ -655,5 +796,7 @@ export async function handleApiRoute(
       return handlePlans(request, env);
     case "checkout":
       return handleCheckout(request, env);
+    case "polar-payment":
+      return handlePolarPayment(request, env);
   }
 }

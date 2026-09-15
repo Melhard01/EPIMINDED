@@ -6,8 +6,22 @@ import { resolveWebPlans } from "./lib/plans";
 import { provisionAccount } from "./lib/provision";
 import { verifyEntitlement } from "./lib/entitlement/token";
 import { polarProductIdFor, type BillingInterval } from "./lib/config";
+import { handlePolarPayment } from "../../worker/api-proxy";
+import type { WorkerEnv } from "../../worker/upstream";
 
 const router = Router();
+
+// The production Worker's handler, served here so /success works under `pnpm dev`.
+router.post("/api/polar/payment/:checkoutId", async (req, res) => {
+  const response = await handlePolarPayment(
+    new globalThis.Request(`http://localhost${req.originalUrl}`, {
+      method: "POST",
+      headers: req.headers.authorization ? { Authorization: req.headers.authorization } : undefined,
+    }),
+    process.env as unknown as WorkerEnv,
+  );
+  res.status(response.status).type("application/json").send(await response.text());
+});
 
 // The production gateway, which fronts every service over HTTPS on a publicly
 // trusted certificate. It strips the prefix it matched, so a base of

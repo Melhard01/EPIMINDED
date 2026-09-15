@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { signEntitlement } from "./entitlement/token";
 import { buildHandoffLinks, type HandoffLinks } from "./entitlement/handoff";
-import { findOffer, PLAN_NAME, type BillingInterval } from "./config";
+import { findOffer, PLAN_NAME, SUBSCRIPTION_PLAN_ID, type BillingInterval } from "./config";
 
 /**
  * Provisioning = "create account + signed entitlement" box in the flow.
@@ -22,7 +22,6 @@ interface Account {
 }
 
 const accounts = new Map<string, Account>();
-const SUBSCRIPTION_PLAN_ID = "6a550f2df323ab2ee82e5210";
 const DEFAULT_SUBSCRIPTION_API_BASE = "https://backend.soulchain.net/onboarding";
 
 export interface ProvisionResult {

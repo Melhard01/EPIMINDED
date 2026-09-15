@@ -12,6 +12,7 @@ import {
   validateLastName,
   validatePassword,
 } from "@/funnel/lib/validation/signup";
+import { extractAccessToken, setAuthAccessToken } from "@/lib/authToken";
 import { identifyUser, track } from "@/lib/analytics";
 
 const COMMUNITY_ID_STORAGE_KEY = "epiminded.communityId.v1";
@@ -237,6 +238,9 @@ export function PreCheckoutPageClient() {
     setEmail(emailClean);
     const registeredUserId = typeof payload?.id_user === "string" ? payload.id_user : null;
     setRegisteredAuth(registeredUserId);
+    // Registration returns the login token /success needs to activate the purchase.
+    const accessToken = extractAccessToken(payload);
+    if (accessToken) setAuthAccessToken(accessToken);
 
     // Tie the anonymous visitor to the application user id and nothing else.
     // The email is deliberately not sent as a person property: it is personal
