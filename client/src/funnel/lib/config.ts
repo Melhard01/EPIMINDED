@@ -7,8 +7,7 @@
  * the store-fee buffer); the web simply collects payment fee-free and the
  * entitlement carries into the app.
  *
- * PlanOffer cents are mobile/store base prices. Web display discounts are
- * applied via `@/funnel/lib/pricing` (WEB_DISCOUNT_PERCENT).
+ * PlanOffer cents are the prices shown and charged, on the web as in the stores.
  */
 
 import { formatUsd } from "@/funnel/lib/pricing";

@@ -12,10 +12,7 @@ import {
   type OfferId,
   type PlanOffer,
 } from "@/funnel/lib/config";
-import {
-  resolvePlanPrice,
-  type PricingPlatform,
-} from "@/funnel/lib/pricing";
+import { formatUsdFromCents } from "@/funnel/lib/pricing";
 
 export type ProductIdMap = Record<string, string | undefined>;
 
@@ -40,12 +37,10 @@ export function PricingPlans({
   productIds,
   tiers = TIERS,
   features = SHARED_FEATURES,
-  platform = "web",
 }: {
   productIds: ProductIdMap;
   tiers?: PlanOffer[];
   features?: string[];
-  platform?: PricingPlatform;
 }) {
   const { selectOffer } = useFunnel();
   const [interval, setInterval] = useState<BillingInterval>("month");
@@ -233,9 +228,9 @@ export function PricingPlans({
             <tr>
               <td className="pr-4" />
               {tiers.map((tier) => {
-                const mobileCents =
-                  interval === "year" ? tier.annualCents : tier.monthlyCents;
-                const price = resolvePlanPrice(mobileCents, platform);
+                const priceLabel = formatUsdFromCents(
+                  interval === "year" ? tier.annualCents : tier.monthlyCents,
+                );
                 return (
                   <td
                     key={tier.id}
@@ -243,7 +238,7 @@ export function PricingPlans({
                     className="px-4 pb-1 text-center"
                   >
                     <div className="font-display text-[clamp(28px,3.5vw,40px)] font-semibold leading-none text-paper">
-                      {price.displayLabel}
+                      {priceLabel}
                     </div>
                   </td>
                 );
@@ -341,9 +336,9 @@ export function PricingPlans({
       {/* Stacked cards for mobile + tablet (≤1023px), including 768. */}
       <div className="mx-auto flex w-full max-w-[420px] flex-col gap-5 md:max-w-[520px] lg:hidden">
         {tiers.map((tier) => {
-          const mobileCents =
-            interval === "year" ? tier.annualCents : tier.monthlyCents;
-          const price = resolvePlanPrice(mobileCents, platform);
+          const priceLabel = formatUsdFromCents(
+            interval === "year" ? tier.annualCents : tier.monthlyCents,
+          );
           const id = productIds[productKey(tier.id, interval)];
           const href = id ? `/pre-checkout/community?products=${id}` : undefined;
           const active = tier.id === activeId;
@@ -367,7 +362,7 @@ export function PricingPlans({
                 ) : null}
               </div>
               <div className="mt-3 font-display text-[36px] font-semibold leading-none text-paper">
-                {price.displayLabel}
+                {priceLabel}
               </div>
               <p className="mt-1 font-mono text-[12px] text-muted">{unit}</p>
               <p className="mt-4 font-mono text-[12px] uppercase tracking-label text-gold">
