@@ -213,8 +213,12 @@ export function PreCheckoutPageClient() {
     });
     const payload = await parseAuthPayload(response);
 
-    if (!response.ok) {
-      const fieldErrors = mapRegisterErrorToField(payload);
+    // Our API always answers JSON; a non-JSON body means the request never reached it.
+    if (!response.ok || payload === null) {
+      const mapped = payload ? mapRegisterErrorToField(payload) : {};
+      const fieldErrors = Object.keys(mapped).length
+        ? mapped
+        : { general: "We couldn't create your account right now. Please try again in a moment." };
       setBackendFieldErrors((prev) => ({ ...prev, ...fieldErrors }));
       // Error code and field only — never the submitted credentials.
       track("form_error", {
@@ -341,16 +345,11 @@ export function PreCheckoutPageClient() {
         route: "/pre-checkout",
         message: error instanceof Error ? error.message : "unknown",
       });
-      const message =
-        error instanceof Error && error.message.trim()
-          ? error.message
-          : "";
-      if (message) {
-        setBackendFieldErrors((prev) => ({
-          ...prev,
-          general: message,
-        }));
-      }
+      // Raw fetch errors ("Failed to fetch") mean nothing to users, and some are empty.
+      setBackendFieldErrors((prev) => ({
+        ...prev,
+        general: "We couldn't reach our sign-up service. Check your connection and try again.",
+      }));
     } finally {
       setIsSubmitting(false);
     }
