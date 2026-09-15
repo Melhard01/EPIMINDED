@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "@/funnel/lib/navigation";
 import { BrandHeader } from "@/funnel/components/ui/BrandHeader";
+import { OTP_LENGTH, OtpInput } from "@/funnel/components/ui/OtpInput";
 import { useFunnel } from "@/funnel/lib/funnel/store";
 import { extractAccessToken, setAuthAccessToken } from "@/lib/authToken";
 import { identifyUser, track } from "@/lib/analytics";
@@ -94,7 +95,11 @@ export function OTPPageClient() {
   }, []);
 
   const otpClean = otpCode.trim();
-  const otpError = !otpClean ? "Please enter the OTP code" : null;
+  const otpError = !otpClean
+    ? "Please enter the OTP code"
+    : otpClean.length < OTP_LENGTH
+      ? `Please enter all ${OTP_LENGTH} digits`
+      : null;
   const hasProduct = Boolean(products);
 
   const buildCheckoutUrl = useMemo(() => {
@@ -328,23 +333,21 @@ export function OTPPageClient() {
             </p>
           )}
 
-          <label className="mt-5 block">
-            <span className="mb-2 block font-mono text-[12px] uppercase tracking-label text-muted">
+          <div className="mt-5">
+            <span
+              id="otp-code-label"
+              className="mb-2 block font-mono text-[12px] uppercase tracking-label text-muted"
+            >
               OTP code
             </span>
-            <input
-              type="text"
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              value={otpCode}
-              onChange={(e) => {
-                setOtpCode(e.target.value);
+            <OtpInput
+              labelledBy="otp-code-label"
+              invalid={Boolean(backendErrors.otp || ((otpTouched || isSubmitting) && otpError))}
+              onChange={(code) => {
+                setOtpCode(code);
                 setBackendErrors((prev) => ({ ...prev, otp: undefined, general: undefined }));
               }}
               onBlur={() => setOtpTouched(true)}
-              className="w-full rounded-xl border border-line bg-card px-4 py-3 text-[16px] text-body outline-none transition focus:border-gold"
-              placeholder="Enter 6-digit OTP"
-              required
             />
             {(otpTouched || isSubmitting) && otpError && (
               <span className="mt-2 block text-sm text-[#f0bbbb]">{otpError}</span>
@@ -352,7 +355,7 @@ export function OTPPageClient() {
             {backendErrors.otp && (
               <span className="mt-2 block text-sm text-[#f0bbbb]">{backendErrors.otp}</span>
             )}
-          </label>
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <button
