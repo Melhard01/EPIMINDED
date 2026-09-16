@@ -58,6 +58,16 @@ export function QuizEngine() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted, question.id]);
 
+  // One advance per question: a second tap inside the 200 ms delay used to
+  // queue another, skipping the next question or running past the last one.
+  const advanceTimer = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
+    },
+    [],
+  );
+
   const select = useCallback(
     (key: string) => {
       setAnswer(question.id, key);
@@ -70,7 +80,10 @@ export function QuizEngine() {
         step_total: total,
         route: "/quiz",
       });
-      window.setTimeout(() => {
+      // Already moving on: the new answer replaces the old one, no extra step.
+      if (advanceTimer.current !== null) return;
+      advanceTimer.current = window.setTimeout(() => {
+        advanceTimer.current = null;
         if (index < total - 1) {
           setIndex((i) => i + 1);
         } else {
@@ -83,6 +96,11 @@ export function QuizEngine() {
   );
 
   const back = () => {
+    // A pending advance would otherwise undo the Back straight away.
+    if (advanceTimer.current !== null) {
+      window.clearTimeout(advanceTimer.current);
+      advanceTimer.current = null;
+    }
     if (index > 0) setIndex((i) => i - 1);
     else setPhase("intro");
   };
