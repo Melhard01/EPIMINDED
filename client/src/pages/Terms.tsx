@@ -6,51 +6,51 @@ export default function Terms() {
 
   if (language === 'fr') {
     return (
-      <LegalLayout title="Conditions Générales d'Utilisation">
-        <p className="text-sm mb-8">Dernière mise à jour : 08 Décembre 2025</p>
+      <LegalLayout title="Conditions générales">
+        <p className="text-sm mb-8">Dernière mise à jour : 8 décembre 2025</p>
         
         <p>
-          Bienvenue sur SOULCHAIN. En accédant à notre site web et en utilisant nos services, vous acceptez d'être lié par les présentes Conditions Générales d'Utilisation.
+          Bienvenue sur SOULCHAIN. En accédant à notre site web et en utilisant nos services, vous acceptez d’être soumis aux présentes Conditions générales.
         </p>
 
         <h2>1. Acceptation des conditions</h2>
         <p>
-          En utilisant notre application mobile (SOULCHAIN) ou notre site web, vous acceptez ces conditions dans leur intégralité. Si vous n'êtes pas d'accord avec une partie de ces conditions, vous ne devez pas utiliser nos services.
+          En utilisant notre application mobile (SOULCHAIN) ou notre site web, vous acceptez l’intégralité des présentes conditions. Si vous êtes en désaccord avec une partie quelconque de ces conditions, vous ne devez pas utiliser nos services.
         </p>
 
         <h2>2. Description du service</h2>
         <p>
-          SOULCHAIN est un système de diffusion de contenu ultra-personnalisé qui adapte les boosters aux intérêts uniques de chaque utilisateur, fournissant des mises à jour quotidiennes sur les sujets qui leur tiennent à cœur. La plateforme favorise également le réseautage en regroupant les utilisateurs ayant des sujets communs.
+          SOULCHAIN est un système de diffusion de contenu ultra-personnalisé qui adapte des boosters aux centres d’intérêt propres à chaque utilisateur, en fournissant des mises à jour quotidiennes sur les sujets qui lui tiennent à cœur. La plateforme s’appuie également sur le réseautage en regroupant les utilisateurs partageant les mêmes sujets.
         </p>
 
         <h2>3. Inscription et compte</h2>
         <p>
-          Pour utiliser certaines fonctionnalités de nos services, vous devrez peut-être créer un compte. Vous êtes responsable du maintien de la confidentialité de vos informations de connexion et de toutes les activités qui se produisent sous votre compte.
+          Pour utiliser certaines fonctionnalités de nos services, vous pouvez être amené à créer un compte. Vous êtes responsable de la confidentialité des informations de votre compte et de toutes les activités qui s’y déroulent.
         </p>
 
         <h2>4. Utilisation acceptable</h2>
         <p>
-          Vous acceptez de ne pas utiliser nos services à des fins illégales ou non autorisées. Vous ne devez pas, dans l'utilisation du service, violer les lois de votre juridiction.
+          Vous vous engagez à ne pas utiliser nos services à des fins illégales ou non autorisées. Dans le cadre de l’utilisation du service, vous ne devez enfreindre aucune loi de votre juridiction.
         </p>
 
         <h2>5. Propriété intellectuelle</h2>
         <p>
-          Le service et son contenu original, ses caractéristiques et ses fonctionnalités sont et resteront la propriété exclusive d'SOULCHAIN et de ses concédants de licence.
+          Le service ainsi que son contenu original, ses fonctionnalités et ses caractéristiques sont et resteront la propriété exclusive de SOULCHAIN et de ses concédants de licence.
         </p>
 
         <h2>6. Limitation de responsabilité</h2>
         <p>
-          En aucun cas SOULCHAIN, ni ses directeurs, employés, partenaires, agents, fournisseurs ou affiliés, ne pourront être tenus responsables de tout dommage indirect, accessoire, spécial, consécutif ou punitif, y compris, sans s'y limiter, la perte de profits, de données, d'utilisation, de bonne volonté ou d'autres pertes intangibles.
+          En aucun cas SOULCHAIN, ni ses dirigeants, employés, partenaires, agents, fournisseurs ou sociétés affiliées, ne pourront être tenus responsables de dommages indirects, accessoires, spéciaux, consécutifs ou punitifs, y compris, sans s’y limiter, la perte de bénéfices, de données, d’usage, de clientèle ou d’autres pertes immatérielles.
         </p>
 
         <h2>7. Modifications</h2>
         <p>
-          Nous nous réservons le droit, à notre seule discrétion, de modifier ou de remplacer ces conditions à tout moment. Si une révision est importante, nous essaierons de fournir un préavis d'au moins 30 jours avant que les nouvelles conditions ne prennent effet.
+          Nous nous réservons le droit, à notre seule discrétion, de modifier ou de remplacer les présentes Conditions à tout moment. Si une révision est substantielle, nous nous efforcerons de vous en informer au moins 30 jours avant l’entrée en vigueur des nouvelles conditions.
         </p>
 
-        <h2>8. Contact</h2>
+        <h2>8. Nous contacter</h2>
         <p>
-          Si vous avez des questions concernant ces conditions, veuillez nous contacter à support@epiminded.com.
+          Pour toute question concernant les présentes Conditions, contactez-nous à l’adresse support@epiminded.com.
         </p>
       </LegalLayout>
     );

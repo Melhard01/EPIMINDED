@@ -6,42 +6,42 @@ export default function Cookies() {
 
   if (language === 'fr') {
     return (
-      <LegalLayout title="Politique des Cookies">
-        <p className="text-sm mb-8">Dernière mise à jour : 08 Décembre 2025</p>
+      <LegalLayout title="Politique relative aux cookies">
+        <p className="text-sm mb-8">Dernière mise à jour : 8 décembre 2025</p>
         
         <p>
-          Cette politique relative aux cookies explique comment SOULCHAIN ("Société", "nous", "notre" et "nos") utilise les cookies et des technologies similaires pour vous reconnaître lorsque vous visitez notre site web à l'adresse https://soulchain.net ("Site web"). Elle explique ce que sont ces technologies et pourquoi nous les utilisons, ainsi que vos droits pour contrôler notre utilisation de celles-ci.
+          La présente Politique relative aux cookies explique comment SOULCHAIN (« la Société », « nous », « notre », « nos ») utilise des cookies et des technologies similaires pour vous reconnaître lorsque vous visitez notre site web à l’adresse https://soulchain.net (« Site »). Elle explique ce que sont ces technologies et pourquoi nous les utilisons, ainsi que vos droits pour en contrôler l’utilisation.
         </p>
 
-        <h2>Que sont les cookies ?</h2>
+        <h2>Qu’est-ce qu’un cookie ?</h2>
         <p>
-          Les cookies sont de petits fichiers de données qui sont placés sur votre ordinateur ou appareil mobile lorsque vous visitez un site web. Les cookies sont largement utilisés par les propriétaires de sites web afin de faire fonctionner leurs sites web, ou de les faire fonctionner plus efficacement, ainsi que pour fournir des informations de rapport.
+          Les cookies sont de petits fichiers de données placés sur votre ordinateur ou votre appareil mobile lorsque vous visitez un site web. Ils sont largement utilisés par les propriétaires de sites pour faire fonctionner leurs sites, ou les faire fonctionner plus efficacement, ainsi que pour fournir des informations de reporting.
         </p>
         <p>
-          Les cookies définis par le propriétaire du site web (dans ce cas, SOULCHAIN) sont appelés "cookies internes". Les cookies définis par des parties autres que le propriétaire du site web sont appelés "cookies tiers". Les cookies tiers permettent de fournir des caractéristiques ou des fonctionnalités tierces sur ou via le site web (par exemple, la publicité, le contenu interactif et les analyses).
+          Les cookies déposés par le propriétaire du site (ici, SOULCHAIN) sont appelés « cookies internes ». Les cookies déposés par des tiers sont appelés « cookies tiers ». Les cookies tiers permettent de fournir des fonctionnalités tierces sur ou via le site (par exemple : publicité, contenu interactif et analyse d’audience).
         </p>
 
         <h2>Pourquoi utilisons-nous des cookies ?</h2>
         <p>
-          Nous utilisons des cookies internes et tiers pour plusieurs raisons. Certains cookies sont nécessaires pour des raisons techniques afin que notre site web fonctionne, et nous les appelons cookies "essentiels" ou "strictement nécessaires". D'autres cookies nous permettent également de suivre et de cibler les intérêts de nos utilisateurs pour améliorer l'expérience sur nos propriétés en ligne. Des tiers servent des cookies via notre site web à des fins de publicité, d'analyse et à d'autres fins.
+          Nous utilisons des cookies internes et tiers pour plusieurs raisons. Certains cookies sont nécessaires pour des raisons techniques au fonctionnement de notre Site : nous les appelons cookies « essentiels » ou « strictement nécessaires ». D’autres cookies nous permettent également de suivre et de cibler les centres d’intérêt de nos utilisateurs afin d’améliorer l’expérience sur nos propriétés en ligne. Des tiers déposent des cookies via notre Site à des fins publicitaires, d’analyse et autres.
         </p>
 
         <h2>Comment puis-je contrôler les cookies ?</h2>
         <p>
-          Vous avez le droit de décider d'accepter ou de refuser les cookies. Vous pouvez exercer vos droits en matière de cookies en définissant vos préférences dans le gestionnaire de consentement aux cookies. Le gestionnaire de consentement aux cookies vous permet de sélectionner les catégories de cookies que vous acceptez ou refusez. Les cookies essentiels ne peuvent pas être refusés car ils sont strictement nécessaires pour vous fournir des services.
+          Vous avez le droit de décider d’accepter ou de refuser les cookies. Vous pouvez exercer ce droit en définissant vos préférences dans le Gestionnaire de consentement aux cookies. Celui-ci vous permet de sélectionner les catégories de cookies que vous acceptez ou refusez. Les cookies essentiels ne peuvent pas être refusés, car ils sont strictement nécessaires à la fourniture des services.
         </p>
         <p>
-          Le gestionnaire de consentement aux cookies se trouve dans la bannière de notification et sur notre site web. Si vous choisissez de refuser les cookies, vous pouvez toujours utiliser notre site web, bien que votre accès à certaines fonctionnalités et zones de notre site web puisse être restreint. Vous pouvez également configurer ou modifier les contrôles de votre navigateur web pour accepter ou refuser les cookies.
-        </p>
-
-        <h2>Comment puis-je contrôler les cookies sur mon navigateur ?</h2>
-        <p>
-          Comme les moyens par lesquels vous pouvez refuser les cookies via les contrôles de votre navigateur web varient d'un navigateur à l'autre, vous devriez visiter le menu d'aide de votre navigateur pour plus d'informations.
+          Le Gestionnaire de consentement aux cookies est accessible dans le bandeau de notification et sur notre Site. Si vous choisissez de refuser les cookies, vous pourrez toujours utiliser notre Site, mais votre accès à certaines fonctionnalités et zones du Site pourra être restreint. Vous pouvez également paramétrer ou modifier les réglages de votre navigateur pour accepter ou refuser les cookies.
         </p>
 
-        <h2>Qu'en est-il des autres technologies de suivi, comme les balises web ?</h2>
+        <h2>Comment contrôler les cookies dans mon navigateur ?</h2>
         <p>
-          Les cookies ne sont pas le seul moyen de reconnaître ou de suivre les visiteurs d'un site web. Nous pouvons utiliser d'autres technologies similaires de temps à autre, comme les balises web (parfois appelées "pixels de suivi" ou "gifs invisibles"). Ce sont de minuscules fichiers graphiques qui contiennent un identifiant unique qui nous permet de reconnaître quand quelqu'un a visité notre site web ou ouvert un e-mail les incluant.
+          Les moyens de refuser les cookies via les réglages de votre navigateur variant d’un navigateur à l’autre, consultez le menu d’aide de votre navigateur pour plus d’informations.
+        </p>
+
+        <h2>Qu’en est-il des autres technologies de suivi, comme les balises web ?</h2>
+        <p>
+          Les cookies ne sont pas le seul moyen de reconnaître ou de suivre les visiteurs d’un site web. Nous pouvons également utiliser des technologies similaires, comme les balises web, parfois appelées « pixels de suivi » ou « GIF invisibles ». Il s’agit de minuscules fichiers graphiques contenant un identifiant unique qui nous permet de savoir quand quelqu’un a visité notre Site ou ouvert un e-mail qui en contient.
         </p>
       </LegalLayout>
     );

@@ -6,72 +6,72 @@ export default function Privacy() {
 
   if (language === 'fr') {
     return (
-      <LegalLayout title="Politique de Confidentialité">
-        <p className="text-sm mb-8">Dernière mise à jour : 08 Décembre 2025</p>
+      <LegalLayout title="Politique de confidentialité">
+        <p className="text-sm mb-8">Dernière mise à jour : 8 décembre 2025</p>
         
         <p>
-          Cette politique de confidentialité pour SOULCHAIN ("nous", "notre" ou "nos") décrit comment et pourquoi nous pourrions accéder, collecter, stocker, utiliser et/ou partager ("traiter") vos informations personnelles lorsque vous utilisez nos services ("Services"), y compris lorsque vous :
+          La présente Politique de confidentialité de SOULCHAIN (« nous », « notre », « nos ») décrit comment et pourquoi nous pouvons accéder à vos informations personnelles, les collecter, les stocker, les utiliser et/ou les partager (« traiter ») lorsque vous utilisez nos services (« Services »), notamment lorsque vous :
         </p>
         <ul>
-          <li>Téléchargez et utilisez notre application mobile (SOULCHAIN), ou toute autre application de notre part qui renvoie à cette politique de confidentialité</li>
-          <li>Visitez notre site web à l'adresse https://soulchain.net</li>
-          <li>Utilisez SOULCHAIN. *SOULCHAIN* est un système de diffusion de contenu ultra-personnalisé qui adapte les boosters aux intérêts uniques de chaque utilisateur, fournissant des mises à jour quotidiennes sur les sujets qui leur tiennent à cœur.</li>
+          <li>Téléchargez et utilisez notre application mobile (SOULCHAIN), ou toute autre application de notre part renvoyant à la présente Politique de confidentialité</li>
+          <li>Visitez notre site web à l’adresse https://soulchain.net</li>
+          <li>Utilisez SOULCHAIN. SOULCHAIN est un système de diffusion de contenu ultra-personnalisé qui adapte des boosters aux centres d’intérêt propres à chaque utilisateur, en fournissant des mises à jour quotidiennes sur les sujets qui lui tiennent à cœur.</li>
         </ul>
 
         <h2>1. QUELLES INFORMATIONS COLLECTONS-NOUS ?</h2>
         <h3>Informations personnelles que vous nous communiquez</h3>
-        <p>En bref : Nous collectons les informations personnelles que vous nous fournissez.</p>
-        <p>Nous collectons les informations personnelles que vous nous fournissez volontairement lorsque vous vous inscrivez sur les Services, exprimez un intérêt à obtenir des informations sur nous ou nos produits et Services, lorsque vous participez à des activités sur les Services, ou autrement lorsque vous nous contactez.</p>
-        <p>Les informations personnelles que nous collectons peuvent inclure les éléments suivants :</p>
+        <p>En bref : nous collectons les informations personnelles que vous nous fournissez.</p>
+        <p>Nous collectons les informations personnelles que vous nous fournissez volontairement lorsque vous vous inscrivez sur les Services, exprimez un intérêt pour obtenir des informations sur nous ou sur nos produits et Services, participez à des activités sur les Services, ou nous contactez de toute autre manière.</p>
+        <p>Les informations personnelles que nous collectons peuvent inclure :</p>
         <ul>
           <li>noms</li>
           <li>adresses e-mail</li>
-          <li>titres de poste</li>
-          <li>numéros de carte de débit/crédit</li>
-          <li>données de contact ou d'authentification</li>
-          <li>noms d'utilisateur</li>
+          <li>intitulés de poste</li>
+          <li>numéros de carte bancaire</li>
+          <li>données de contact ou d’authentification</li>
+          <li>noms d’utilisateur</li>
           <li>mots de passe</li>
           <li>numéros de téléphone</li>
           <li>pays</li>
           <li>date de naissance</li>
-          <li>nom de l'entreprise</li>
+          <li>nom de l’entreprise</li>
           <li>projets sur lesquels vous travaillez</li>
         </ul>
 
         <h3>Informations collectées automatiquement</h3>
-        <p>En bref : Certaines informations — telles que votre adresse de protocole Internet (IP) et/ou les caractéristiques de votre navigateur et de votre appareil — sont collectées automatiquement lorsque vous visitez nos Services.</p>
-        <p>Nous collectons automatiquement certaines informations lorsque vous visitez, utilisez ou naviguez sur les Services. Ces informations ne révèlent pas votre identité spécifique (comme votre nom ou vos coordonnées) mais peuvent inclure des informations sur l'appareil et l'utilisation, telles que votre adresse IP, les caractéristiques du navigateur et de l'appareil, le système d'exploitation, les préférences linguistiques, les URL de référence, le nom de l'appareil, le pays, l'emplacement, des informations sur la façon et le moment où vous utilisez nos Services, et d'autres informations techniques.</p>
+        <p>En bref : certaines informations — telles que votre adresse IP et/ou les caractéristiques de votre navigateur et de votre appareil — sont collectées automatiquement lorsque vous visitez nos Services.</p>
+        <p>Nous collectons automatiquement certaines informations lorsque vous visitez, utilisez ou naviguez sur les Services. Ces informations ne révèlent pas votre identité précise (comme votre nom ou vos coordonnées) mais peuvent inclure des informations sur l’appareil et l’utilisation, telles que votre adresse IP, les caractéristiques de votre navigateur et de votre appareil, le système d’exploitation, les préférences linguistiques, les URL de provenance, le nom de l’appareil, le pays, la localisation, des informations sur la façon dont et le moment où vous utilisez nos Services, ainsi que d’autres informations techniques.</p>
 
         <h2>2. COMMENT TRAITONS-NOUS VOS INFORMATIONS ?</h2>
-        <p>En bref : Nous traitons vos informations pour fournir, améliorer et administrer nos Services, communiquer avec vous, pour la sécurité et la prévention de la fraude, et pour nous conformer à la loi. Nous pouvons également traiter vos informations à d'autres fins avec votre consentement.</p>
-        <p>Nous traitons vos informations personnelles pour diverses raisons, selon la façon dont vous interagissez avec nos Services, y compris :</p>
+        <p>En bref : nous traitons vos informations pour fournir, améliorer et administrer nos Services, communiquer avec vous, assurer la sécurité et prévenir la fraude, et respecter la loi. Nous pouvons également traiter vos informations à d’autres fins avec votre consentement.</p>
+        <p>Nous traitons vos informations personnelles pour diverses raisons, selon la manière dont vous interagissez avec nos Services, notamment :</p>
         <ul>
-          <li>Pour faciliter la création de compte et l'authentification et gérer autrement les comptes d'utilisateurs.</li>
-          <li>Pour fournir et faciliter la prestation de services à l'utilisateur.</li>
-          <li>Pour répondre aux demandes des utilisateurs/offrir une assistance aux utilisateurs.</li>
-          <li>Pour exécuter et gérer vos commandes.</li>
-          <li>Pour permettre les communications d'utilisateur à utilisateur.</li>
-          <li>Pour demander des commentaires.</li>
-          <li>Pour identifier les tendances d'utilisation.</li>
+          <li>Pour faciliter la création de compte et l’authentification, et gérer les comptes utilisateurs.</li>
+          <li>Pour fournir et faciliter la fourniture des services à l’utilisateur.</li>
+          <li>Pour répondre aux demandes des utilisateurs et leur apporter un support.</li>
+          <li>Pour traiter et gérer vos commandes.</li>
+          <li>Pour permettre les communications entre utilisateurs.</li>
+          <li>Pour solliciter vos retours.</li>
+          <li>Pour identifier les tendances d’utilisation.</li>
         </ul>
 
         <h2>3. QUAND ET AVEC QUI PARTAGEONS-NOUS VOS INFORMATIONS PERSONNELLES ?</h2>
-        <p>En bref : Nous pouvons partager des informations dans des situations spécifiques décrites dans cette section et/ou avec les tiers suivants.</p>
-        <p>Nous pourrions avoir besoin de partager vos informations personnelles dans les situations suivantes :</p>
+        <p>En bref : nous pouvons partager des informations dans les situations spécifiques décrites dans cette section et/ou avec les tiers suivants.</p>
+        <p>Nous pouvons être amenés à partager vos informations personnelles dans les situations suivantes :</p>
         <ul>
-          <li>Transferts d'entreprise. Nous pouvons partager ou transférer vos informations dans le cadre de, ou pendant les négociations de, toute fusion, vente d'actifs de l'entreprise, financement ou acquisition de tout ou partie de notre entreprise à une autre entreprise.</li>
+          <li>Transferts d’activité. Nous pouvons partager ou transférer vos informations dans le cadre de, ou lors des négociations relatives à, toute fusion, vente d’actifs de l’entreprise, financement ou acquisition de tout ou partie de notre activité par une autre société.</li>
         </ul>
 
         <h2>4. COMBIEN DE TEMPS CONSERVONS-NOUS VOS INFORMATIONS ?</h2>
-        <p>En bref : Nous conservons vos informations aussi longtemps que nécessaire pour atteindre les objectifs décrits dans cette politique de confidentialité, sauf si la loi l'exige autrement.</p>
-        <p>Nous ne conserverons vos informations personnelles qu'aussi longtemps que nécessaire aux fins énoncées dans cette politique de confidentialité, à moins qu'une période de conservation plus longue ne soit requise ou permise par la loi (comme les exigences fiscales, comptables ou autres exigences légales).</p>
+        <p>En bref : nous conservons vos informations aussi longtemps que nécessaire pour atteindre les finalités décrites dans la présente Politique de confidentialité, sauf obligation légale contraire.</p>
+        <p>Nous ne conserverons vos informations personnelles que le temps nécessaire aux finalités énoncées dans la présente Politique de confidentialité, sauf si une durée de conservation plus longue est requise ou permise par la loi (obligations fiscales, comptables ou autres obligations légales, par exemple).</p>
 
-        <h2>5. COMMENT ASSURONS-NOUS LA SÉCURITÉ DE VOS INFORMATIONS ?</h2>
-        <p>En bref : Nous visons à protéger vos informations personnelles grâce à un système de mesures de sécurité organisationnelles et techniques.</p>
-        <p>Nous avons mis en œuvre des mesures de sécurité techniques et organisationnelles appropriées et raisonnables conçues pour protéger la sécurité de toute information personnelle que nous traitons. Cependant, malgré nos garanties et nos efforts pour sécuriser vos informations, aucune transmission électronique sur Internet ou technologie de stockage d'informations ne peut être garantie à 100 % sécurisée.</p>
+        <h2>5. COMMENT PROTÉGEONS-NOUS VOS INFORMATIONS ?</h2>
+        <p>En bref : nous visons à protéger vos informations personnelles grâce à un ensemble de mesures de sécurité organisationnelles et techniques.</p>
+        <p>Nous avons mis en place des mesures de sécurité techniques et organisationnelles appropriées et raisonnables, conçues pour protéger la sécurité de toutes les informations personnelles que nous traitons. Toutefois, malgré nos garanties et nos efforts pour sécuriser vos informations, aucune transmission électronique sur Internet ni aucune technologie de stockage d’informations ne peut être garantie sûre à 100 %.</p>
 
-        <h2>6. COMMENT POUVEZ-VOUS NOUS CONTACTER CONCERNANT CETTE POLITIQUE ?</h2>
-        <p>Si vous avez des questions ou des commentaires sur cette politique, vous pouvez nous envoyer un e-mail à privacy@epineon.ai.</p>
+        <h2>6. COMMENT NOUS CONTACTER AU SUJET DE CETTE POLITIQUE ?</h2>
+        <p>Pour toute question ou remarque concernant la présente politique, vous pouvez nous écrire à privacy@epineon.ai.</p>
       </LegalLayout>
     );
   }
