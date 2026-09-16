@@ -18,6 +18,11 @@ export interface RouteSeo {
   description: string;
   /** Keep private/transactional funnel steps out of the index. */
   noindex?: boolean;
+  /**
+   * French overrides, applied in the browser when the visitor has chosen
+   * French. The prerendered head stays English: French has no URL of its own.
+   */
+  fr?: { title?: string; description?: string };
 }
 
 /** Paths are normalised (no trailing slash, no query/hash) before lookup. */
@@ -26,6 +31,9 @@ export const SEO_BY_PATH: Record<string, RouteSeo> = {
     title: "Peer Learning Platform for Founders & Leaders | SOULCHAIN",
     description:
       "SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.",
+    fr: {
+      title: "Plateforme d'apprentissage entre pairs pour fondateurs et dirigeants | SOULCHAIN",
+    },
   },
   "/founders": {
     title: "Founder Peer Group & Daily Insights | SOULCHAIN",
@@ -137,11 +145,15 @@ function upsertLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
-/** Patches the document head for the given path. Renders nothing. */
-export function applySeo(rawPath: string) {
+/** Patches the document head for the given path and language. Renders nothing. */
+export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   if (typeof document === "undefined") return;
 
-  const { title, description, canonical, noindex } = seoForPath(rawPath);
+  const seo = seoForPath(rawPath);
+  const { canonical, noindex } = seo;
+  const fr = language === "fr" ? seo.fr : undefined;
+  const title = fr?.title ?? seo.title;
+  const description = fr?.description ?? seo.description;
 
   document.title = title;
   upsertMeta({ name: "description" }, description);
