@@ -28,13 +28,13 @@ function formatTitle(title: string) {
     );
   }
 
-  const fr = title.match(/^(Votre LMS est plein\.)\s+(Pas)( vos taux d'achèvement\.?)$/i);
+  const fr = title.match(/^(Votre LMS est plein\.)\s+(Vos taux de complétion, )(beaucoup moins)\.?$/i);
   if (fr) {
     return (
       <>
         {fr[1]}
-        <br className={styles.titleBr} aria-hidden="true" /> <em className={styles.titleAccent}>{fr[2]}</em>
-        {fr[3]}
+        <br className={styles.titleBr} aria-hidden="true" /> {fr[2]}
+        <em className={styles.titleAccent}>{fr[3]}</em>.
       </>
     );
   }

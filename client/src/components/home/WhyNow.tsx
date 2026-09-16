@@ -79,10 +79,10 @@ export default function WhyNow() {
 
   const renderNumber = (colKey: (typeof COLS)[number]["key"]) => {
     if (colKey === "col1") {
-      return language === "fr" ? `${v20}$` : `$${v20}`;
+      return language === "fr" ? `${v20} $` : `$${v20}`;
     }
     if (colKey === "col2") {
-      return `${v55}%`;
+      return language === "fr" ? `${v55} %` : `${v55}%`;
     }
     return t(`home.whynow.${colKey}.stat`);
   };
