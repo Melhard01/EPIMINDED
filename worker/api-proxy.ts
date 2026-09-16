@@ -25,6 +25,7 @@ import {
   plansWebUrl,
   proxyUpstreamJson,
   userPaymentStatusUrl,
+  userPaymentsUrl,
   userSubscriptionUrl,
   type WorkerEnv,
 } from "./upstream";
@@ -635,10 +636,15 @@ function offerForProduct(env: WorkerEnv, productId: string) {
   return null;
 }
 
-async function putOnboarding(url: string, authorization: string, body: unknown): Promise<number> {
+async function sendOnboarding(
+  method: "PUT" | "POST",
+  url: string,
+  authorization: string,
+  body: unknown,
+): Promise<number> {
   try {
     const response = await fetch(url, {
-      method: "PUT",
+      method,
       headers: { "Content-Type": "application/json", Authorization: authorization },
       body: JSON.stringify(body),
     });
@@ -649,13 +655,16 @@ async function putOnboarding(url: string, authorization: string, body: unknown):
 }
 
 /**
- * Confirms a Polar checkout server-side, then activates the buyer.
+ * Confirms a Polar checkout server-side, then activates the buyer and records
+ * the payment.
  *
  * The browser sends only the checkout id and its own login token. Status, plan,
  * email and account id are all read back from Polar, so none can be forged; the
  * account id is the one bound into the checkout when it was created. Activation
  * uses the onboarding service's existing individual-plan endpoints, with the
- * buyer's token, since every backend route requires one.
+ * buyer's token, since every backend route requires one. The payment record
+ * (`POST /users/{id}/payments`) carries only the checkout id: the backend looks
+ * the payment up in Polar with its own token, so it trusts nothing we send.
  */
 export async function handlePolarPayment(request: Request, env: WorkerEnv): Promise<Response> {
   if (request.method !== "POST") {
@@ -710,27 +719,45 @@ export async function handlePolarPayment(request: Request, env: WorkerEnv): Prom
   const userId = str(checkout.metadata?.userId);
   const authorization = str(request.headers.get("Authorization"));
 
+  const failureFor = (code: number) =>
+    code === 401 || code === 403 ? "session_rejected" : "backend_error";
+
   let recorded = false;
   let recordStatus: string | null = null;
+  let paymentRecorded = false;
+  let paymentRecordStatus: string | null = null;
   if (!userId) {
     recordStatus = "no_account";
+    paymentRecordStatus = "no_account";
   } else if (!authorization) {
     recordStatus = "no_session";
+    paymentRecordStatus = "no_session";
   } else {
-    // Same two calls, in the same order, that provisionAccount has always made.
-    const saved = await putOnboarding(userSubscriptionUrl(env, userId), authorization, {
-      subscriptions: [
-        { plan_id: SUBSCRIPTION_PLAN_ID, subplan_name: tier, billing_cycle: offer.interval },
-      ],
-    });
-    const paid =
-      saved >= 200 && saved < 300
-        ? await putOnboarding(userPaymentStatusUrl(env, userId), authorization, {
+    const activate = async () => {
+      // Same two calls, in the same order, that provisionAccount has always made.
+      const saved = await sendOnboarding("PUT", userSubscriptionUrl(env, userId), authorization, {
+        subscriptions: [
+          { plan_id: SUBSCRIPTION_PLAN_ID, subplan_name: tier, billing_cycle: offer.interval },
+        ],
+      });
+      return saved >= 200 && saved < 300
+        ? sendOnboarding("PUT", userPaymentStatusUrl(env, userId), authorization, {
             payment_status: true,
           })
         : saved;
+    };
+    // The payment record is independent of activation, so the two run side by
+    // side and a failure in one never blocks the other.
+    const [paid, logged] = await Promise.all([
+      activate(),
+      sendOnboarding("POST", userPaymentsUrl(env, userId), authorization, {
+        checkout_id: checkoutId,
+      }),
+    ]);
     recorded = paid >= 200 && paid < 300;
-    if (!recorded) recordStatus = paid === 401 || paid === 403 ? "session_rejected" : "backend_error";
+    if (!recorded) recordStatus = failureFor(paid);
+    paymentRecorded = logged >= 200 && logged < 300;
+    if (!paymentRecorded) paymentRecordStatus = failureFor(logged);
   }
 
   return Response.json({
@@ -745,6 +772,8 @@ export async function handlePolarPayment(request: Request, env: WorkerEnv): Prom
     },
     recorded,
     record_status: recordStatus,
+    payment_recorded: paymentRecorded,
+    payment_record_status: paymentRecordStatus,
   });
 }
 

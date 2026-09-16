@@ -106,6 +106,10 @@ export function userPaymentStatusUrl(env: WorkerEnv, userId: string): string {
   return `${onboardingBase(env)}/users/payment-status/${encodeURIComponent(userId)}`;
 }
 
+export function userPaymentsUrl(env: WorkerEnv, userId: string): string {
+  return `${onboardingBase(env)}/users/${encodeURIComponent(userId)}/payments`;
+}
+
 export async function proxyUpstreamJson(
   upstream: Response,
 ): Promise<Response> {
