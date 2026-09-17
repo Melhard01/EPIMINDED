@@ -478,12 +478,28 @@ export async function handleCheckout(
     }
   }
 
+  // The product in the link is the plan card the buyer clicked. When it is one of
+  // our plans it decides the checkout: offerId/interval are read back from saved
+  // funnel state and can be stale, so they (and the metadata) follow the link.
+  const linkedProducts = url.searchParams
+    .getAll("products")
+    .flatMap((p) => p.split(","))
+    .map((p) => p.trim())
+    .filter(Boolean);
+  const linkedOffer =
+    linkedProducts.length === 1 ? offerForProduct(env, linkedProducts[0]) : null;
+  if (linkedOffer && metadata) {
+    metadata = { ...metadata, offerId: linkedOffer.offerId, interval: linkedOffer.interval };
+  }
+
   const offerId =
+    linkedOffer?.offerId ||
     parseOfferId(url.searchParams.get("offerId")) ||
     (metadata && typeof metadata.offerId === "string"
       ? parseOfferId(String(metadata.offerId))
       : null);
   const interval =
+    linkedOffer?.interval ||
     parseInterval(url.searchParams.get("interval")) ||
     (metadata && typeof metadata.interval === "string"
       ? parseInterval(String(metadata.interval))
