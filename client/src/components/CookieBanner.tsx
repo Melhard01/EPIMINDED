@@ -27,9 +27,9 @@ export default function CookieBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 bg-background/95 backdrop-blur-md border-t border-border shadow-lg">
-      <div className="container max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="text-sm text-muted-foreground flex-1">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 max-md:py-3 md:p-6 bg-background/95 backdrop-blur-md border-t border-border shadow-lg">
+      <div className="container max-md:px-0 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 max-md:gap-2.5">
+        <div className="text-sm max-md:text-xs max-md:leading-snug text-muted-foreground flex-1">
           {language === 'fr' ? (
             <p>
               Nous utilisons des cookies pour améliorer votre expérience sur notre site, analyser le trafic et personnaliser le contenu. 
@@ -44,11 +44,11 @@ export default function CookieBanner() {
             </p>
           )}
         </div>
-        <div className="flex items-center gap-3 shrink-0">
-          <Button variant="outline" onClick={handleDecline} className="whitespace-nowrap">
+        <div className="flex items-center gap-3 max-md:gap-2 shrink-0">
+          <Button variant="outline" onClick={handleDecline} className="whitespace-nowrap max-md:h-8 max-md:px-3 max-md:text-xs">
             {language === 'fr' ? 'Refuser' : 'Decline'}
           </Button>
-          <Button onClick={handleAccept} className="bg-gold text-white hover:bg-gold/90 whitespace-nowrap">
+          <Button onClick={handleAccept} className="bg-gold text-white hover:bg-gold/90 whitespace-nowrap max-md:h-8 max-md:px-3 max-md:text-xs">
             {language === 'fr' ? 'Accepter' : 'Accept'}
           </Button>
         </div>

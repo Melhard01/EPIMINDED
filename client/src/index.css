@@ -599,14 +599,15 @@
   }
 
   @media (max-width: 767.98px) {
+    /* Compact, centered stack: both buttons share the width of the longer label. */
     .home-hero .hero-cta,
     .home-hero .home-hero__cta {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
       gap: 0.75rem;
-      width: 100%;
-      max-width: min(100%, 19rem);
+      width: max-content;
+      min-width: min(100%, 14.5rem);
+      max-width: 100%;
     }
 
     .home-hero .hero-cta-btn,
@@ -664,6 +665,25 @@
       padding-inline: 2rem;
       font-size: 1rem;
       white-space: nowrap;
+    }
+  }
+
+  /* Tablet: equal-width buttons at the size above. The Button's text-sm and px-4
+     utilities otherwise override this layer, hence !important. */
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    .home-hero .hero-cta,
+    .home-hero .home-hero__cta {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      width: max-content;
+    }
+
+    .home-hero .hero-cta-btn,
+    .home-hero .home-hero__cta-btn {
+      width: 100%;
+      font-size: 1rem !important;
+      padding-inline: 2rem !important;
     }
   }
 
