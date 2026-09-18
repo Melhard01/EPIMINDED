@@ -88,8 +88,6 @@ export const translations = {
     "home.cta.title": "Créez votre communauté SOULCHAIN.",
     "home.cta.subtitle": "Soumettez une demande. Nous l'examinons manuellement et vous répondons rapidement.",
     "home.cta.primary": "Demander une communauté",
-    "home.cta.builders": "Vous créez une communauté ? Parlons-en →",
-    "home.cta.enterprise": "Vous souhaitez déployer SOULCHAIN dans votre équipe ? Réservez un appel →",
 
     "footer.tagline": "L'initiative d'Epineon pour accompagner les organisations vers plus de résilience",
     "footer.product.founders": "Pour les fondateurs",
@@ -456,8 +454,6 @@ export const translations = {
     "home.cta.title": "Request your SOULCHAIN community.",
     "home.cta.subtitle": "Submit a request. We review every application manually and get back to you quickly.",
     "home.cta.primary": "Request a community",
-    "home.cta.builders": "Building a community? Talk to us →",
-    "home.cta.enterprise": "Bringing it to your team? Book a call →",
 
     "footer.tagline": "Epineon's initiative to steward organization for their resilience",
     "footer.product.founders": "For Founders",

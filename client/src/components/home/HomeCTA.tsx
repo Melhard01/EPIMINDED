@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RequestCommunityForm from "@/components/RequestCommunityForm";
 import Reveal from "@/components/ui/reveal";
@@ -20,18 +19,6 @@ export default function HomeCTA() {
 
         <Reveal variant="scale" delay={120}>
           <RequestCommunityForm wide showHeader />
-        </Reveal>
-
-        <Reveal variant="fade" delay={200}>
-          <p className="mt-8 text-sm text-muted-foreground flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-            <Link href="/community-builders" className="hover:text-gold transition-colors">
-              {t("home.cta.builders")}
-            </Link>
-            <span className="hidden sm:inline text-border">·</span>
-            <Link href="/enterprise" className="hover:text-gold transition-colors">
-              {t("home.cta.enterprise")}
-            </Link>
-          </p>
         </Reveal>
       </div>
     </section>
