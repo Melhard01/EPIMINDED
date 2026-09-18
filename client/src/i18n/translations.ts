@@ -175,7 +175,7 @@ export const translations = {
     "bridge.card2.body": "Les directions L&D utilisent SOULCHAIN pour résoudre le problème de complétion des LMS. Rituel quotidien et matching entre pairs, déployés sur les personnes que vous choisissez d'inclure.",
     "bridge.card2.cta": "En savoir plus →",
 
-    "finalCta.title": "Demandez la création de votre communauté SOULCHAIN.",
+    "finalCta.title": "Demandez votre communauté",
     "finalCta.subtitle": "Remplissez le formulaire. Nous étudions chaque demande et vous répondons sous 48 heures.",
     "finalCta.cta.primary": "Demander une communauté",
     "finalCta.cta.secondary": "Parler à notre équipe",
@@ -541,7 +541,7 @@ export const translations = {
     "bridge.card2.body": "L&D leaders use SOULCHAIN to solve the LMS completion problem. Daily ritual + peer matching, deployed across the people you choose to include.",
     "bridge.card2.cta": "Learn more →",
 
-    "finalCta.title": "Request your SOULCHAIN community.",
+    "finalCta.title": "Request Your Community",
     "finalCta.subtitle": "Fill out the form. We review every request and respond within 48 hours.",
     "finalCta.cta.primary": "Request a community",
     "finalCta.cta.secondary": "Talk to our team",
