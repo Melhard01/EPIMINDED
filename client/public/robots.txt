@@ -11,5 +11,6 @@ Disallow: /success
 # Server routes, not pages.
 Disallow: /api/
 Disallow: /checkout
+Disallow: /ingest
 
 Sitemap: https://soulchain.net/sitemap.xml
