@@ -64,6 +64,12 @@
       ]
     }
     </script>
+
+    <!-- Visitors who chose French: keep prerendered English hidden until the app
+         has switched language (see LanguageContext). Revealed after 4s regardless,
+         so a failed script can never leave the page blank. -->
+    <script>try{if(localStorage.getItem("epiminded_language")==="fr"){document.documentElement.setAttribute("data-lang-pending","");setTimeout(function(){document.documentElement.removeAttribute("data-lang-pending")},4000)}}catch(e){}</script>
+    <style>html[data-lang-pending] #root{visibility:hidden}</style>
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6FFYKXB93"></script>

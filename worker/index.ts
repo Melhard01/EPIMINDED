@@ -59,7 +59,11 @@ export default {
       return handleApiRoute(apiRoute, request, env);
     }
 
-    // Prerendered marketing site + SPA fallback (wrangler.jsonc assets).
-    return env.ASSETS.fetch(request);
+    // Static files, including the prerendered marketing pages, are served
+    // before the Worker runs, so whatever reaches this line matched none:
+    // funnel steps, the /terms-style client redirects and unknown paths. They
+    // get the empty SPA shell (noindex, no canonical). The assets' own SPA
+    // fallback would serve index.html, which is the prerendered home page.
+    return env.ASSETS.fetch(new Request(new URL("/app-shell", url), request));
   },
 };

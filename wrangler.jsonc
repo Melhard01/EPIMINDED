@@ -21,6 +21,14 @@
 
   "main": "worker/index.ts",
 
+  // Run the full client build before every deploy. A plain `vite build` ships
+  // only the SPA shell, so every URL would serve the home page's canonical and
+  // an empty #root; build:client also prerenders one HTML file per public page
+  // plus dist/public/app-shell.html, the fallback the Worker serves below.
+  "build": {
+    "command": "pnpm run build:client"
+  },
+
   "assets": {
     "directory": "./dist/public",
     "not_found_handling": "single-page-application",

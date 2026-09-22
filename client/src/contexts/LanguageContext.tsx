@@ -38,6 +38,21 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     if (saved === 'fr' || saved === 'en') setLanguageState(saved);
   }, []);
 
+  // index.html hides #root for visitors who chose French, so the prerendered
+  // English is never painted. Reveal it once the French render has committed —
+  // still before paint — or straight away for everyone else.
+  useBeforePaint(() => {
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem(STORAGE_KEY);
+    } catch {
+      /* storage unavailable: nothing was hidden */
+    }
+    if (language === 'fr' || stored !== 'fr') {
+      document.documentElement.removeAttribute('data-lang-pending');
+    }
+  }, [language]);
+
   const setLanguage = (lang: Language) => {
     localStorage.setItem(STORAGE_KEY, lang);
     setLanguageState(lang);
