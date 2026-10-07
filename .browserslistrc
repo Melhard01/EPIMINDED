@@ -1,14 +1,13 @@
-# Explicit support floor. Previously there was none, so Vite fell back to its
-# default ("baseline widely available" — Safari 16) and Tailwind v4 emitted
-# color-mix() and @property unconditionally. Both need Safari 16.2/16.4, which
-# left iOS 15.4–16.3 with most colours and effects stripped out.
+# Support floor. Deliberately far below Tailwind v4's own target (Safari 16.4):
+# the stylesheet is transformed at build time so older WebKit still gets a
+# fully styled page. See vite.config.ts and scripts/legacy-css.ts.
 #
-# Lightning CSS reads these targets (see vite.config.ts) and downlevels the
-# modern colour syntax to equivalents those versions understand. Raising the
-# floor here is what re-breaks older Safari, so change it deliberately.
-> 0.5%
-last 2 versions
+# Safari 12 is the practical floor: React 19 and the app's own code need
+# Promise/Map/Set/Symbol, and esbuild can transpile syntax but does not add
+# polyfills for missing runtime APIs (those are handled in main.tsx).
+> 0.2%
+last 4 versions
 Firefox ESR
 not dead
-iOS >= 15.4
-Safari >= 15.4
+iOS >= 12
+Safari >= 12

@@ -6,7 +6,7 @@ import path from "path";
 import { defineConfig } from "vite";
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
-import { colorMixFallback } from "./scripts/color-mix-fallback";
+import { legacyCss } from "./scripts/legacy-css";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 import type { Plugin, ViteDevServer } from "vite";
 
@@ -63,7 +63,7 @@ function vitePluginStorageProxy(): Plugin {
 // ships in the HTML, and 366kB of inline script ahead of the content is the
 // single biggest thing standing between a crawler and the page text.
 const devOnlyPlugins = () => [jsxLocPlugin(), vitePluginManusRuntime()];
-const plugins = [react(), tailwindcss(), vitePluginStorageProxy(), colorMixFallback()];
+const plugins = [react(), tailwindcss(), vitePluginStorageProxy(), legacyCss()];
 
 export default defineConfig(({ command }) => ({
   plugins: command === "serve" ? [...plugins, ...devOnlyPlugins()] : plugins,
@@ -101,7 +101,7 @@ export default defineConfig(({ command }) => ({
     // Was implicit ("baseline widely available" = Safari 16). Stated here so
     // the JS floor matches the CSS floor rather than drifting with Vite's
     // defaults.
-    target: ["es2021", "safari15.4", "chrome90", "firefox90", "edge90"],
+    target: ["es2017", "safari12", "chrome70", "firefox68", "edge79"],
   },
   server: {
     port: 3000,
