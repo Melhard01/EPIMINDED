@@ -4651,3 +4651,45 @@ div[id],
     min-height: 100svh;
   }
 }
+
+/*
+ * Hero entry animation.
+ *
+ * Identical to the framer-motion transition it replaces — opacity 0 -> 1 and
+ * translateY(24px) -> 0 over 0.7s on cubic-bezier(0.22, 1, 0.36, 1), staggered
+ * 0 / 0.12 / 0.24 / 0.36s — but expressed in CSS so it is driven by the style
+ * sheet instead of by React.
+ *
+ * The home page is prerendered, so the markup reaches the browser before the
+ * bundle does. While this lived in framer-motion the hero shipped as
+ * `style="opacity:0"` and stayed invisible until ~1.1MB of JavaScript had
+ * downloaded, parsed and hydrated: on a throttled first load the headline was
+ * still fully transparent nine seconds in, then snapped through its animation
+ * at once. As CSS the animation starts on the first frame the browser paints,
+ * and hydration no longer gates it.
+ *
+ * `both` keeps the start state before the delay elapses and the end state
+ * afterwards, so an element that finishes animating before React hydrates
+ * stays where it landed.
+ */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--hero-rise-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation: none;
+  }
+}

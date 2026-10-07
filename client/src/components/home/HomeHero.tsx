@@ -1,15 +1,23 @@
+import type { CSSProperties } from "react";
 import EffectBoundary from "@/components/effects/EffectBoundary";
 import LiquidFlow2D from "@/components/effects/LiquidFlow2D";
-import { motion } from "framer-motion";
 import { useLocation } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { smoothScrollToId } from "@/lib/smoothScroll";
 import { track } from "@/lib/analytics";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 const LIQUID_COLORS = ["#e8ce92", "#c6a15b", "#9c7c3c"];
+
+/**
+ * Stagger for the hero's entry animation. The animation itself is the
+ * `.hero-rise` rule in index.css — same curve, duration and offsets the
+ * framer-motion transition used, but running from the stylesheet so it starts
+ * on the first painted frame instead of waiting for the bundle to hydrate.
+ */
+function rise(delay: number): CSSProperties {
+  return { "--hero-rise-delay": `${delay}s` } as CSSProperties;
+}
 
 export default function HomeHero() {
   const { t } = useLanguage();
@@ -19,12 +27,6 @@ export default function HomeHero() {
     track("cta_clicked", { cta: "hero_how_it_works", route: "/", destination: "#four-pillars" });
     smoothScrollToId("four-pillars");
   };
-
-  const motionProps = (delay: number) => ({
-    initial: { opacity: 0, y: 24 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, delay, ease: EASE },
-  });
 
   return (
     <section
@@ -42,31 +44,31 @@ export default function HomeHero() {
       <div className="relative z-10 flex flex-1 items-center w-full pt-6 md:pt-10">
         <div className="container px-4 sm:px-6 w-full">
           <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-            <motion.p
-              {...motionProps(0)}
-              className="eyebrow-pill home-hero-eyebrow"
+            <p
+              style={rise(0)}
+              className="hero-rise eyebrow-pill home-hero-eyebrow"
             >
               {t("home.hero.eyebrow")}
-            </motion.p>
+            </p>
 
-            <motion.h1
-              {...motionProps(0.12)}
-              className="hero-title hero-headline text-balance mt-8 max-w-[960px]"
+            <h1
+              style={rise(0.12)}
+              className="hero-rise hero-title hero-headline text-balance mt-8 max-w-[960px]"
             >
               {t("home.hero.title.lead")}{" "}
               <span className="text-gold">{t("home.hero.title.accent")}</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              {...motionProps(0.24)}
-              className="hero-subtitle home-hero-subtitle text-muted-foreground text-balance mt-6"
+            <p
+              style={rise(0.24)}
+              className="hero-rise hero-subtitle home-hero-subtitle text-muted-foreground text-balance mt-6"
             >
               {t("home.hero.subtitle")}
-            </motion.p>
+            </p>
 
-            <motion.div
-              {...motionProps(0.36)}
-              className="mt-10 w-full max-w-full px-0 sm:px-2 flex justify-center"
+            <div
+              style={rise(0.36)}
+              className="hero-rise mt-10 w-full max-w-full px-0 sm:px-2 flex justify-center"
             >
               <div className="hero-cta home-hero__cta">
                 <Button
@@ -87,7 +89,7 @@ export default function HomeHero() {
                   {t("home.hero.cta.secondary")}
                 </Button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
