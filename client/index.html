@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;800&family=Lora:wght@400;500;600&display=optional" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,700&family=Inter:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=optional" rel="stylesheet">
     
     <meta name="description" content="SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.">
@@ -24,21 +25,27 @@
     <!-- Open Graph. Per-route values are patched at runtime by RouteSeo. -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="SOULCHAIN">
-    <meta property="og:locale" content="en">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fr_FR">
     <meta property="og:url" content="https://soulchain.net/">
     <meta property="og:title" content="Peer Learning Platform for Founders &amp; Leaders | SOULCHAIN">
     <meta property="og:description" content="SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.">
     <meta property="og:image" content="https://soulchain.net/assets/logo.png">
     <meta property="og:image:width" content="500">
     <meta property="og:image:height" content="500">
+    <meta property="og:image:alt" content="SOULCHAIN logo">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="https://soulchain.net/">
     <meta name="twitter:title" content="Peer Learning Platform for Founders &amp; Leaders | SOULCHAIN">
     <meta name="twitter:description" content="SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.">
     <meta name="twitter:image" content="https://soulchain.net/assets/logo.png">
+    <meta name="twitter:image:alt" content="SOULCHAIN logo">
 
-    <script type="application/ld+json">
+    <!-- Site-level Schema.org graph, generated from structuredDataForPath() in
+         client/src/lib/seo.ts. prerender-seo.ts and RouteSeo swap in each page's
+         own graph (site nodes + WebPage + breadcrumb). -->
+    <script type="application/ld+json" id="structured-data">
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -46,20 +53,74 @@
           "@type": "Organization",
           "@id": "https://soulchain.net/#organization",
           "name": "SOULCHAIN",
+          "alternateName": "SoulChain",
           "url": "https://soulchain.net/",
-          "logo": "https://soulchain.net/assets/logo.png",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://soulchain.net/assets/logo.png",
+            "width": 500,
+            "height": 500
+          },
+          "description": "SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.",
           "sameAs": [
-            "https://www.instagram.com/epiminded.ai/",
+            "https://www.instagram.com/epiminded.ai/"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "support@epiminded.com"
+          },
+          "parentOrganization": {
+            "@id": "https://soulchain.net/#epineon"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://soulchain.net/#epineon",
+          "name": "Epineon",
+          "sameAs": [
             "https://www.linkedin.com/company/epineonn"
-          ]
+          ],
+          "founder": {
+            "@type": "Person",
+            "name": "Karim Amor"
+          }
         },
         {
           "@type": "WebSite",
           "@id": "https://soulchain.net/#website",
           "url": "https://soulchain.net/",
           "name": "SOULCHAIN",
-          "inLanguage": "en",
-          "publisher": { "@id": "https://soulchain.net/#organization" }
+          "alternateName": "SoulChain",
+          "description": "SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.",
+          "inLanguage": [
+            "en",
+            "fr"
+          ],
+          "publisher": {
+            "@id": "https://soulchain.net/#organization"
+          }
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://soulchain.net/#app",
+          "name": "SoulChain",
+          "operatingSystem": "iOS, Android",
+          "applicationCategory": "SocialNetworkingApplication",
+          "description": "SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.",
+          "sameAs": [
+            "https://apps.apple.com/ma/app/epiminded-boost-your-thinking/id6760017792",
+            "https://play.google.com/store/apps/details?id=ai.epineon.new"
+          ],
+          "author": {
+            "@id": "https://soulchain.net/#epineon"
+          },
+          "publisher": {
+            "@id": "https://soulchain.net/#epineon"
+          },
+          "provider": {
+            "@id": "https://soulchain.net/#organization"
+          }
         }
       ]
     }

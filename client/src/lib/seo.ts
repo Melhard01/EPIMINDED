@@ -1,21 +1,34 @@
 /**
- * Per-route metadata for the marketing site.
+ * Per-route metadata for the marketing site: the single source of truth for
+ * <title>, description, canonical, Open Graph / Twitter tags and Schema.org
+ * structured data.
  *
- * This is a client-rendered SPA, so the document head is patched at runtime.
- * index.html carries the home-page defaults, which means crawlers that do not
- * execute JS still get valid (if generic) metadata, and Googlebot — which does
- * render — sees the per-route values below.
+ * scripts/prerender-seo.ts writes these values into each route's static HTML at
+ * build time (what crawlers and link previews read); RouteSeo re-applies them
+ * in the browser on client-side navigation.
  *
  * The canonical origin is a constant on purpose: VITE_SITE_URL is localhost in
  * development, and leaking that into canonical/og:url would deindex the site.
  */
+// Same values as client/src/lib/urls.ts, which can't be imported here: it reads
+// import.meta.env at load time, and scripts/prerender-seo.ts runs under plain Node.
+const INSTAGRAM_URL = "https://www.instagram.com/epiminded.ai/";
+const LINKEDIN_URL = "https://www.linkedin.com/company/epineonn";
+const APP_STORE_URL = "https://apps.apple.com/ma/app/epiminded-boost-your-thinking/id6760017792";
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=ai.epineon.new";
+
 export const SITE_ORIGIN = "https://soulchain.net";
 export const SITE_NAME = "SOULCHAIN";
 export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/logo.png`;
+export const DEFAULT_OG_IMAGE_ALT = "SOULCHAIN logo";
 
 export interface RouteSeo {
   title: string;
   description: string;
+  /** Short page name, used as the page's breadcrumb label. */
+  name?: string;
+  /** Who the page is for, stated in its structured data. */
+  audience?: string;
   /** Keep private/transactional funnel steps out of the index. */
   noindex?: boolean;
   /**
@@ -31,6 +44,7 @@ export const SEO_BY_PATH: Record<string, RouteSeo> = {
     title: "Peer Learning Platform for Founders & Leaders | SOULCHAIN",
     description:
       "SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.",
+    name: "Home",
     fr: {
       title: "Plateforme d'apprentissage entre pairs pour fondateurs et dirigeants | SOULCHAIN",
     },
@@ -39,31 +53,40 @@ export const SEO_BY_PATH: Record<string, RouteSeo> = {
     title: "Founder Peer Group & Daily Insights | SOULCHAIN",
     description:
       "A peer group for founders: five-minute daily insights and conversations with operators at your level. Cognitive matching rebuilds the circle founders lose.",
+    name: "For Founders",
+    audience: "Founders",
   },
   "/community-builders": {
     title: "Community Retention Platform for Creators | SOULCHAIN",
     description:
       "A member retention platform for creators, founders and public figures whose audience pays to learn from them. You bring the audience; we bring the stack.",
+    name: "For Community Builders",
+    audience: "Community builders",
   },
   "/enterprise": {
     title: "Peer Learning for Teams & Organisations | SOULCHAIN",
     description:
       "Peer learning and cognitive infrastructure for organisations, from execs to operators. Daily insights teams actually use and a peer network they trust.",
+    name: "For Organisations",
+    audience: "Organisations",
   },
   "/legal/terms": {
     title: "Terms and Conditions | SOULCHAIN",
     description:
       "The terms and conditions governing use of the SOULCHAIN website and services.",
+    name: "Terms and Conditions",
   },
   "/legal/privacy": {
     title: "Privacy Policy | SOULCHAIN",
     description:
       "How SOULCHAIN collects, uses, stores and protects your personal data, and the rights you have over it.",
+    name: "Privacy Policy",
   },
   "/legal/cookies": {
     title: "Cookie Policy | SOULCHAIN",
     description:
       "Which cookies the SOULCHAIN website uses, what they are used for, and how to manage your preferences.",
+    name: "Cookie Policy",
   },
 };
 
@@ -117,6 +140,114 @@ export function seoForPath(rawPath: string): RouteSeo & { canonical: string } {
   };
 }
 
+type JsonLd = Record<string, unknown>;
+
+const ORG_ID = `${SITE_ORIGIN}/#organization`;
+const EPINEON_ID = `${SITE_ORIGIN}/#epineon`;
+const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
+const APP_ID = `${SITE_ORIGIN}/#app`;
+
+/**
+ * Nodes describing SOULCHAIN itself, identical on every page. Only facts the
+ * site or its app-store listings state: SOULCHAIN is developed by Epineon
+ * (founded by Karim Amor), and its app is "SoulChain" on iOS and Android.
+ */
+function siteGraph(): JsonLd[] {
+  const { description } = SEO_BY_PATH["/"];
+  return [
+    {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: SITE_NAME,
+      alternateName: "SoulChain",
+      url: `${SITE_ORIGIN}/`,
+      logo: { "@type": "ImageObject", url: DEFAULT_OG_IMAGE, width: 500, height: 500 },
+      description,
+      sameAs: [INSTAGRAM_URL],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: "support@epiminded.com",
+      },
+      parentOrganization: { "@id": EPINEON_ID },
+    },
+    {
+      "@type": "Organization",
+      "@id": EPINEON_ID,
+      name: "Epineon",
+      sameAs: [LINKEDIN_URL],
+      founder: { "@type": "Person", name: "Karim Amor" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": WEBSITE_ID,
+      url: `${SITE_ORIGIN}/`,
+      name: SITE_NAME,
+      alternateName: "SoulChain",
+      description,
+      inLanguage: ["en", "fr"],
+      publisher: { "@id": ORG_ID },
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": APP_ID,
+      name: "SoulChain",
+      operatingSystem: "iOS, Android",
+      applicationCategory: "SocialNetworkingApplication",
+      description,
+      sameAs: [APP_STORE_URL, PLAY_STORE_URL],
+      author: { "@id": EPINEON_ID },
+      publisher: { "@id": EPINEON_ID },
+      provider: { "@id": ORG_ID },
+    },
+  ];
+}
+
+/**
+ * Schema.org graph for a route: the site nodes, plus a WebPage (and a
+ * breadcrumb below the home page) for each public page. Other paths get the
+ * site nodes only.
+ */
+export function structuredDataForPath(rawPath: string): JsonLd {
+  const path = normalizePath(rawPath);
+  const page = SEO_BY_PATH[path];
+  const graph = siteGraph();
+
+  if (page) {
+    const url = `${SITE_ORIGIN}${path === "/" ? "/" : path}`;
+    const breadcrumbId = `${url}#breadcrumb`;
+    graph.push({
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: page.title,
+      description: page.description,
+      inLanguage: "en",
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": ORG_ID },
+      ...(page.audience ? { audience: { "@type": "Audience", audienceType: page.audience } } : {}),
+      ...(path === "/" ? {} : { breadcrumb: { "@id": breadcrumbId } }),
+    });
+    if (path !== "/") {
+      graph.push({
+        "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: SEO_BY_PATH["/"].name, item: `${SITE_ORIGIN}/` },
+          { "@type": "ListItem", position: 2, name: page.name ?? page.title, item: url },
+        ],
+      });
+    }
+  }
+
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
+/** JSON for a <script type="application/ld+json"> body; "<" is escaped so the text can never close the tag. */
+export function serializeJsonLd(data: JsonLd): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
 type MetaSelector =
   | { name: string; property?: never }
   | { property: string; name?: never };
@@ -145,6 +276,19 @@ function upsertLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
+function upsertStructuredData(data: JsonLd) {
+  let el = document.head.querySelector<HTMLScriptElement>(
+    'script[type="application/ld+json"]'
+  );
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = "structured-data";
+    document.head.appendChild(el);
+  }
+  el.textContent = serializeJsonLd(data);
+}
+
 /** Patches the document head for the given path and language. Renders nothing. */
 export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   if (typeof document === "undefined") return;
@@ -169,9 +313,13 @@ export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   upsertMeta({ property: "og:type" }, "website");
   upsertMeta({ property: "og:site_name" }, SITE_NAME);
   upsertMeta({ property: "og:image" }, DEFAULT_OG_IMAGE);
+  upsertMeta({ property: "og:image:alt" }, DEFAULT_OG_IMAGE_ALT);
 
   upsertMeta({ name: "twitter:card" }, "summary");
   upsertMeta({ name: "twitter:title" }, title);
   upsertMeta({ name: "twitter:description" }, description);
   upsertMeta({ name: "twitter:image" }, DEFAULT_OG_IMAGE);
+  upsertMeta({ name: "twitter:image:alt" }, DEFAULT_OG_IMAGE_ALT);
+
+  upsertStructuredData(structuredDataForPath(rawPath));
 }

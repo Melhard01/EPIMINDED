@@ -30,7 +30,18 @@ import {
   SEO_BY_PATH,
   SITE_ORIGIN,
   DEFAULT_OG_IMAGE,
+  serializeJsonLd,
+  structuredDataForPath,
 } from "../client/src/lib/seo";
+
+const STRUCTURED_DATA_TAG =
+  /<script type="application\/ld\+json" id="structured-data">[\s\S]*?<\/script>/;
+
+function structuredDataTag(path: string): string {
+  return `<script type="application/ld+json" id="structured-data">${serializeJsonLd(
+    structuredDataForPath(path)
+  )}</script>`;
+}
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = join(root, "dist", "public");
@@ -111,6 +122,7 @@ function buildPage(shell: string, path: string, body: string): string {
     /<meta name="twitter:description" content="[^"]*">/,
     `<meta name="twitter:description" content="${d}">`
   );
+  html = replaceOne(html, STRUCTURED_DATA_TAG, structuredDataTag(path));
   return html;
 }
 
@@ -171,6 +183,8 @@ fallback = replaceOne(
   `<meta name="robots" content="noindex, nofollow">`
 );
 fallback = replaceOne(fallback, /\s*<link rel="canonical" href="[^"]*" \/>/, "");
+// Served under many URLs, so it describes the site only — no WebPage node.
+fallback = replaceOne(fallback, STRUCTURED_DATA_TAG, structuredDataTag("/__app-shell__"));
 writeFileSync(join(outDir, "app-shell.html"), fallback, "utf8");
 written += 1;
 console.log(`  ${"(spa fallback)".padEnd(21)} -> dist/public/app-shell.html`);

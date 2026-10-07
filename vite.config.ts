@@ -4,6 +4,9 @@ import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "path";
 import { defineConfig } from "vite";
+import browserslist from "browserslist";
+import { browserslistToTargets } from "lightningcss";
+import { colorMixFallback } from "./scripts/color-mix-fallback";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 import type { Plugin, ViteDevServer } from "vite";
 
@@ -60,7 +63,7 @@ function vitePluginStorageProxy(): Plugin {
 // ships in the HTML, and 366kB of inline script ahead of the content is the
 // single biggest thing standing between a crawler and the page text.
 const devOnlyPlugins = () => [jsxLocPlugin(), vitePluginManusRuntime()];
-const plugins = [react(), tailwindcss(), vitePluginStorageProxy()];
+const plugins = [react(), tailwindcss(), vitePluginStorageProxy(), colorMixFallback()];
 
 export default defineConfig(({ command }) => ({
   plugins: command === "serve" ? [...plugins, ...devOnlyPlugins()] : plugins,
@@ -73,9 +76,32 @@ export default defineConfig(({ command }) => ({
   },
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
+  /**
+   * Lightning CSS, driven by .browserslistrc.
+   *
+   * Tailwind v4 emits color-mix() for every colour with an alpha and @property
+   * for its custom-property registrations. Those need Safari 16.2 and 16.4, so
+   * on iOS 15.4-16.3 the declarations were invalid and dropped, taking most of
+   * the site's colour and effects with them. Lightning CSS computes the modern
+   * syntax down to equivalents those versions parse.
+   *
+   * Browsers that support the modern syntax are unaffected: the downlevelled
+   * declarations resolve to the same computed values.
+   */
+  css: {
+    transformer: "lightningcss",
+    lightningcss: {
+      targets: browserslistToTargets(browserslist()),
+    },
+  },
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    cssMinify: "lightningcss",
+    // Was implicit ("baseline widely available" = Safari 16). Stated here so
+    // the JS floor matches the CSS floor rather than drifting with Vite's
+    // defaults.
+    target: ["es2021", "safari15.4", "chrome90", "firefox90", "edge90"],
   },
   server: {
     port: 3000,
