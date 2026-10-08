@@ -76,6 +76,29 @@ async function startServer() {
       : path.resolve(__dirname, "..", "dist", "public");
 
   if (process.env.NODE_ENV === "production") {
+    /**
+     * WebP has a PNG/JPEG twin beside it (scripts/make-image-fallbacks.py).
+     * Clients that cannot decode WebP — Safari below 14 — request the .webp
+     * URL written in the markup and the CSS and get the twin instead, so no
+     * application code changes. Mirrors worker/index.ts.
+     *
+     * A request with no Accept header, or one that never mentions images,
+     * keeps the WebP: that is what it receives today.
+     */
+    app.get(/\.webp$/i, (req, res, next) => {
+      const accept = req.headers.accept ?? "";
+      if (!accept.includes("image/") || accept.includes("image/webp")) return next();
+
+      for (const extension of [".png", ".jpg"]) {
+        const candidate = path.join(staticPath, req.path.replace(/\.webp$/i, extension));
+        if (candidate.startsWith(staticPath) && fs.existsSync(candidate)) {
+          res.setHeader("Vary", "Accept");
+          return res.sendFile(candidate);
+        }
+      }
+      return next();
+    });
+
     // Serve <slug>.html for extensionless URLs before express.static gets a
     // look. prerender-seo emits both founders.html and founders/index.html for
     // the static hosts, and express.static answers a request for /founders by

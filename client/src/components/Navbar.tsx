@@ -115,14 +115,20 @@ export default function Navbar() {
     const actions = actionsRef.current;
     if (!track || !nav) return;
 
-    const observer = new ResizeObserver(() => measureNav());
-    observer.observe(track);
-    observer.observe(nav);
-    if (actions) observer.observe(actions);
+    // ResizeObserver is Safari 13.1+. Older WebKit still gets the resize
+    // listener below, which covers the case that actually changes the nav's
+    // width; element-level observation is the refinement, not the mechanism.
+    const observer =
+      typeof ResizeObserver === "undefined" ? null : new ResizeObserver(() => measureNav());
+    if (observer) {
+      observer.observe(track);
+      observer.observe(nav);
+      if (actions) observer.observe(actions);
+    }
 
     window.addEventListener("resize", measureNav);
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
       window.removeEventListener("resize", measureNav);
     };
   }, [measureNav, language, location, ctaLabel]);

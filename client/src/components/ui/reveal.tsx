@@ -74,6 +74,15 @@ function Reveal({
       return;
     }
 
+    // IntersectionObserver is Safari 12.1+. Without it there is nothing to
+    // reveal the element, so it would stay at opacity 0 — the content would
+    // simply be missing. Show it immediately instead: no entry animation, but
+    // the page reads normally, which is the same trade reduced motion makes.
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

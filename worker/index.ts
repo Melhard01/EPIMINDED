@@ -9,6 +9,57 @@
 import { handleApiRoute, matchApiRoute } from "./api-proxy";
 import type { WorkerEnv } from "./upstream";
 
+/**
+ * WebP has a PNG/JPEG twin beside it (scripts/make-image-fallbacks.py), for
+ * clients that cannot decode WebP — Safari below 14, so every iOS below 14.
+ * Those clients ask for the .webp URL written in the markup and the CSS, and
+ * get the twin back; nothing in the application changes.
+ *
+ * Only `/assets/*.webp` is routed through the Worker (run_worker_first in
+ * wrangler.jsonc). Every other asset is still served by the asset layer
+ * without the Worker running at all.
+ */
+const WEBP = /\.webp$/i;
+const FALLBACK_EXTENSIONS = [".png", ".jpg"];
+
+/**
+ * A browser that supports WebP advertises `image/webp`; Safari below 14 sends
+ * an image Accept list without it.
+ *
+ * A request with no Accept header, or one that never mentions images (curl,
+ * some crawlers), keeps the modern path — that is what they receive today, and
+ * guessing otherwise would downgrade them for no reason.
+ */
+function acceptsWebp(request: Request): boolean {
+  const accept = request.headers.get("Accept");
+  if (!accept || !accept.includes("image/")) return true;
+  return accept.includes("image/webp");
+}
+
+/** Caches must not hand a WebP to a client that asked without it. */
+function varyOnAccept(response: Response): Response {
+  const out = new Response(response.body, response);
+  const existing = out.headers.get("Vary");
+  out.headers.set("Vary", existing ? `${existing}, Accept` : "Accept");
+  return out;
+}
+
+async function serveImage(request: Request, url: URL, env: Env): Promise<Response> {
+  if (acceptsWebp(request)) {
+    return varyOnAccept(await env.ASSETS.fetch(request));
+  }
+
+  for (const extension of FALLBACK_EXTENSIONS) {
+    const alternate = new URL(url.toString());
+    alternate.pathname = url.pathname.replace(WEBP, extension);
+    const response = await env.ASSETS.fetch(new Request(alternate.toString(), request));
+    if (response.ok) return varyOnAccept(response);
+  }
+
+  // No twin on disk: the WebP is still better than a broken image.
+  return varyOnAccept(await env.ASSETS.fetch(request));
+}
+
 const INGEST_PREFIX = "/ingest";
 const API_HOST = "us.i.posthog.com";
 const ASSET_HOST = "us-assets.i.posthog.com";
@@ -57,6 +108,13 @@ export default {
     const apiRoute = matchApiRoute(url.pathname);
     if (apiRoute) {
       return handleApiRoute(apiRoute, request, env);
+    }
+
+    // Routed here by run_worker_first; everything else static never reaches
+    // the Worker. Must come before the app-shell fallback below, which would
+    // otherwise answer an image request with HTML.
+    if (WEBP.test(url.pathname)) {
+      return serveImage(request, url, env);
     }
 
     // Static files, including the prerendered marketing pages, are served

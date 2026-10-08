@@ -32,7 +32,12 @@
   "assets": {
     "directory": "./dist/public",
     "not_found_handling": "single-page-application",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+
+    // Only WebP images go through the Worker, so it can hand a PNG/JPEG twin
+    // to clients that cannot decode WebP (Safari < 14). Every other asset is
+    // still served by the asset layer without the Worker running.
+    "run_worker_first": ["/assets/*.webp"]
   },
 
   "vars": {
