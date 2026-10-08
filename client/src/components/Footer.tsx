@@ -80,7 +80,7 @@ export default function Footer() {
 
           <Reveal variant="up" delay={80} className={FOOTER_COL}>
             <h4 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center justify-center sm:justify-start w-full">
-              Product
+              Use cases
             </h4>
             <ul className="space-y-3">
               {PRODUCT_SECTIONS.map(({ href, path, sectionId, labelKey }) => (
