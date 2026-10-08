@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useLayoutEffect, useState, ReactNode } from 'react';
 import { translations } from '@/i18n/translations';
+import { readStored, writeStored } from '@/lib/safeStorage';
 
 export { translations };
 
@@ -34,7 +35,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguageState] = useState<Language>(DEFAULT_LANGUAGE);
 
   useBeforePaint(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = readStored('local', STORAGE_KEY);
     if (saved === 'fr' || saved === 'en') setLanguageState(saved);
   }, []);
 
@@ -42,19 +43,15 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // English is never painted. Reveal it once the French render has committed —
   // still before paint — or straight away for everyone else.
   useBeforePaint(() => {
-    let stored: string | null = null;
-    try {
-      stored = localStorage.getItem(STORAGE_KEY);
-    } catch {
-      /* storage unavailable: nothing was hidden */
-    }
+    // Storage unavailable reads as null, which means nothing was hidden.
+    const stored = readStored('local', STORAGE_KEY);
     if (language === 'fr' || stored !== 'fr') {
       document.documentElement.removeAttribute('data-lang-pending');
     }
   }, [language]);
 
   const setLanguage = (lang: Language) => {
-    localStorage.setItem(STORAGE_KEY, lang);
+    writeStored('local', STORAGE_KEY, lang);
     setLanguageState(lang);
   };
 

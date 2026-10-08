@@ -1,26 +1,27 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { readStored, writeStored } from "@/lib/safeStorage";
 
 export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
   const { language } = useLanguage();
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookie-consent");
+    const consent = readStored("local", "cookie-consent");
     if (!consent) {
       setIsVisible(true);
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem("cookie-consent", "accepted");
+    writeStored("local", "cookie-consent", "accepted");
     setIsVisible(false);
     // Here you would typically initialize Google Analytics or other tracking
   };
 
   const handleDecline = () => {
-    localStorage.setItem("cookie-consent", "declined");
+    writeStored("local", "cookie-consent", "declined");
     setIsVisible(false);
   };
 
