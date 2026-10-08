@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Rendering diagnostic</title>
+<style>
+  body{margin:0;padding:16px;background:#111;color:#eee;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  h1{font-size:17px;margin:0 0 4px}
+  p.sub{margin:0 0 16px;color:#999;font-size:13px}
+  pre{white-space:pre-wrap;word-wrap:break-word;background:#000;border:1px solid #333;
+      border-radius:8px;padding:12px;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;color:#ddd}
+  button{-webkit-appearance:none;appearance:none;border:0;border-radius:8px;background:#c8a54a;
+         color:#111;font-size:16px;font-weight:600;padding:13px 18px;width:100%;margin-bottom:12px}
+  .ok{color:#6ddf8f}.bad{color:#ff6b6b}
+</style>
+</head>
+<body>
+<h1>Rendering diagnostic</h1>
+<p class="sub">Tap the button, then paste the result back into the chat.</p>
+<button id="copy" type="button">Copy result</button>
+<pre id="out">Running…</pre>
+<script>
+/* Deliberately ES5 and same-origin: this has to run on the very browsers that
+   fail, so no arrow functions, no const/let, no optional chaining, no fetch. */
+(function () {
+  var L = [];
+  function add(k, v) { L.push(k + ': ' + v); }
+
+  add('ua', navigator.userAgent);
+  add('screen', screen.width + 'x' + screen.height + ' dpr' + (window.devicePixelRatio || 1));
+  add('url', location.href);
+  add('date', new Date().toISOString());
+
+  // --- CSS feature support, the versions that matter for this site ---
+  var feats = [];
+  function sup(label, cond) { feats.push(label + '=' + (cond ? 'y' : 'n')); }
+  var S = window.CSS && CSS.supports ? CSS.supports.bind(CSS) : function () { return false; };
+  sup('supportsAPI', !!(window.CSS && CSS.supports));
+  sup('color-mix', S('color', 'color-mix(in srgb, red 50%, blue)'));
+  sup('oklch', S('color', 'oklch(50% 0.1 180)'));
+  sup('lab', S('color', 'lab(50% 20 20)'));
+  sup('svh', S('height', '100svh'));
+  sup('has', S('selector(:has(a))'));
+  sup('is', S('selector(:is(a))'));
+  sup('cascade-layer', typeof CSSLayerBlockRule !== 'undefined');
+  sup('webp', (function () {
+    var c = document.createElement('canvas');
+    return !!(c.toDataURL && c.toDataURL('image/webp').indexOf('image/webp') === 5);
+  })());
+  sup('IntersectionObserver', typeof IntersectionObserver !== 'undefined');
+  sup('ResizeObserver', typeof ResizeObserver !== 'undefined');
+  var storageOk = true;
+  try { window.localStorage.getItem('x'); } catch (e) { storageOk = false; }
+  sup('localStorage', storageOk);
+  add('css', feats.join(' '));
+
+  var out = document.getElementById('out');
+  function render() { out.innerHTML = L.join('\n').replace(/</g, '&lt;'); }
+  render();
+
+  /* The real test: load a page of the site in a same-origin iframe and read
+     back what this browser actually computed for it. Same origin, so the
+     stylesheet and its rules are fully readable here. */
+  var f = document.createElement('iframe');
+  f.setAttribute('aria-hidden', 'true');
+  f.style.cssText = 'position:absolute;left:-9999px;top:0;width:390px;height:700px;border:0';
+  f.src = '/enterprise';
+  document.body.appendChild(f);
+
+  function inspect() {
+    try {
+      var d = f.contentDocument;
+      if (!d || !d.body) { add('iframe', 'no document after 6s (page never parsed)'); render(); return; }
+      var w = f.contentWindow;
+      var bg = w.getComputedStyle(d.body).backgroundColor;
+      var ff = w.getComputedStyle(d.body).fontFamily;
+      add('body.background', bg);
+      add('body.font', String(ff).slice(0, 40));
+      add('VERDICT', bg === 'rgb(8, 8, 8)' ? 'STYLED (css applied)' : 'UNSTYLED (css NOT applied)');
+
+      var sheets = d.styleSheets, lines = [];
+      for (var i = 0; i < sheets.length; i++) {
+        var href = sheets[i].href ? String(sheets[i].href).replace(location.origin, '') : 'inline';
+        var n;
+        try { n = sheets[i].cssRules.length; } catch (e) { n = 'BLOCKED(' + e.name + ')'; }
+        lines.push(href + ' -> ' + n + ' rules');
+      }
+      add('styleSheets(' + sheets.length + ')', '\n  ' + lines.join('\n  '));
+
+      var links = d.getElementsByTagName('link'), tags = [];
+      for (var j = 0; j < links.length; j++) {
+        if ((links[j].rel || '').indexOf('stylesheet') >= 0) {
+          tags.push((links[j].getAttribute('href') || '') +
+                    (links[j].hasAttribute('crossorigin') ? ' [crossorigin]' : ''));
+        }
+      }
+      add('stylesheet links', '\n  ' + tags.join('\n  '));
+      add('html.class', d.documentElement.className || '(none)');
+      var h1 = d.getElementsByTagName('h1')[0];
+      add('h1', h1 ? w.getComputedStyle(h1).fontSize + ' ' + w.getComputedStyle(h1).color : 'none');
+    } catch (e) {
+      add('iframe ERROR', e.name + ' ' + e.message);
+    }
+    render();
+  }
+  setTimeout(inspect, 6000);
+
+  document.getElementById('copy').onclick = function () {
+    var t = L.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(function () {
+        document.getElementById('copy').innerHTML = 'Copied';
+      }, select);
+    } else { select(); }
+    function select() {
+      var r = document.createRange();
+      r.selectNodeContents(out);
+      var s = window.getSelection();
+      s.removeAllRanges(); s.addRange(r);
+      document.getElementById('copy').innerHTML = 'Selected — now tap Copy';
+    }
+  };
+})();
+</script>
+</body>
+</html>
