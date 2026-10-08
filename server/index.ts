@@ -77,6 +77,21 @@ async function startServer() {
 
   if (process.env.NODE_ENV === "production") {
     /**
+     * Mirrors client/public/_headers (Cloudflare) and vercel.json.
+     *
+     * Vite marks the entry chunk and its stylesheet `crossorigin`, and a
+     * module script is fetched in CORS mode whatever the attribute says. With
+     * no Access-Control-Allow-Origin, a client that treats the request as
+     * cross-origin drops the response — the stylesheet stops applying and the
+     * page renders with no CSS, while text and images still arrive. Public
+     * build artefacts, so * is the right scope.
+     */
+    app.use("/assets", (_req, res, next) => {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      next();
+    });
+
+    /**
      * WebP has a PNG/JPEG twin beside it (scripts/make-image-fallbacks.py).
      * Clients that cannot decode WebP — Safari below 14 — request the .webp
      * URL written in the markup and the CSS and get the twin instead, so no

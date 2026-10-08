@@ -1,0 +1,12 @@
+# Read by the Cloudflare Workers static-asset layer, which serves /assets/*
+# directly — those requests never reach worker/index.ts (run_worker_first only
+# routes *.webp), so the header has to be declared here.
+#
+# Vite marks the entry chunk and its stylesheet `crossorigin`, and a module
+# script is fetched in CORS mode regardless of the attribute. Without an
+# Access-Control-Allow-Origin a client that treats the request as cross-origin
+# drops the response: the stylesheet silently stops applying and the page
+# renders with no CSS. These are public build artefacts, so * is the right
+# scope. legacyCss() also strips the attribute; either fix alone is enough.
+/assets/*
+  Access-Control-Allow-Origin: *

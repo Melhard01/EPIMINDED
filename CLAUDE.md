@@ -49,9 +49,10 @@ The marketing routes are **statically generated at build time**, not client-rend
 
 `client/src/main.tsx` picks `hydrateRoot` when `#root` already has markup and `createRoot` otherwise.
 
-Two invariants that are easy to break:
+Three invariants that are easy to break:
 
 - **Nothing may touch a browser API during render.** Effects, refs and lazy chunks are fine; `useState` initializers are not. `LanguageContext` reads `localStorage` in an effect for exactly this reason — moving it back into the initializer breaks the build and desyncs hydration.
+- **No `crossorigin` on same-origin `/assets/*` tags.** Vite stamps it on the entry chunk and its stylesheet; it makes the fetch CORS-mode, and `/assets/*` answers without `Access-Control-Allow-Origin`, so any client that treats the request as cross-origin drops the stylesheet and renders the page with **no CSS at all** — text and images still arrive, so it reads as "unstyled", not "broken". `legacyCss()` strips the attribute in a `transformIndexHtml` post hook, and `client/public/_headers` / `vercel.json` / `server/index.ts` send the header; either half alone is sufficient, keep both. The `crossorigin` on the `fonts.gstatic.com` preconnect is correct and must stay.
 - **`EffectBoundary` gates the WebGL backgrounds behind `componentDidMount`.** Those are `lazy()` chunks whose Suspense boundary cannot resolve on the server; rendering them unconditionally throws React #419 on hydration. Every `lazy()` in the app must stay inside an `EffectBoundary`.
 
 `dist/public/app-shell.html` is the SPA fallback for funnel and unknown paths: empty `#root`, `noindex`, no canonical. Both `server/index.ts` and `vercel.json` point their catch-all at it — **not** `index.html`, which now holds the prerendered home page and would otherwise be served under every funnel URL. `express.static` needs `extensions: ["html"]` so `/founders` resolves `founders.html` before hitting that catch-all.

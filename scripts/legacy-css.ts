@@ -258,6 +258,36 @@ export function legacyCss(): Plugin {
     // `post` so Lightning CSS has already run: what is seen here ships.
     enforce: "post",
     apply: "build",
+
+    /**
+     * Vite stamps `crossorigin` on the tags it injects for the entry chunk and
+     * its stylesheet. On a same-origin asset that attribute buys nothing and
+     * can cost the entire stylesheet: it makes the fetch CORS-mode, and
+     * `/assets/*` answers without `Access-Control-Allow-Origin`, so any client
+     * that treats the request as cross-origin rejects the sheet outright and
+     * renders the page with no CSS at all. Text and images still arrive — they
+     * are not CORS-mode — which is why the symptom reads as "unstyled" rather
+     * than "broken".
+     *
+     * Reproduced in WebKit against the live page: with the attribute, `body`
+     * computed `rgba(0,0,0,0)` and `-webkit-standard`; with it removed and
+     * nothing else changed, `rgb(8,8,8)` and `Inter, sans-serif`.
+     *
+     * Only root-relative `/assets/...` tags are touched — same-origin by
+     * construction. A genuinely cross-origin asset host still needs the
+     * attribute and keeps it. See also the `_headers` entry, which fixes the
+     * other half (the missing CORS header) for hosts that read it.
+     */
+    transformIndexHtml: {
+      order: "post",
+      handler(html: string) {
+        return html.replace(/<(?:link|script)\b[^>]*>/g, tag =>
+          / (?:href|src)="\/assets\//.test(tag)
+            ? tag.replace(/\s+crossorigin(?:="[^"]*")?/g, "")
+            : tag,
+        );
+      },
+    },
     async generateBundle(_options, bundle) {
       for (const file of Object.values(bundle)) {
         if (file.type !== "asset" || !file.fileName.endsWith(".css")) continue;

@@ -36,11 +36,18 @@ function acceptsWebp(request: Request): boolean {
   return accept.includes("image/webp");
 }
 
-/** Caches must not hand a WebP to a client that asked without it. */
+/**
+ * Caches must not hand a WebP to a client that asked without it.
+ *
+ * Also carries the asset CORS header, so a response that came through the
+ * Worker matches what client/public/_headers declares for the assets the
+ * static layer serves directly. See that file for why it is needed.
+ */
 function varyOnAccept(response: Response): Response {
   const out = new Response(response.body, response);
   const existing = out.headers.get("Vary");
   out.headers.set("Vary", existing ? `${existing}, Accept` : "Accept");
+  out.headers.set("Access-Control-Allow-Origin", "*");
   return out;
 }
 
