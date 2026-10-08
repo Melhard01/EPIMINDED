@@ -31,7 +31,29 @@
 
   "assets": {
     "directory": "./dist/public",
-    "not_found_handling": "single-page-application",
+
+    // Deliberately absent: "not_found_handling". Setting it to
+    // "single-page-application" makes the asset layer answer every unmatched
+    // request itself, with dist/public/index.html under a 200, and the Worker
+    // never runs. In production that meant:
+    //
+    //   /assets/index-<old hash>.js  -> HTML, so a browser holding markup from
+    //       an earlier deploy got a document where its module should be. The
+    //       parser dies on `<!doctype html>`, the app never hydrates, and the
+    //       page renders correctly styled with every section still at
+    //       `opacity: 0`. A stylesheet that missed was rejected on MIME type,
+    //       leaving the page unstyled. Both are intermittent, because they
+    //       need a client whose cached HTML predates the current deploy.
+    //   /ingest/*  -> HTML instead of PostHog's script, so analytics never
+    //       loaded at all.
+    //   /api/*     -> 405, since the asset layer refuses POST.
+    //   any unknown URL -> the prerendered home page, with its canonical and
+    //       no noindex: a soft 404 under every wrong path, and the funnel
+    //       steps got the home page rather than app-shell.
+    //
+    // With it unset, an unmatched request falls through to the Worker, which
+    // already routes /ingest, the API, and the SPA fallback, and now 404s a
+    // file that does not exist.
     "binding": "ASSETS",
 
     // Only WebP images go through the Worker, so it can hand a PNG/JPEG twin
