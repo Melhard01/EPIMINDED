@@ -124,6 +124,31 @@ export default {
       return serveImage(request, url, env);
     }
 
+    /**
+     * A file request that matched no asset must 404, not fall through to the
+     * SPA shell below.
+     *
+     * Hashed bundles are replaced on every deploy, and a browser holding
+     * markup from an earlier build still asks for its old one. Answering that
+     * with the shell hands back an HTML document under a 200: the module
+     * parser then fails on `<!doctype html>` and the app never boots, which
+     * leaves a correctly styled page whose every section is still at
+     * `opacity: 0` because only hydration clears it. The same miss on a
+     * stylesheet is rejected for its MIME type and renders the page unstyled.
+     * Both read as "the site is broken" with nothing in the console that
+     * points at a missing file.
+     *
+     * Existing assets never reach this line — the static layer serves them
+     * before the Worker runs — so this only ever answers a genuine miss.
+     * `.html` is left out: a missing page should still get the SPA shell.
+     */
+    if (/\/[^/]+\.[a-z0-9]+$/i.test(url.pathname) && !url.pathname.endsWith(".html")) {
+      return new Response("Not Found", {
+        status: 404,
+        headers: { "content-type": "text/plain; charset=utf-8" },
+      });
+    }
+
     // Static files, including the prerendered marketing pages, are served
     // before the Worker runs, so whatever reaches this line matched none:
     // funnel steps, the /terms-style client redirects and unknown paths. They

@@ -129,6 +129,14 @@ async function startServer() {
     });
 
     app.use(express.static(staticPath, { extensions: ["html"] }));
+    // Mirrors worker/index.ts: a missing file must 404 rather than be
+    // answered with the SPA shell, which would hand an HTML document to a
+    // module script or a stylesheet. See that file for what it costs.
+    app.get(/\/[^/]+\.[a-z0-9]+$/i, (req, res, next) => {
+      if (req.path.endsWith(".html")) return next();
+      res.status(404).type("text/plain").send("Not Found");
+    });
+
     // Funnel steps and unknown paths get the bare shell, not index.html —
     // index.html now carries the prerendered home page, which would otherwise
     // be served under every funnel URL.
