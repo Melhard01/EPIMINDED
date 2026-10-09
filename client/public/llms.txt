@@ -1,0 +1,27 @@
+# SOULCHAIN
+
+> SOULCHAIN is a peer learning platform pairing a daily insight with a peer
+> network matched on how you think. It serves founders, community builders
+> and organisations. SOULCHAIN is a product of Epineon.
+
+Every page below is server-rendered, so its full text is in the initial HTML
+response and needs no JavaScript to read.
+
+## Pages
+
+- [Peer Learning Platform for Founders & Leaders](https://soulchain.net/): The platform overview — the daily insight, cognitive matching, and who it is for.
+- [Founder Peer Group & Daily Insights](https://soulchain.net/founders): A peer group for founders: five-minute daily insights and conversations with operators at your level. Cognitive matching rebuilds the circle founders lose.
+- [Community Retention Platform for Creators](https://soulchain.net/community-builders): A member retention platform for creators, founders and public figures whose audience pays to learn from them. You bring the audience; we bring the stack.
+- [Peer Learning for Teams & Organisations](https://soulchain.net/enterprise): Peer learning and cognitive infrastructure for organisations, from execs to operators. Daily insights teams actually use and a peer network they trust.
+
+## Legal
+
+- [Terms and Conditions](https://soulchain.net/legal/terms): The terms governing use of the SOULCHAIN website and services.
+- [Privacy Policy](https://soulchain.net/legal/privacy): How SOULCHAIN collects, uses, stores and protects personal data, and the rights you have over it.
+- [Cookie Policy](https://soulchain.net/legal/cookies): Which cookies the site uses, what for, and how to manage preferences.
+
+## Contact
+
+- Support: support@epiminded.com
+- Instagram: https://www.instagram.com/epiminded.ai/
+- Parent company: Epineon — https://www.linkedin.com/company/epineonn

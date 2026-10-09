@@ -79,9 +79,9 @@ export default function Footer() {
           </Reveal>
 
           <Reveal variant="up" delay={80} className={FOOTER_COL}>
-            <h4 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center justify-center sm:justify-start w-full">
+            <h3 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center justify-center sm:justify-start w-full">
               Use cases
-            </h4>
+            </h3>
             <ul className="space-y-3">
               {PRODUCT_SECTIONS.map(({ href, path, sectionId, labelKey }) => (
                 <li key={sectionId}>
@@ -103,9 +103,9 @@ export default function Footer() {
           </Reveal>
 
           <Reveal variant="up" delay={160} className={FOOTER_COL}>
-            <h4 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center justify-center sm:justify-start w-full">
+            <h3 className="text-sm font-medium text-foreground mb-4 min-h-12 flex items-center justify-center sm:justify-start w-full">
               Legal
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/legal/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
