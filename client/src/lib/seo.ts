@@ -20,18 +20,28 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=ai.epineon
 export const SITE_ORIGIN = "https://soulchain.net";
 export const SITE_NAME = "SOULCHAIN";
 /**
- * No sharing image is published, by request.
+ * The link-preview image: assets/og-share.png, the brand logo on the site's
+ * own #080808, fully opaque so nothing is lost to a crawler flattening it.
  *
- * og:image, twitter:image and schema.org Organization.logo are all absent, so
- * nothing here nominates a picture for a link preview or a search result. The
- * robots directive carries `max-image-preview:none`, which is the only actual
- * control over Google's thumbnail: without it Google may pick any image on the
- * page, and dropping og:image alone would not stop it.
+ * 1200x630 (1.905:1) is what Facebook and WhatsApp render as a full-width
+ * card. Google draws its result thumbnail as a 1:1 centre crop, which keeps
+ * only the middle 630px, so scripts/make-og-image.py sizes the logo to 536px
+ * of ink — inside that square with 47px of margin either side. The wordmark
+ * therefore survives both the wide card and the square crop whole.
  *
- * Indexing is untouched — still `index, follow`. The favicon is untouched too,
- * and still appears beside a Google result; that is a separate slot from the
- * thumbnail and was explicitly left alone.
+ * Changing the canvas or the logo scale means rerunning that script; the
+ * dimensions below must keep matching the file.
  */
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og-share.png`;
+export const DEFAULT_OG_IMAGE_ALT = "SOULCHAIN";
+export const DEFAULT_OG_IMAGE_WIDTH = 1200;
+export const DEFAULT_OG_IMAGE_HEIGHT = 630;
+
+/**
+ * schema.org/Organization wants the organisation's square logo rather than
+ * the wide card. favicon.png is the SOULCHAIN mark at 512x512.
+ */
+export const ORGANIZATION_LOGO = `${SITE_ORIGIN}/favicon.png`;
 
 export interface RouteSeo {
   title: string;
@@ -172,6 +182,7 @@ function siteGraph(): JsonLd[] {
       name: SITE_NAME,
       alternateName: "SoulChain",
       url: `${SITE_ORIGIN}/`,
+      logo: { "@type": "ImageObject", url: ORGANIZATION_LOGO, width: 512, height: 512 },
       description,
       sameAs: [INSTAGRAM_URL],
       contactPoint: {
@@ -314,7 +325,7 @@ export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   upsertLink("canonical", canonical);
   upsertMeta(
     { name: "robots" },
-    noindex ? "noindex, nofollow" : "index, follow, max-image-preview:none"
+    noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"
   );
 
   upsertMeta({ property: "og:title" }, title);
@@ -322,12 +333,18 @@ export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   upsertMeta({ property: "og:url" }, canonical);
   upsertMeta({ property: "og:type" }, "website");
   upsertMeta({ property: "og:site_name" }, SITE_NAME);
+  upsertMeta({ property: "og:image" }, DEFAULT_OG_IMAGE);
+  upsertMeta({ property: "og:image:width" }, String(DEFAULT_OG_IMAGE_WIDTH));
+  upsertMeta({ property: "og:image:height" }, String(DEFAULT_OG_IMAGE_HEIGHT));
+  upsertMeta({ property: "og:image:alt" }, DEFAULT_OG_IMAGE_ALT);
+  upsertMeta({ property: "og:image:type" }, "image/png");
 
-  // No image is declared, so the text-only card is the honest one;
-  // "summary_large_image" announces a large picture that does not exist.
-  upsertMeta({ name: "twitter:card" }, "summary");
+  // 1200x630 is a wide card, so X should draw it full width.
+  upsertMeta({ name: "twitter:card" }, "summary_large_image");
   upsertMeta({ name: "twitter:title" }, title);
   upsertMeta({ name: "twitter:description" }, description);
+  upsertMeta({ name: "twitter:image" }, DEFAULT_OG_IMAGE);
+  upsertMeta({ name: "twitter:image:alt" }, DEFAULT_OG_IMAGE_ALT);
 
   upsertStructuredData(structuredDataForPath(rawPath));
 }

@@ -31,7 +31,19 @@ TARGET = os.path.join(ASSETS, "og-share.png")
 
 WIDTH, HEIGHT = 1200, 630
 BACKGROUND = (8, 8, 8)          # --background on .dark, and body's own colour
-LOGO_WIDTH = 720                # 60% of the canvas: clear in a chat thumbnail
+
+# The logo has to survive the squarest crop any platform applies.
+#
+# 1200x630 is what Facebook and WhatsApp render whole, but Google draws its
+# result thumbnail as a 1:1 centre crop, which keeps only the middle 630px of
+# width. At the previous 720 the logo's ink measured 690px, so Google clipped
+# 30px from each side — the edge of the mark and the last letter.
+#
+# 560 puts the ink near 536px, inside that 630px square with ~47px of margin
+# either side, so the whole wordmark survives both the 1.91:1 card and the 1:1
+# crop. The artwork is untouched; only its scale on the canvas changed.
+SAFE_SQUARE = min(WIDTH, HEIGHT)
+LOGO_WIDTH = 560
 
 
 def main() -> None:
