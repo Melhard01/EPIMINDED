@@ -20,34 +20,18 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=ai.epineon
 export const SITE_ORIGIN = "https://soulchain.net";
 export const SITE_NAME = "SOULCHAIN";
 /**
- * The sharing image, by explicit request: assets/footer-logo.png itself, the
- * same file the site footer renders.
+ * No sharing image is published, by request.
  *
- * Known trade-offs, chosen deliberately rather than overlooked:
+ * og:image, twitter:image and schema.org Organization.logo are all absent, so
+ * nothing here nominates a picture for a link preview or a search result. The
+ * robots directive carries `max-image-preview:none`, which is the only actual
+ * control over Google's thumbnail: without it Google may pick any image on the
+ * page, and dropping og:image alone would not stop it.
  *
- * - The file is 88% transparent and its "SOUL" glyphs are white. WhatsApp and
- *   Facebook flatten a transparent PNG onto white, so that half of the
- *   wordmark drops out of the preview and it reads as the mark plus "CHAIN".
- * - At 567x160 it is under WhatsApp's 300x200 floor for a large card, so the
- *   preview is a small thumbnail cropped toward square rather than the full
- *   wide logo.
- *
- * assets/og-share.png (scripts/make-og-image.py) is the same artwork on the
- * site's own #080808 at 1200x630, which has neither problem; it is kept in the
- * build, unreferenced, if this is ever reconsidered.
+ * Indexing is untouched — still `index, follow`. The favicon is untouched too,
+ * and still appears beside a Google result; that is a separate slot from the
+ * thumbnail and was explicitly left alone.
  */
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/footer-logo.png`;
-export const DEFAULT_OG_IMAGE_ALT = "SOULCHAIN";
-export const DEFAULT_OG_IMAGE_WIDTH = 567;
-export const DEFAULT_OG_IMAGE_HEIGHT = 160;
-
-/**
- * schema.org/Organization wants the organisation's own logo, square and on
- * its own, rather than the wide sharing image. favicon.png is the SOULCHAIN
- * mark at 512x512, and it is opaque where it matters, so it survives the
- * white ground Google draws a knowledge panel on.
- */
-export const ORGANIZATION_LOGO = `${SITE_ORIGIN}/favicon.png`;
 
 export interface RouteSeo {
   title: string;
@@ -188,7 +172,6 @@ function siteGraph(): JsonLd[] {
       name: SITE_NAME,
       alternateName: "SoulChain",
       url: `${SITE_ORIGIN}/`,
-      logo: { "@type": "ImageObject", url: ORGANIZATION_LOGO, width: 512, height: 512 },
       description,
       sameAs: [INSTAGRAM_URL],
       contactPoint: {
@@ -331,7 +314,7 @@ export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   upsertLink("canonical", canonical);
   upsertMeta(
     { name: "robots" },
-    noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"
+    noindex ? "noindex, nofollow" : "index, follow, max-image-preview:none"
   );
 
   upsertMeta({ property: "og:title" }, title);
@@ -339,18 +322,12 @@ export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   upsertMeta({ property: "og:url" }, canonical);
   upsertMeta({ property: "og:type" }, "website");
   upsertMeta({ property: "og:site_name" }, SITE_NAME);
-  upsertMeta({ property: "og:image" }, DEFAULT_OG_IMAGE);
-  upsertMeta({ property: "og:image:width" }, String(DEFAULT_OG_IMAGE_WIDTH));
-  upsertMeta({ property: "og:image:height" }, String(DEFAULT_OG_IMAGE_HEIGHT));
-  upsertMeta({ property: "og:image:alt" }, DEFAULT_OG_IMAGE_ALT);
 
-  // The card is 1200x630, so X should draw it full width rather than as the
-  // square thumbnail "summary" asks for.
-  upsertMeta({ name: "twitter:card" }, "summary_large_image");
+  // No image is declared, so the text-only card is the honest one;
+  // "summary_large_image" announces a large picture that does not exist.
+  upsertMeta({ name: "twitter:card" }, "summary");
   upsertMeta({ name: "twitter:title" }, title);
   upsertMeta({ name: "twitter:description" }, description);
-  upsertMeta({ name: "twitter:image" }, DEFAULT_OG_IMAGE);
-  upsertMeta({ name: "twitter:image:alt" }, DEFAULT_OG_IMAGE_ALT);
 
   upsertStructuredData(structuredDataForPath(rawPath));
 }

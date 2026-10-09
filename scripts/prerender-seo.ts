@@ -29,7 +29,6 @@ import { fileURLToPath } from "node:url";
 import {
   SEO_BY_PATH,
   SITE_ORIGIN,
-  DEFAULT_OG_IMAGE,
   serializeJsonLd,
   structuredDataForPath,
 } from "../client/src/lib/seo";
@@ -101,11 +100,6 @@ function buildPage(shell: string, path: string, body: string): string {
     html,
     /<meta property="og:description" content="[^"]*">/,
     `<meta property="og:description" content="${d}">`
-  );
-  html = replaceOne(
-    html,
-    /<meta property="og:image" content="[^"]*">/,
-    `<meta property="og:image" content="${DEFAULT_OG_IMAGE}">`
   );
   html = replaceOne(
     html,
