@@ -20,27 +20,32 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=ai.epineon
 export const SITE_ORIGIN = "https://soulchain.net";
 export const SITE_NAME = "SOULCHAIN";
 /**
- * The sharing card, not the site logo.
+ * The sharing image, by explicit request: assets/footer-logo.png itself, the
+ * same file the site footer renders.
  *
- * This pointed at /assets/logo.png — since deleted — until it was found to
- * be the pre-rename
- * EpiMinded wordmark, grey on white: every crawler showed correct SOULCHAIN
- * copy beside the old brand's mark. og-share.png is built by
- * scripts/make-og-image.py from the same navbar logo the header uses, at the
- * 1200x630 WhatsApp, Slack, LinkedIn and X all render without re-cropping.
+ * Known trade-offs, chosen deliberately rather than overlooked:
  *
- * The dimensions are published alongside it because WhatsApp decides whether
- * to draw a large card or a thumbnail before it has fetched the image.
+ * - The file is 88% transparent and its "SOUL" glyphs are white. WhatsApp and
+ *   Facebook flatten a transparent PNG onto white, so that half of the
+ *   wordmark drops out of the preview and it reads as the mark plus "CHAIN".
+ * - At 567x160 it is under WhatsApp's 300x200 floor for a large card, so the
+ *   preview is a small thumbnail cropped toward square rather than the full
+ *   wide logo.
+ *
+ * assets/og-share.png (scripts/make-og-image.py) is the same artwork on the
+ * site's own #080808 at 1200x630, which has neither problem; it is kept in the
+ * build, unreferenced, if this is ever reconsidered.
  */
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og-share.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/footer-logo.png`;
 export const DEFAULT_OG_IMAGE_ALT = "SOULCHAIN";
-export const DEFAULT_OG_IMAGE_WIDTH = 1200;
-export const DEFAULT_OG_IMAGE_HEIGHT = 630;
+export const DEFAULT_OG_IMAGE_WIDTH = 567;
+export const DEFAULT_OG_IMAGE_HEIGHT = 160;
 
 /**
  * schema.org/Organization wants the organisation's own logo, square and on
- * its own, rather than the wide sharing card. favicon.png is the SOULCHAIN
- * mark at 512x512.
+ * its own, rather than the wide sharing image. favicon.png is the SOULCHAIN
+ * mark at 512x512, and it is opaque where it matters, so it survives the
+ * white ground Google draws a knowledge panel on.
  */
 export const ORGANIZATION_LOGO = `${SITE_ORIGIN}/favicon.png`;
 
