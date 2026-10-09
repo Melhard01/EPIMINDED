@@ -2,7 +2,7 @@
 """
 Build the social sharing card at client/public/assets/og-share.png.
 
-The previous og:image was client/public/assets/logo.png — the pre-rename
+The previous og:image was client/public/assets/logo.png, since deleted — the pre-rename
 EpiMinded wordmark, grey on white. The metadata around it was already correct
 SOULCHAIN copy, so WhatsApp and every other crawler showed the right title and
 description beside the wrong brand.

@@ -22,7 +22,8 @@ export const SITE_NAME = "SOULCHAIN";
 /**
  * The sharing card, not the site logo.
  *
- * This pointed at /assets/logo.png until it was found to be the pre-rename
+ * This pointed at /assets/logo.png — since deleted — until it was found to
+ * be the pre-rename
  * EpiMinded wordmark, grey on white: every crawler showed correct SOULCHAIN
  * copy beside the old brand's mark. og-share.png is built by
  * scripts/make-og-image.py from the same navbar logo the header uses, at the
