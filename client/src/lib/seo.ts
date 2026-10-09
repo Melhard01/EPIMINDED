@@ -19,8 +19,29 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=ai.epineon
 
 export const SITE_ORIGIN = "https://soulchain.net";
 export const SITE_NAME = "SOULCHAIN";
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/logo.png`;
-export const DEFAULT_OG_IMAGE_ALT = "SOULCHAIN logo";
+/**
+ * The sharing card, not the site logo.
+ *
+ * This pointed at /assets/logo.png until it was found to be the pre-rename
+ * EpiMinded wordmark, grey on white: every crawler showed correct SOULCHAIN
+ * copy beside the old brand's mark. og-share.png is built by
+ * scripts/make-og-image.py from the same navbar logo the header uses, at the
+ * 1200x630 WhatsApp, Slack, LinkedIn and X all render without re-cropping.
+ *
+ * The dimensions are published alongside it because WhatsApp decides whether
+ * to draw a large card or a thumbnail before it has fetched the image.
+ */
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/og-share.png`;
+export const DEFAULT_OG_IMAGE_ALT = "SOULCHAIN";
+export const DEFAULT_OG_IMAGE_WIDTH = 1200;
+export const DEFAULT_OG_IMAGE_HEIGHT = 630;
+
+/**
+ * schema.org/Organization wants the organisation's own logo, square and on
+ * its own, rather than the wide sharing card. favicon.png is the SOULCHAIN
+ * mark at 512x512.
+ */
+export const ORGANIZATION_LOGO = `${SITE_ORIGIN}/favicon.png`;
 
 export interface RouteSeo {
   title: string;
@@ -161,7 +182,7 @@ function siteGraph(): JsonLd[] {
       name: SITE_NAME,
       alternateName: "SoulChain",
       url: `${SITE_ORIGIN}/`,
-      logo: { "@type": "ImageObject", url: DEFAULT_OG_IMAGE, width: 500, height: 500 },
+      logo: { "@type": "ImageObject", url: ORGANIZATION_LOGO, width: 512, height: 512 },
       description,
       sameAs: [INSTAGRAM_URL],
       contactPoint: {
@@ -313,9 +334,13 @@ export function applySeo(rawPath: string, language: "en" | "fr" = "en") {
   upsertMeta({ property: "og:type" }, "website");
   upsertMeta({ property: "og:site_name" }, SITE_NAME);
   upsertMeta({ property: "og:image" }, DEFAULT_OG_IMAGE);
+  upsertMeta({ property: "og:image:width" }, String(DEFAULT_OG_IMAGE_WIDTH));
+  upsertMeta({ property: "og:image:height" }, String(DEFAULT_OG_IMAGE_HEIGHT));
   upsertMeta({ property: "og:image:alt" }, DEFAULT_OG_IMAGE_ALT);
 
-  upsertMeta({ name: "twitter:card" }, "summary");
+  // The card is 1200x630, so X should draw it full width rather than as the
+  // square thumbnail "summary" asks for.
+  upsertMeta({ name: "twitter:card" }, "summary_large_image");
   upsertMeta({ name: "twitter:title" }, title);
   upsertMeta({ name: "twitter:description" }, description);
   upsertMeta({ name: "twitter:image" }, DEFAULT_OG_IMAGE);
