@@ -180,6 +180,44 @@ fallback = replaceOne(fallback, /\s*<link rel="canonical" href="[^"]*" \/>/, "")
 // Served under many URLs, so it describes the site only — no WebPage node.
 fallback = replaceOne(fallback, STRUCTURED_DATA_TAG, structuredDataTag("/__app-shell__"));
 writeFileSync(join(outDir, "app-shell.html"), fallback, "utf8");
+
+/**
+ * sitemap.xml, generated from SEO_BY_PATH rather than maintained by hand.
+ *
+ * The hand-written file had to be remembered whenever a route was added, and
+ * CLAUDE.md listed it as one of four files to touch. Generating it here means
+ * a route cannot be in the app and missing from the sitemap, and the two can
+ * never disagree about which URLs exist.
+ *
+ * <lastmod> comes from each route's own `lastModified`, so it tracks content
+ * rather than deploys. Routes without one are emitted with no <lastmod> at
+ * all, which is honest; Google ignores a lastmod it decides is unreliable and
+ * discounts the whole file's dates with it.
+ *
+ * <changefreq> and <priority> are dropped: Google has stated publicly that it
+ * ignores both, and they were the only thing the old file said about half its
+ * URLs.
+ */
+const sitemapEntries = Object.entries(SEO_BY_PATH)
+  .filter(([, seo]) => !seo.noindex)
+  .map(([path, seo]) => {
+    const loc = `${SITE_ORIGIN}${path === "/" ? "/" : path}`;
+    const lastmod = seo.lastModified ? `\n    <lastmod>${seo.lastModified}</lastmod>` : "";
+    return `  <url>\n    <loc>${loc}</loc>${lastmod}\n  </url>`;
+  });
+
+writeFileSync(
+  join(outDir, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?>\n` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    `${sitemapEntries.join("\n")}\n` +
+    `</urlset>\n`,
+  "utf8"
+);
+console.log(
+  `  ${"(sitemap)".padEnd(21)} -> dist/public/sitemap.xml (${sitemapEntries.length} urls)`
+);
+
 written += 1;
 console.log(`  ${"(spa fallback)".padEnd(21)} -> dist/public/app-shell.html`);
 

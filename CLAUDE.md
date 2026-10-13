@@ -65,11 +65,13 @@ Three invariants that are easy to break:
 
 1. **`RouteSeo`** ([client/src/components/RouteSeo.tsx](client/src/components/RouteSeo.tsx)) — mounted once in `App.tsx`, patches `document.head` on every wouter location change. Covers client-side navigation after the first load.
 2. **`scripts/prerender-seo.ts`** — see above. It **regex-replaces tags in the built shell and throws if a tag no longer matches**, so editing the `<head>` of `client/index.html` can break the build — the tags it patches must keep their exact attribute order and quoting.
-3. **`client/public/sitemap.xml`** — hand-maintained, not generated from `SEO_BY_PATH`.
+3. **`scripts/prerender-seo.ts`** also **generates `dist/public/sitemap.xml`** from `SEO_BY_PATH`, so the sitemap cannot drift from the route set. `<lastmod>` comes from each route's own `lastModified` field — bump it when the copy changes, leave it for a redeploy that changes nothing a reader sees, since Google discounts a lastmod it finds unreliable. `changefreq`/`priority` are gone: Google ignores both.
 
 `SITE_ORIGIN` is hardcoded to `https://soulchain.net` on purpose: `VITE_SITE_URL` is localhost in dev, and leaking that into `canonical`/`og:url` would deindex the site. Anything not in `SEO_BY_PATH` (funnel steps, unknown paths) resolves to `noindex, nofollow`.
 
-**Adding a public marketing route touches four files**: the `<Route>` in `App.tsx`, `SEO_BY_PATH` (which is also what drives prerendering — a route absent from it is never prerendered), `sitemap.xml`, and — if it should stay out of the index — `client/public/robots.txt` and the `NOINDEX_PREFIXES` list in `seo.ts`.
+**Adding a public marketing route touches three files**: the `<Route>` in `App.tsx`, `SEO_BY_PATH` (which drives prerendering, the sitemap and the structured data — a route absent from it is never prerendered) and, if it should stay out of the index, `client/public/robots.txt` plus the `NOINDEX_PREFIXES` list in `seo.ts`. The sitemap looks after itself.
+
+`RouteSeo` also carries `lastModified` (YYYY-MM-DD, the single source for both `<lastmod>` and `dateModified` in the page's schema) and an optional `faq` array. The `faq` entries emit a `FAQPage` node **and must be rendered on the page**: Google's policy is that FAQ markup matches visible content, so leaving the array empty while the questions are unwritten is the correct state, not an oversight.
 
 `vercel.json` rewrites `/(.*)` → `/app-shell.html`; static files take precedence over that rewrite, which is what lets the prerendered per-route HTML win.
 

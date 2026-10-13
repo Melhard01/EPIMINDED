@@ -53,6 +53,27 @@ export interface RouteSeo {
   /** Keep private/transactional funnel steps out of the index. */
   noindex?: boolean;
   /**
+   * When this page's content last meaningfully changed, as YYYY-MM-DD.
+   *
+   * The single source for both <lastmod> in the sitemap and dateModified in
+   * the page's schema, so the two can never disagree. Seeded from the git
+   * history of each route's components; bump it by hand when you change the
+   * copy, and leave it alone for a redeploy that changes nothing a reader
+   * sees. Google discounts lastmod it finds to be inaccurate, so a date that
+   * moves on every build is worse than no date at all.
+   */
+  lastModified?: string;
+  /**
+   * Question/answer pairs rendered on the page, which also become FAQPage
+   * structured data.
+   *
+   * Both halves are required together: Google's structured-data policy is
+   * that FAQPage markup must match FAQ content visible on the page, so this
+   * stays empty until the questions are actually rendered. See
+   * emitFaqSchema() below, which no-ops on an empty list.
+   */
+  faq?: { question: string; answer: string }[];
+  /**
    * French overrides, applied in the browser when the visitor has chosen
    * French. The prerendered head stays English: French has no URL of its own.
    */
@@ -62,6 +83,7 @@ export interface RouteSeo {
 /** Paths are normalised (no trailing slash, no query/hash) before lookup. */
 export const SEO_BY_PATH: Record<string, RouteSeo> = {
   "/": {
+    lastModified: "2026-10-07",
     title: "Peer Learning Platform for Founders & Leaders | SOULCHAIN",
     description:
       "SOULCHAIN is a peer learning platform pairing a daily insight with a peer network matched on how you think. For founders, community builders and teams.",
@@ -71,6 +93,7 @@ export const SEO_BY_PATH: Record<string, RouteSeo> = {
     },
   },
   "/founders": {
+    lastModified: "2026-08-19",
     title: "Founder Peer Group & Daily Insights | SOULCHAIN",
     description:
       "A peer group for founders: five-minute daily insights and conversations with operators at your level. Cognitive matching rebuilds the circle founders lose.",
@@ -78,6 +101,7 @@ export const SEO_BY_PATH: Record<string, RouteSeo> = {
     audience: "Founders",
   },
   "/community-builders": {
+    lastModified: "2026-08-19",
     title: "Community Retention Platform for Creators | SOULCHAIN",
     description:
       "A member retention platform for creators, founders and public figures whose audience pays to learn from them. You bring the audience; we bring the stack.",
@@ -85,6 +109,7 @@ export const SEO_BY_PATH: Record<string, RouteSeo> = {
     audience: "Community builders",
   },
   "/enterprise": {
+    lastModified: "2026-08-19",
     title: "Peer Learning for Teams & Organisations | SOULCHAIN",
     description:
       "Peer learning and cognitive infrastructure for organisations, from execs to operators. Daily insights teams actually use and a peer network they trust.",
@@ -92,18 +117,21 @@ export const SEO_BY_PATH: Record<string, RouteSeo> = {
     audience: "Organisations",
   },
   "/legal/terms": {
+    lastModified: "2026-09-16",
     title: "Terms and Conditions | SOULCHAIN",
     description:
       "The terms and conditions governing use of the SOULCHAIN website and services.",
     name: "Terms and Conditions",
   },
   "/legal/privacy": {
+    lastModified: "2026-09-16",
     title: "Privacy Policy | SOULCHAIN",
     description:
       "How SOULCHAIN collects, uses, stores and protects your personal data, and the rights you have over it.",
     name: "Privacy Policy",
   },
   "/legal/cookies": {
+    lastModified: "2026-09-16",
     title: "Cookie Policy | SOULCHAIN",
     description:
       "Which cookies the SOULCHAIN website uses, what they are used for, and how to manage your preferences.",
@@ -237,6 +265,27 @@ export function structuredDataForPath(rawPath: string): JsonLd {
   if (page) {
     const url = `${SITE_ORIGIN}${path === "/" ? "/" : path}`;
     const breadcrumbId = `${url}#breadcrumb`;
+
+    /**
+     * FAQPage, only when the route declares questions.
+     *
+     * Google requires the marked-up Q&A to be visible on the page, so this is
+     * driven by the same `faq` array the page renders. No questions declared
+     * means no node emitted — markup without matching content is a structured
+     * data violation, not a shortcut to a rich result.
+     */
+    if (page.faq?.length) {
+      graph.push({
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        isPartOf: { "@id": `${url}#webpage` },
+        mainEntity: page.faq.map(({ question, answer }) => ({
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: { "@type": "Answer", text: answer },
+        })),
+      });
+    }
     graph.push({
       "@type": "WebPage",
       "@id": `${url}#webpage`,
@@ -244,6 +293,11 @@ export function structuredDataForPath(rawPath: string): JsonLd {
       name: page.title,
       description: page.description,
       inLanguage: "en",
+      // Freshness is one of the strongest signals an answer engine has, and
+      // an undated page reads as undated rather than as new. Emitted only
+      // when the route actually declares a date — never defaulted to "now",
+      // which would make every deploy look like a content change.
+      ...(page.lastModified ? { dateModified: page.lastModified } : {}),
       isPartOf: { "@id": WEBSITE_ID },
       about: { "@id": ORG_ID },
       ...(page.audience ? { audience: { "@type": "Audience", audienceType: page.audience } } : {}),
