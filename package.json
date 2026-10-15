@@ -17,6 +17,8 @@
     "start:local": "NODE_ENV=production node --env-file=.env.local dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
+    "test": "vitest run --config vitest.config.ts",
+    "polar:check": "tsx scripts/check-polar-config.ts",
     "format": "prettier --write ."
   },
   "dependencies": {

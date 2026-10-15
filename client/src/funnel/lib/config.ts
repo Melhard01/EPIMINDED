@@ -248,13 +248,41 @@ const POLAR_PRODUCT_FALLBACKS: Record<string, string> = {
   POLAR_PRODUCT_PRO_YEAR: "00d7d1fa-fc55-4731-91bb-db3bafdd05c8",
 };
 
+export type PolarServer = "sandbox" | "production";
+
+/**
+ * The Polar environment as the browser bundle sees it.
+ *
+ * Only VITE_* variables are inlined at build time, so VITE_POLAR_SERVER is the
+ * one signal the client has — wrangler.jsonc `vars` are Worker *runtime*
+ * bindings and never reach the Vite build. Unset is treated as production,
+ * which is the cautious direction: it withholds the sandbox fallbacks rather
+ * than shipping them to a live paywall.
+ */
+export function clientPolarServer(): PolarServer {
+  const raw =
+    typeof import.meta !== "undefined"
+      ? ((import.meta.env?.VITE_POLAR_SERVER as string | undefined) ?? "").trim()
+      : "";
+  return raw === "sandbox" ? "sandbox" : "production";
+}
+
 /**
  * Per-offer Polar product id lookup. Prefers VITE_POLAR_PRODUCT_* then
- * POLAR_PRODUCT_* then known sandbox product ids.
+ * POLAR_PRODUCT_*.
+ *
+ * Mirrors server/funnel/lib/config.ts — see that copy for why the sandbox
+ * fallbacks are withheld in production. It matters more here: this module is
+ * bundled into the browser, so before this guard a build without
+ * VITE_POLAR_PRODUCT_* shipped the sandbox ids to every visitor and put them
+ * in the checkout link. The Worker now rejects an unrecognised product, so
+ * the failure is a clear error rather than a live checkout for a product that
+ * does not exist in the production organisation.
  */
 export function polarProductIdFor(
   offerId: string,
   interval: BillingInterval,
+  server: PolarServer = clientPolarServer(),
 ): string | undefined {
   const key = `POLAR_PRODUCT_${offerId.toUpperCase()}_${interval.toUpperCase()}`;
   const viteKey = `VITE_${key}`;
@@ -266,6 +294,7 @@ export function polarProductIdFor(
   if (typeof process !== "undefined" && process.env?.[key]?.trim()) {
     return process.env[key]!.trim();
   }
+  if (server === "production") return undefined;
   return POLAR_PRODUCT_FALLBACKS[key];
 }
 

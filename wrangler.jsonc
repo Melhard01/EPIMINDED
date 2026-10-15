@@ -63,16 +63,24 @@
   },
 
   "vars": {
-    "POLAR_SERVER": "sandbox",
-    // Sandbox key, committed on purpose. For a live key use a dashboard secret instead.
-    "POLAR_ACCESS_TOKEN": "polar_oat_Bp4BGqrr5z5F8ggAtOH4lK7QQZJ1PUuC9kt0i2R5EE4",
+    "POLAR_SERVER": "production",
+    // Production Polar token, committed as a var by explicit decision after
+    // the trade-off was spelled out: vars live in git and are pushed to both
+    // remotes, so this value is public to anyone with repo access and stays
+    // in history even if the line is later removed. Rotating it in Polar is
+    // the only way to revoke it.
+    //
+    // To move it out of git later, delete this line and run:
+    //     wrangler secret put POLAR_ACCESS_TOKEN
+    // keep_vars above means the deploy will not clear the dashboard value.
+    "POLAR_ACCESS_TOKEN": "polar_oat_yNj22NgcRao4LLpYV4huuJtc7FzxNaG6wY8Pb1Wu8VI",
 
-    "POLAR_PRODUCT_LITE_MONTH": "ed645dbc-b203-4918-a8d1-9ae31dc068df",
-    "POLAR_PRODUCT_LITE_YEAR": "e533fd93-72a2-41ec-9a8e-420ef2454481",
-    "POLAR_PRODUCT_STANDARD_MONTH": "4aa020b5-a785-43ec-b864-a87c92c2933c",
-    "POLAR_PRODUCT_STANDARD_YEAR": "144a19c9-17d4-40c4-96bd-3f3aa0efaea4",
-    "POLAR_PRODUCT_PRO_MONTH": "7f3523f0-19ec-4ffe-b60c-0250b73058d0",
-    "POLAR_PRODUCT_PRO_YEAR": "00d7d1fa-fc55-4731-91bb-db3bafdd05c8",
+    "POLAR_PRODUCT_LITE_MONTH": "83e71254-95df-48f3-a8d3-f02ecd5b51a4",
+    "POLAR_PRODUCT_LITE_YEAR": "09442f06-a270-4a89-a5c7-deebd3b471a1",
+    "POLAR_PRODUCT_STANDARD_MONTH": "a93c997a-c621-4d53-9870-4d021b52625a",
+    "POLAR_PRODUCT_STANDARD_YEAR": "ce263ca8-53c6-41ee-8873-23dd820de99a",
+    "POLAR_PRODUCT_PRO_MONTH": "33816df6-ad51-4471-99e0-222474b9bc5b",
+    "POLAR_PRODUCT_PRO_YEAR": "79e6bb1f-33a2-4f72-9a46-face47b66659",
 
     "AUTH_API_BASE_URL": "https://backend.soulchain.net/auth",
     "AUTH_RESEND_VERIFICATION_URL": "https://backend.soulchain.net/auth/api/auth/resend-verification",

@@ -63,16 +63,71 @@ function authUnavailable(): Response {
   );
 }
 
+export type PolarServer = "sandbox" | "production";
+
+/**
+ * The Polar environment, validated rather than defaulted.
+ *
+ * This used to be `str(env.POLAR_SERVER) || "sandbox"`. A missing or
+ * misspelled variable therefore meant "sandbox", which is the wrong way round
+ * on a live deployment: the quiet outcome of a config mistake should be a
+ * checkout that refuses to start, not one that silently talks to the wrong
+ * Polar organisation. server/funnel/lib/config.ts and routes.ts already
+ * required it explicitly; this brings the Worker in line.
+ */
+export function resolvePolarServer(
+  raw: unknown,
+): { server: PolarServer } | { error: string } {
+  const value = str(raw);
+  if (!value) {
+    return { error: 'POLAR_SERVER is not set. Set it to "sandbox" or "production".' };
+  }
+  if (value !== "sandbox" && value !== "production") {
+    return { error: 'Invalid POLAR_SERVER. Allowed values are "sandbox" or "production".' };
+  }
+  return { server: value };
+}
+
+/**
+ * Per-offer product id.
+ *
+ * POLAR_PRODUCT_FALLBACKS holds the original **sandbox** ids. They stay for
+ * local sandbox work and are never consulted in production, where a sandbox id
+ * names a product that does not exist: the fallback would convert a missing
+ * variable into a failed live checkout rather than a clear configuration
+ * error. Undefined lets the caller name the mapping that is absent.
+ */
 function polarProductId(
   env: WorkerEnv,
   offerId: string,
   interval: string,
+  server: PolarServer,
 ): string | undefined {
-  const key =
-    `POLAR_PRODUCT_${offerId.toUpperCase()}_${interval.toUpperCase()}` as keyof WorkerEnv;
-  const fromEnv = str(env[key] as string | undefined);
+  const name = `POLAR_PRODUCT_${offerId.toUpperCase()}_${interval.toUpperCase()}`;
+  const fromEnv = str(env[name as keyof WorkerEnv] as string | undefined);
   if (fromEnv) return fromEnv;
-  return POLAR_PRODUCT_FALLBACKS[`POLAR_PRODUCT_${offerId.toUpperCase()}_${interval.toUpperCase()}`];
+  if (server === "production") return undefined;
+  return POLAR_PRODUCT_FALLBACKS[name];
+}
+
+/**
+ * Every product id this deployment is configured to sell.
+ *
+ * The checkout link carries a product id chosen by the browser, so it is
+ * attacker-controlled: before this, anything merely shaped like a UUID was
+ * forwarded to Polar, which would happily open a checkout for any product the
+ * access token can reach — including one at a different price. Membership of
+ * this set is the server-side check that makes the parameter safe.
+ */
+export function configuredProductIds(env: WorkerEnv, server: PolarServer): Set<string> {
+  const ids = new Set<string>();
+  for (const offerId of ["lite", "standard", "pro"]) {
+    for (const interval of ["month", "year"]) {
+      const id = polarProductId(env, offerId, interval, server);
+      if (id) ids.add(id);
+    }
+  }
+  return ids;
 }
 
 export async function handleCommunityRequest(
@@ -436,7 +491,7 @@ export async function handleCheckout(
 
   const url = new URL(request.url);
   const accessToken = str(env.POLAR_ACCESS_TOKEN);
-  const serverRaw = str(env.POLAR_SERVER) || "sandbox";
+  const serverResolved = resolvePolarServer(env.POLAR_SERVER);
   const origin = appOrigin(env, url);
   const successUrl =
     str(env.SUCCESS_URL) || `${origin}/success?checkout_id={CHECKOUT_ID}`;
@@ -448,15 +503,10 @@ export async function handleCheckout(
       { status: 500 },
     );
   }
-  if (serverRaw !== "sandbox" && serverRaw !== "production") {
-    return Response.json(
-      {
-        error:
-          'Invalid POLAR_SERVER. Allowed values are "sandbox" or "production".',
-      },
-      { status: 500 },
-    );
+  if ("error" in serverResolved) {
+    return Response.json({ error: serverResolved.error }, { status: 500 });
   }
+  const server = serverResolved.server;
 
   let metadata: PolarMetadata | undefined;
   const metadataRaw = url.searchParams.get("metadata");
@@ -487,7 +537,9 @@ export async function handleCheckout(
     .map((p) => p.trim())
     .filter(Boolean);
   const linkedOffer =
-    linkedProducts.length === 1 ? offerForProduct(env, linkedProducts[0]) : null;
+    linkedProducts.length === 1
+      ? offerForProduct(env, linkedProducts[0], server)
+      : null;
   if (linkedOffer && metadata) {
     metadata = { ...metadata, offerId: linkedOffer.offerId, interval: linkedOffer.interval };
   }
@@ -517,11 +569,13 @@ export async function handleCheckout(
 
   let products: string[] = [];
   if (offerId && interval) {
-    const id = polarProductId(env, offerId, interval);
+    const id = polarProductId(env, offerId, interval, server);
     if (!id) {
       return Response.json(
         {
-          error: `Missing environment mapping for ${offerId}/${interval}.`,
+          error:
+            `Missing POLAR_PRODUCT_${offerId.toUpperCase()}_${interval.toUpperCase()} ` +
+            `for POLAR_SERVER=${server}.`,
         },
         { status: 500 },
       );
@@ -553,6 +607,24 @@ export async function handleCheckout(
     );
   }
 
+  /**
+   * The product ids arrive in the query string, so the browser chooses them
+   * and they are untrusted. Shape alone was not enough: any UUID used to be
+   * forwarded to Polar, which opens a checkout for whatever product the access
+   * token can reach — a different plan, a different price. Only ids this
+   * deployment is configured to sell are accepted.
+   */
+  const allowedProducts = configuredProductIds(env, server);
+  if (products.some((id) => !allowedProducts.has(id))) {
+    return Response.json(
+      {
+        error:
+          "Unknown products parameter. That product is not sold by this site.",
+      },
+      { status: 400 },
+    );
+  }
+
   const customerEmail = str(url.searchParams.get("customerEmail")).toLowerCase();
   if (url.searchParams.has("customerEmail") && !customerEmail) {
     return Response.json(
@@ -578,7 +650,7 @@ export async function handleCheckout(
   }
 
   const polarHost =
-    serverRaw === "production"
+    server === "production"
       ? "https://api.polar.sh"
       : "https://sandbox-api.polar.sh";
 
@@ -641,10 +713,10 @@ type PolarCheckout = {
 const OFFER_IDS = ["lite", "standard", "pro"] as const;
 const INTERVALS = ["month", "year"] as const;
 
-function offerForProduct(env: WorkerEnv, productId: string) {
+function offerForProduct(env: WorkerEnv, productId: string, server: PolarServer) {
   for (const offerId of OFFER_IDS) {
     for (const interval of INTERVALS) {
-      if (productId && polarProductId(env, offerId, interval) === productId) {
+      if (productId && polarProductId(env, offerId, interval, server) === productId) {
         return { offerId, interval };
       }
     }
@@ -698,8 +770,18 @@ export async function handlePolarPayment(request: Request, env: WorkerEnv): Prom
       { status: 500 },
     );
   }
+  // Second Polar code path, and it had the same silent default as the
+  // checkout handler: an unset POLAR_SERVER read a *production* checkout back
+  // from the sandbox API, where it does not exist, and reported "not_found" —
+  // a paid customer told they had not paid.
+  const paymentServer = resolvePolarServer(env.POLAR_SERVER);
+  if ("error" in paymentServer) {
+    return Response.json({ error: paymentServer.error }, { status: 500 });
+  }
   const polarHost =
-    str(env.POLAR_SERVER) === "production" ? "https://api.polar.sh" : "https://sandbox-api.polar.sh";
+    paymentServer.server === "production"
+      ? "https://api.polar.sh"
+      : "https://sandbox-api.polar.sh";
 
   let checkout: PolarCheckout;
   try {
@@ -717,7 +799,7 @@ export async function handlePolarPayment(request: Request, env: WorkerEnv): Prom
     return Response.json({ status: "unavailable" }, { status: 502 });
   }
 
-  const offer = offerForProduct(env, str(checkout.product_id));
+  const offer = offerForProduct(env, str(checkout.product_id), paymentServer.server);
   if (!offer) {
     return Response.json({ status: "not_found" }, { status: 404 });
   }

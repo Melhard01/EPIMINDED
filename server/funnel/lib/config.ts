@@ -257,18 +257,57 @@ const POLAR_PRODUCT_FALLBACKS: Record<string, string> = {
   POLAR_PRODUCT_PRO_YEAR: "00d7d1fa-fc55-4731-91bb-db3bafdd05c8",
 };
 
+export type PolarServer = "sandbox" | "production";
+
+/**
+ * The Polar environment, validated rather than defaulted.
+ *
+ * There is deliberately no fallback to "sandbox". A missing or misspelled
+ * POLAR_SERVER used to mean "sandbox", which is the wrong way round once the
+ * deployment is live: the quiet outcome of a config mistake should be a
+ * checkout that refuses to start, not one that silently runs against the
+ * wrong environment.
+ */
+export function resolvePolarServer(
+  raw: string | undefined = processEnv.POLAR_SERVER,
+): { server: PolarServer } | { error: string } {
+  const value = raw?.trim();
+  if (!value) {
+    return { error: 'POLAR_SERVER is not set. Set it to "sandbox" or "production".' };
+  }
+  if (value !== "sandbox" && value !== "production") {
+    return { error: 'Invalid POLAR_SERVER. Allowed values are "sandbox" or "production".' };
+  }
+  return { server: value };
+}
+
 /**
  * Per-offer Polar product id lookup. Prefers VITE_POLAR_PRODUCT_* then
- * POLAR_PRODUCT_* then known sandbox product ids.
+ * POLAR_PRODUCT_*.
+ *
+ * POLAR_PRODUCT_FALLBACKS holds the original **sandbox** product ids. They are
+ * a convenience for local work against the sandbox org, and they are never
+ * consulted in production: a sandbox id sent to api.polar.sh names a product
+ * that does not exist there, so the fallback would turn a missing variable
+ * into a failed live checkout instead of a clear configuration error.
+ * Returning undefined lets every caller report precisely which mapping is
+ * absent.
  */
 export function polarProductIdFor(
   offerId: string,
   interval: BillingInterval,
+  // Unset or unrecognised is treated as production, which is the cautious
+  // direction: it withholds the sandbox fallbacks rather than handing them to
+  // a live checkout. Local sandbox work sets POLAR_SERVER=sandbox explicitly,
+  // and routes.ts refuses a checkout without it either way.
+  server: PolarServer =
+    processEnv.POLAR_SERVER?.trim() === "sandbox" ? "sandbox" : "production",
 ): string | undefined {
   const key = `POLAR_PRODUCT_${offerId.toUpperCase()}_${interval.toUpperCase()}`;
   const viteKey = `VITE_${key}`;
   const fromEnv = processEnv[viteKey]?.trim() || processEnv[key]?.trim();
   if (fromEnv) return fromEnv;
+  if (server === "production") return undefined;
   return POLAR_PRODUCT_FALLBACKS[key];
 }
 
