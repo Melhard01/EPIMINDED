@@ -26,7 +26,7 @@ const env = (over: Partial<Record<string, string>> = {}) =>
     POLAR_PRODUCT_STANDARD_MONTH: "a93c997a-c621-4d53-9870-4d021b52625a",
     POLAR_PRODUCT_STANDARD_YEAR: "ce263ca8-53c6-41ee-8873-23dd820de99a",
     POLAR_PRODUCT_PRO_MONTH: "33816df6-ad51-4471-99e0-222474b9bc5b",
-    POLAR_PRODUCT_PRO_YEAR: "79e6bb1f-33a2-4f72-9a46-face47b66659",
+    POLAR_PRODUCT_PRO_YEAR: "1775a0c6-ff37-40bc-8d23-ed27ce6c3932",
     ...over,
   }) as unknown as WorkerEnv;
 
@@ -66,7 +66,7 @@ describe("production never resolves a sandbox fallback", () => {
     const partial = env({ POLAR_PRODUCT_PRO_YEAR: "" });
     const ids = configuredProductIds(partial, "production");
     expect(ids.size).toBe(5);
-    expect(ids.has("79e6bb1f-33a2-4f72-9a46-face47b66659")).toBe(false);
+    expect(ids.has("1775a0c6-ff37-40bc-8d23-ed27ce6c3932")).toBe(false);
   });
 });
 
