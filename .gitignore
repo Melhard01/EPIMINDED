@@ -113,3 +113,8 @@ temp/
 # and makes CI pick npm — which then fails `npm ci` on a lockfile nobody
 # maintains.
 package-lock.json
+
+# The production analytics config is committed: it carries only the
+# publishable PostHog project key, and keeping it out of git is what left the
+# build without one. See the file itself for why.
+!.env.production

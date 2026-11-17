@@ -96,8 +96,18 @@
     "NEXT_PUBLIC_APP_DEEPLINK_SCHEME": "epiminded",
     "NEXT_PUBLIC_APP_UNIVERSAL_LINK": "https://open.epiminded.app",
 
-    // PostHog project token is publishable (shipped to the browser by posthog-js).
-    "VITE_POSTHOG_KEY": "phc_oapD477u256t56e6DqBFgfxW5Vhb875sfi37m4x5pKTi",
+    // PostHog, SOULCHAIN project 216328.
+    //
+    // These are Worker *runtime* bindings and they do NOT configure analytics.
+    // Vite inlines import.meta.env.VITE_* at *build* time, and the build never
+    // sees this block, so a key here alone leaves the bundle with none — which
+    // is exactly how the site ended up shipping no key and sending nothing,
+    // while local builds worked off a gitignored .env.local and hid it.
+    //
+    // What actually works is .env.production at the repo root, committed for
+    // this reason. These entries are kept in step with it so the two never
+    // disagree; if you change the key, change it in both.
+    "VITE_POSTHOG_KEY": "phc_XHqnnRkUqEWxKuTpuqEbhtRhUxcCf4p5ywgUtwBH3aA",
     "VITE_POSTHOG_HOST": "/ingest",
     "VITE_POSTHOG_UI_HOST": "https://us.posthog.com"
   }
